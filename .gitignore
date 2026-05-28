@@ -23,3 +23,8 @@ ehthumbs.db
 npm-debug.log*
 push-to-github-ssh.sh
 Thumbs.db
+.ck_deploy_key
+*.command
+push-to-github-ssh.sh
+push-to-github.command
+cleanup.command
