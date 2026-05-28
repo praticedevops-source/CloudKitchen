@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>[s10 · CTA] Wooster Street Kitchen — Staging</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#f5e6d0;--gold:#c8954a;--red:#c0392b;--dark:#080604;--char:#120d09;--orange:#d4521a;}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream)}
+
+/* ── STAGING DEV BANNER ── */
+#dev-banner{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:#1a1200;border-bottom:1px solid rgba(200,149,74,0.35);
+  display:flex;align-items:center;gap:16px;padding:8px 20px;font-size:11px;letter-spacing:0.12em;
+}
+.db-section{background:rgba(200,149,74,0.15);border:1px solid rgba(200,149,74,0.4);color:var(--gold);padding:3px 10px;font-weight:600;}
+.db-name{color:var(--cream);font-weight:500}
+.db-hint{color:rgba(245,230,208,0.3);font-size:10px}
+.db-status{margin-left:auto;padding:3px 12px;font-weight:700;}
+.db-status.clean{background:rgba(80,80,80,0.3);color:#999;border:1px solid rgba(150,150,150,0.3)}
+.db-status.draft{background:rgba(200,140,0,0.2);color:#f5a623;border:1px solid rgba(200,140,0,0.4)}
+
+/* ── CTA ── */
+#cta{
+  position:relative;overflow:hidden;
+  min-height:calc(100vh - 37px);display:flex;align-items:center;justify-content:center;
+}
+#cta .bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(192,57,43,0.25) 0%,rgba(200,149,74,0.1) 100%), var(--char);
+}
+#cta .cta-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 0%,rgba(8,6,4,0.5) 100%);
+}
+#cta .cta-inner{position:relative;z-index:5;text-align:center;padding:0 40px}
+#cta h2{font-family:'Playfair Display',serif;font-size:clamp(44px,7vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.025em;color:var(--cream);margin-bottom:24px;}
+#cta h2 em{font-style:italic;color:var(--gold)}
+#cta p{font-size:15px;color:rgba(245,230,208,0.55);max-width:440px;margin:0 auto 44px;line-height:1.8}
+.cta-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.btn-big{font-size:12px;letter-spacing:0.22em;text-transform:uppercase;padding:18px 52px;text-decoration:none;font-weight:600;transition:all 0.3s;}
+.btn-big-fill{background:var(--orange);color:#fff}
+.btn-big-fill:hover{opacity:0.82}
+.btn-big-ghost{border:1px solid rgba(200,149,74,0.45);color:var(--cream)}
+.btn-big-ghost:hover{background:rgba(200,149,74,0.1);border-color:var(--gold)}
+.tel-link{display:block;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,230,208,0.3);margin-top:22px;text-decoration:none}
+.tel-link:hover{color:var(--gold)}
+
+/* Ambient glow particles */
+.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+</style>
+</head>
+<body style="padding-top:37px">
+
+<!-- STAGING DEV BANNER -->
+<div id="dev-banner">
+  <span class="db-section">s10</span>
+  <span class="db-name">CTA — Call to Action</span>
+  <span class="db-hint">Place an Order (email) · View Packages · Phone number</span>
+  <span class="db-status clean">● CLEAN</span>
+</div>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="bg"></div>
+  <!-- Ambient glow orbs -->
+  <div class="glow-orb" style="width:400px;height:400px;background:rgba(192,57,43,0.12);top:-100px;left:-100px"></div>
+  <div class="glow-orb" style="width:300px;height:300px;background:rgba(200,149,74,0.08);bottom:-80px;right:-80px"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-inner">
+    <h2>Ready to <em>Order</em><br>or Cater?</h2>
+    <p>Whether you're feeding two or two hundred, Wooster Street Kitchen has the fire for you.</p>
+    <div class="cta-btns">
+      <a href="mailto:orders@woosterstreet.com" class="btn-big btn-big-fill">Place an Order</a>
+      <a href="#" class="btn-big btn-big-ghost">View Packages</a>
+    </div>
+    <a href="tel:+12035550192" class="tel-link">📞 (203) 555-0192 — Call to book catering</a>
+  </div>
+</section>
+
+</body>
+</html>

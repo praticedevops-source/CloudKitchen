@@ -1,0 +1,25 @@
+
+._*
+.DS_Store
+.DS_Store?
+.env
+.env.local
+.idea/
+.Spotlight-V100
+.Trashes
+.vscode/
+*.log
+*.swo
+*.swp
+*~
+# Build artifacts (none yet, placeholder for future)
+# Editor
+# Local env
+# Logs
+# OS
+build/
+dist/
+ehthumbs.db
+npm-debug.log*
+push-to-github-ssh.sh
+Thumbs.db

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>[s03 · MARQUEE] Wooster Street Kitchen — Staging</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#f5e6d0;--gold:#c8954a;--red:#c0392b;--dark:#080604;--char:#120d09;--orange:#d4521a;}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream)}
+
+/* ── STAGING DEV BANNER ── */
+#dev-banner{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:#1a1200;border-bottom:1px solid rgba(200,149,74,0.35);
+  display:flex;align-items:center;gap:16px;padding:8px 20px;
+  font-size:11px;letter-spacing:0.12em;
+}
+.db-section{background:rgba(200,149,74,0.15);border:1px solid rgba(200,149,74,0.4);color:var(--gold);padding:3px 10px;font-weight:600;letter-spacing:0.18em;}
+.db-name{color:var(--cream);font-weight:500}
+.db-hint{color:rgba(245,230,208,0.3);font-size:10px}
+.db-status{margin-left:auto;padding:3px 12px;font-weight:700;letter-spacing:0.14em;}
+.db-status.clean{background:rgba(80,80,80,0.3);color:#999;border:1px solid rgba(150,150,150,0.3)}
+.db-status.draft{background:rgba(200,140,0,0.2);color:#f5a623;border:1px solid rgba(200,140,0,0.4)}
+
+/* ── MARQUEE ── */
+.marquee-band{
+  position:relative;overflow:hidden;background:var(--gold);
+  padding:16px 0;white-space:nowrap;
+}
+.marquee-track{display:inline-flex;animation:marq 22s linear infinite}
+.marquee-track span{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;font-weight:600;color:var(--dark);padding:0 40px;}
+.marquee-track span.dot{padding:0;color:var(--dark);opacity:0.5;font-size:16px;vertical-align:middle}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Preview context */
+.preview-wrapper{padding:80px 56px;display:flex;flex-direction:column;gap:32px}
+.state-label{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-note{font-size:12px;color:rgba(245,230,208,0.35);line-height:1.6;max-width:600px}
+</style>
+</head>
+<body style="padding-top:37px">
+
+<!-- STAGING DEV BANNER -->
+<div id="dev-banner">
+  <span class="db-section">s03</span>
+  <span class="db-name">MARQUEE — Scrolling Gold Ticker</span>
+  <span class="db-hint">Hover to pause · infinite loop · 22s cycle</span>
+  <span class="db-status clean">● CLEAN</span>
+</div>
+
+<div class="preview-wrapper">
+  <div>
+    <div class="state-label">Live preview</div>
+    <div class="section-note">This gold band sits directly below the hero. Hover over it to pause the animation.</div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Wood-Fired Flavors</span><span class="dot">·</span>
+    <span>Artisan Cloud Kitchen</span><span class="dot">·</span>
+    <span>Farm to Door</span><span class="dot">·</span>
+    <span>Catering Available</span><span class="dot">·</span>
+    <span>New Haven Inspired</span><span class="dot">·</span>
+    <span>Order Online</span><span class="dot">·</span>
+    <span>Wood-Fired Flavors</span><span class="dot">·</span>
+    <span>Artisan Cloud Kitchen</span><span class="dot">·</span>
+    <span>Farm to Door</span><span class="dot">·</span>
+    <span>Catering Available</span><span class="dot">·</span>
+    <span>New Haven Inspired</span><span class="dot">·</span>
+    <span>Order Online</span><span class="dot">·</span>
+  </div>
+</div>
+
+<script>
+const marqueeTrack = document.getElementById('marqueeTrack');
+marqueeTrack.addEventListener('mouseenter', () => marqueeTrack.style.animationPlayState = 'paused');
+marqueeTrack.addEventListener('mouseleave', () => marqueeTrack.style.animationPlayState = 'running');
+</script>
+</body>
+</html>

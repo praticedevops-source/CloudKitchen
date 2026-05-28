@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>[s05 · MENU CARDS] Wooster Street Kitchen — Staging</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#f5e6d0;--gold:#c8954a;--red:#c0392b;--dark:#080604;--char:#120d09;--orange:#d4521a;}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream)}
+
+/* ── STAGING DEV BANNER ── */
+#dev-banner{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:#1a1200;border-bottom:1px solid rgba(200,149,74,0.35);
+  display:flex;align-items:center;gap:16px;padding:8px 20px;font-size:11px;letter-spacing:0.12em;
+}
+.db-section{background:rgba(200,149,74,0.15);border:1px solid rgba(200,149,74,0.4);color:var(--gold);padding:3px 10px;font-weight:600;}
+.db-name{color:var(--cream);font-weight:500}
+.db-hint{color:rgba(245,230,208,0.3);font-size:10px}
+.db-status{margin-left:auto;padding:3px 12px;font-weight:700;}
+.db-status.clean{background:rgba(80,80,80,0.3);color:#999;border:1px solid rgba(150,150,150,0.3)}
+.db-status.draft{background:rgba(200,140,0,0.2);color:#f5a623;border:1px solid rgba(200,140,0,0.4)}
+
+/* ── MENU CARDS ── */
+#menu{padding:120px 56px;background:var(--dark)}
+.menu-header{text-align:center;margin-bottom:80px}
+.sec-tag{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:flex;align-items:center;justify-content:center;gap:14px;}
+.sec-tag::before,.sec-tag::after{content:'';display:block;width:26px;height:1px;background:var(--gold)}
+.menu-header h2{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,82px);font-weight:900;line-height:0.95;letter-spacing:-0.025em;color:var(--cream);}
+.menu-header h2 em{font-style:italic;color:var(--gold)}
+.menu-header p{font-size:14px;color:rgba(245,230,208,0.45);max-width:500px;margin:24px auto 0;line-height:1.8}
+
+.cards-3d{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;perspective:1400px;}
+.card-3d{position:relative;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(0.23,1,0.32,1),box-shadow 0.5s;cursor:pointer;overflow:hidden;}
+.card-3d:hover{transform:translateY(-18px) rotateX(6deg) rotateY(-4deg) scale(1.03);box-shadow:0 60px 80px -20px rgba(0,0,0,0.7),0 0 0 1px rgba(200,149,74,0.15);z-index:10;}
+.card-inner{position:relative;overflow:hidden;aspect-ratio:3/4;background:#0f0b07;}
+.card-img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s cubic-bezier(0.23,1,0.32,1),filter 0.5s;filter:brightness(0.6) saturate(1.2);transform:scale(1.06);}
+.card-3d:hover .card-img{transform:scale(1.0);filter:brightness(0.5) saturate(1.4)}
+.card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,4,0.97) 0%,rgba(8,6,4,0.4) 45%,transparent 75%);}
+.card-3d-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,transparent 50%,rgba(200,149,74,0.04) 100%);opacity:0;transition:opacity 0.4s;pointer-events:none;}
+.card-3d:hover .card-3d-shine{opacity:1}
+.card-num{position:absolute;top:22px;left:22px;font-size:9px;letter-spacing:0.25em;color:var(--gold);background:rgba(8,6,4,0.7);backdrop-filter:blur(8px);border:1px solid rgba(200,149,74,0.2);padding:5px 12px;}
+.card-body{position:absolute;bottom:0;left:0;right:0;padding:28px;}
+.card-cat{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.card-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:6px;line-height:1.1}
+.card-items{font-size:11px;color:rgba(245,230,208,0.42);line-height:1.6;margin-bottom:14px}
+.card-price{display:inline-flex;align-items:center;gap:6px;font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);}
+.card-price span{font-size:11px;color:var(--gold)}
+.card-arrow{position:absolute;top:22px;right:22px;width:34px;height:34px;border:1px solid rgba(200,149,74,0.3);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0.7);transition:all 0.35s;}
+.card-3d:hover .card-arrow{opacity:1;transform:scale(1)}
+
+@media(max-width:900px){
+  .cards-3d{grid-template-columns:1fr 1fr}
+  #menu{padding:80px 24px}
+}
+</style>
+</head>
+<body style="padding-top:37px">
+
+<!-- STAGING DEV BANNER -->
+<div id="dev-banner">
+  <span class="db-section">s05</span>
+  <span class="db-name">MENU CARDS — 3 × 3D Signature Cards</span>
+  <span class="db-hint">Mouse-tilt on hover · Flatbreads · Grain Bowls · Smoked Provisions</span>
+  <span class="db-status clean">● CLEAN</span>
+</div>
+
+<!-- MENU CARDS -->
+<section id="menu">
+  <div class="menu-header">
+    <div class="sec-tag">Signature Selections</div>
+    <h2>Our <em>Finest</em><br>Creations</h2>
+    <p>Each dish is a story told through smoke, spice, and craft — designed to travel perfectly and arrive extraordinary.</p>
+  </div>
+  <div class="cards-3d">
+    <!-- Card 1 -->
+    <div class="card-3d">
+      <div class="card-inner">
+        <img class="card-img" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80" alt="Flatbreads"/>
+        <div class="card-grad"></div>
+        <div class="card-3d-shine"></div>
+        <div class="card-num">01</div>
+        <div class="card-arrow">
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#c8954a" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Wood-Fired</div>
+          <div class="card-name">Heritage Flatbreads</div>
+          <div class="card-items">Heirloom tomato · Burrata · Wild herbs · Chili oil</div>
+          <div class="card-price"><span>from</span> $18</div>
+        </div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="card-3d">
+      <div class="card-inner">
+        <img class="card-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop&q=80" alt="Bowls"/>
+        <div class="card-grad"></div>
+        <div class="card-3d-shine"></div>
+        <div class="card-num">02</div>
+        <div class="card-arrow">
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#c8954a" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Signature Bowls</div>
+          <div class="card-name">Ember Grain Bowls</div>
+          <div class="card-items">Roasted farro · Charred veg · Tahini · Herb salsa</div>
+          <div class="card-price"><span>from</span> $16</div>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="card-3d">
+      <div class="card-inner">
+        <img class="card-img" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&auto=format&fit=crop&q=80" alt="Proteins"/>
+        <div class="card-grad"></div>
+        <div class="card-3d-shine"></div>
+        <div class="card-num">03</div>
+        <div class="card-arrow">
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#c8954a" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Fire &amp; Protein</div>
+          <div class="card-name">Smoked Provisions</div>
+          <div class="card-items">Slow-smoked brisket · Short rib · House-cured salmon</div>
+          <div class="card-price"><span>from</span> $24</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.card-3d').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + rect.height/2;
+    const dx = (e.clientX-cx)/(rect.width/2);
+    const dy = (e.clientY-cy)/(rect.height/2);
+    card.style.transform = `translateY(-18px) rotateY(${dx*10}deg) rotateX(${-dy*8}deg) scale(1.03)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+</script>
+</body>
+</html>
