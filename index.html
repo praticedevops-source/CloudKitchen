@@ -158,32 +158,33 @@ h1.brand-name .company{
 }
 .sline{width:1px;height:44px;background:linear-gradient(to bottom,var(--red),transparent);animation:pulse 2.2s ease-in-out infinite}
 
-/* STATS BAR */
-.stats-bar{
-  position:absolute;bottom:0;left:0;right:0;z-index:10;
-  display:flex;align-items:center;justify-content:center;
-  border-top:1px solid rgba(204,19,24,0.22);
-  background:rgba(37,42,98,0.72);backdrop-filter:blur(10px);
-  opacity:0;animation:fadeIn 1s ease 1.6s forwards;
-}
-.stat-item{flex:1;max-width:220px;text-align:center;padding:22px 0;border-right:1px solid rgba(255,255,255,0.08)}
-.stat-item:last-child{border-right:none}
-.stat-n{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--white);line-height:1}
-.stat-l{font-size:8px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-top:6px}
 .scroll-ind .sline{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:spulse 2s ease-in-out infinite}
 @keyframes spulse{0%,100%{opacity:0.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.25)}}
 
 /* MARQUEE BAND */
 .marquee-band{
-  position:relative;overflow:hidden;background:var(--gold);
-  padding:16px 0;white-space:nowrap;
+  position:relative;overflow:hidden;
+  background:var(--red);
+  border-top:1px solid rgba(255,255,255,0.12);
+  border-bottom:1px solid rgba(0,0,0,0.25);
+  padding:14px 0;white-space:nowrap;
 }
-.marquee-track{display:inline-flex;animation:marq 22s linear infinite}
+.marquee-band::before,.marquee-band::after{
+  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;
+}
+.marquee-band::before{left:0;background:linear-gradient(to right,var(--red),transparent)}
+.marquee-band::after{right:0;background:linear-gradient(to left,var(--red),transparent)}
+.marquee-track{display:inline-flex;animation:marq 28s linear infinite}
 .marquee-track span{
-  font-size:11px;letter-spacing:0.3em;text-transform:uppercase;
-  font-weight:600;color:var(--dark);padding:0 40px;
+  font-size:10px;letter-spacing:0.38em;text-transform:uppercase;
+  font-weight:600;color:rgba(255,255,255,0.92);padding:0 36px;
+  font-family:'Inter',sans-serif;
 }
-.marquee-track span.dot{padding:0;color:var(--dark);opacity:0.5;font-size:16px;vertical-align:middle}
+.marquee-track span.dot{
+  padding:0;color:rgba(255,255,255,0.4);
+  font-size:6px;vertical-align:middle;
+  letter-spacing:0;
+}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ABOUT */
@@ -637,28 +638,27 @@ footer{
 
   <div class="scroll-ind"><div class="sline"></div>scroll</div>
 
-  <div class="stats-bar">
-    <div class="stat-item"><div class="stat-n">48+</div><div class="stat-l">Menu Items</div></div>
-    <div class="stat-item"><div class="stat-n">4.9&#9733;</div><div class="stat-l">Rating</div></div>
-    <div class="stat-item"><div class="stat-n">2K+</div><div class="stat-l">Orders / Mo</div></div>
-  </div>
 </section>
 
 <!-- MARQUEE -->
 <div class="marquee-band">
   <div class="marquee-track">
-    <span>Wood-Fired Flavors</span><span class="dot">·</span>
-    <span>Artisan Cloud Kitchen</span><span class="dot">·</span>
-    <span>Farm to Door</span><span class="dot">·</span>
-    <span>Catering Available</span><span class="dot">·</span>
-    <span>New Haven Inspired</span><span class="dot">·</span>
-    <span>Order Online</span><span class="dot">·</span>
-    <span>Wood-Fired Flavors</span><span class="dot">·</span>
-    <span>Artisan Cloud Kitchen</span><span class="dot">·</span>
-    <span>Farm to Door</span><span class="dot">·</span>
-    <span>Catering Available</span><span class="dot">·</span>
-    <span>New Haven Inspired</span><span class="dot">·</span>
-    <span>Order Online</span><span class="dot">·</span>
+    <span>Wood-Fired Flavors</span><span class="dot">★</span>
+    <span>Artisan Cloud Kitchen</span><span class="dot">★</span>
+    <span>Crafted from Fire</span><span class="dot">★</span>
+    <span>Catering Available</span><span class="dot">★</span>
+    <span>New Haven Inspired</span><span class="dot">★</span>
+    <span>Order Online</span><span class="dot">★</span>
+    <span>Fresh Daily</span><span class="dot">★</span>
+    <span>Premium Ingredients</span><span class="dot">★</span>
+    <span>Wood-Fired Flavors</span><span class="dot">★</span>
+    <span>Artisan Cloud Kitchen</span><span class="dot">★</span>
+    <span>Crafted from Fire</span><span class="dot">★</span>
+    <span>Catering Available</span><span class="dot">★</span>
+    <span>New Haven Inspired</span><span class="dot">★</span>
+    <span>Order Online</span><span class="dot">★</span>
+    <span>Fresh Daily</span><span class="dot">★</span>
+    <span>Premium Ingredients</span><span class="dot">★</span>
   </div>
 </div>
 
