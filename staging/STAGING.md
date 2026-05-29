@@ -10,17 +10,17 @@
 
 | # | Section ID | File | Status | Last Modified | Notes |
 |---|------------|------|--------|---------------|-------|
-| 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `CLEAN` | 2026-05-28 | Fixed top nav, logo, links, Order Now button |
-| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `MERGED` | 2026-05-29 | Video bg · logo · red/navy/white palette · Est.2019 · nav redesign |
-| 03 | `s03-marquee` | [s03-marquee.html](s03-marquee.html) | `CLEAN` | 2026-05-28 | Scrolling gold ticker band |
-| 04 | `s04-about` | [s04-about.html](s04-about.html) | `CLEAN` | 2026-05-28 | Split image + pillars (Fire-Crafted, Delivery, Sourced, Zero Waste) |
-| 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `CLEAN` | 2026-05-28 | 3 × 3D tilt cards (Flatbreads, Grain Bowls, Smoked Provisions) |
-| 06 | `s06-stats` | [s06-stats.html](s06-stats.html) | `CLEAN` | 2026-05-28 | 4 large numbers (2K+ orders, 48+ items, 4.9★, <35 min) |
-| 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `CLEAN` | 2026-05-28 | Tabbed menu: Starters, Mains, Bowls, Desserts, Beverages |
-| 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `CLEAN` | 2026-05-28 | Ember $18 · Blaze $32 (featured) · Inferno $55 |
-| 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `CLEAN` | 2026-05-28 | 8-item masonry grid (4 columns) |
-| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `CLEAN` | 2026-05-28 | Call to action — Place an Order / View Packages |
-| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `CLEAN` | 2026-05-28 | Links, hours, contact, social icons |
+| 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `CLEAN` | 2026-05-29 | Fixed top nav, logo, links, Order Now button · gold→red pass |
+| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `CLEAN` | 2026-05-29 | Video bg · logo · red/navy/white · Mixkit CDN carousel (5 scenes) |
+| 03 | `s03-marquee` | [s03-marquee.html](s03-marquee.html) | `CLEAN` | 2026-05-29 | Red ticker band · ★ separators · seamless loop · gold→red pass |
+| 04 | `s04-about` | [s04-about.html](s04-about.html) | `CLEAN` | 2026-05-29 | Split image + pillars · gold→red pass |
+| 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `CLEAN` | 2026-05-29 | 3 × 3D tilt cards · gold→red pass |
+| 06 | `s06-stats` | [s06-stats.html](s06-stats.html) | `CLEAN` | 2026-05-29 | 4 large numbers (2K+ orders, 48+ items, 4.9★, <35 min) · gold→red pass |
+| 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `CLEAN` | 2026-05-29 | Tabbed menu: Starters, Mains, Bowls, Desserts, Beverages · gold→red pass |
+| 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `CLEAN` | 2026-05-29 | Ember $18 · Blaze $32 (featured) · Inferno $55 · gold→red pass |
+| 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `CLEAN` | 2026-05-29 | 12-photo masonry grid · click-to-expand lightbox · gold→red pass |
+| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `CLEAN` | 2026-05-29 | Call to action — Place an Order / View Packages · gold→red pass |
+| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `CLEAN` | 2026-05-29 | Links, hours, contact, social icons · gold→red pass |
 
 ---
 
@@ -56,6 +56,9 @@ Any new section or feature should follow this pattern:
 |---------|------|---------|
 | v1.0 | 2026-05-28 | Initial build — Three.js hero · 3D cards · full menu tabs · Packages · Gallery · Footer · Cursor |
 | v1.1 | 2026-05-29 | s02 approved — video bg hero · logo · red/navy/white palette · Est.2019 placement |
+| v1.2 | 2026-05-29 | s02 fix — swapped Pexels → Mixkit CDN (resolves 403 hotlink block) |
+| v1.3 | 2026-05-29 | Full brand color pass — all `var(--gold)` → `var(--red)` across all sections |
+| v1.4 | 2026-05-29 | Purge gold rgba values (29 occurrences) · Gallery: 12 photos + lightbox |
 
 ---
 

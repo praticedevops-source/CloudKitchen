@@ -18,17 +18,29 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
 /* DEV BANNER */
 #dev-banner{
   position:fixed;top:0;left:0;right:0;z-index:99999;
-  background:#1a1200;border-bottom:1px solid rgba(200,149,74,0.35);
+  background:#1a1200;border-bottom:1px solid rgba(204,19,24,0.35);
   display:flex;align-items:center;gap:16px;padding:8px 20px;
   font-size:11px;letter-spacing:0.12em;
 }
-.db-section{background:rgba(200,149,74,0.15);border:1px solid rgba(200,149,74,0.4);color:var(--gold);padding:3px 10px;font-weight:600;letter-spacing:0.18em}
+.db-section{background:rgba(204,19,24,0.15);border:1px solid rgba(204,19,24,0.4);color:var(--red);padding:3px 10px;font-weight:600;letter-spacing:0.18em}
 .db-name{color:var(--cream);font-weight:500}
 .db-status{margin-left:auto;padding:3px 12px;font-weight:700;letter-spacing:0.14em;background:rgba(200,140,0,0.2);color:#f5a623;border:1px solid rgba(200,140,0,0.4)}
 
 /* VIDEO BACKGROUND */
 #hero{position:fixed;inset:0;top:37px;width:100%;height:calc(100vh - 37px);overflow:hidden}
-#bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.vid-slide{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;z-index:0;
+  opacity:0;transition:opacity 1.6s ease-in-out;
+}
+.vid-slide.active{opacity:1}
+/* label overlay in bottom-left */
+.scene-label{
+  position:absolute;bottom:80px;left:56px;z-index:12;
+  font-size:8px;letter-spacing:0.32em;text-transform:uppercase;
+  color:rgba(255,255,255,0.30);font-family:'Inter',sans-serif;
+  opacity:0;transition:opacity 0.8s ease;pointer-events:none;
+}
 
 /* CINEMATIC OVERLAY */
 .overlay{
@@ -108,7 +120,7 @@ h1.brand-name .company{
 
 .divider{
   width:60px;height:1px;
-  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  background:linear-gradient(to right,transparent,var(--red),transparent);
   margin:32px auto;
   opacity:0;animation:fadeIn 1s ease 0.9s forwards;
 }
@@ -184,13 +196,24 @@ h1.brand-name .company{
 
 <section id="hero">
 
-  <!-- VIDEO BACKGROUND (Pexels landscape kitchen) -->
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="https://videos.pexels.com/video-files/4253135/4253135-hd_1920_1080_25fps.mp4" type="video/mp4">
-    <source src="https://videos.pexels.com/video-files/4253135/4253135-sd_960_506_25fps.mp4" type="video/mp4">
-    <source src="https://videos.pexels.com/video-files/4253356/4253356-sd_960_506_25fps.mp4" type="video/mp4">
-    <source src="https://videos.pexels.com/video-files/4252284/4252284-sd_960_506_25fps.mp4" type="video/mp4">
+  <!-- VIDEO CAROUSEL — 5 scenes, smooth crossfade loop (Mixkit CDN) -->
+  <video class="vid-slide active" data-label="Live Kitchen" autoplay muted playsinline preload="auto">
+    <source src="https://assets.mixkit.co/videos/15875/15875-720.mp4" type="video/mp4">
   </video>
+  <video class="vid-slide" data-label="Fresh from the Oven" muted playsinline preload="none">
+    <source src="https://assets.mixkit.co/videos/42473/42473-720.mp4" type="video/mp4">
+  </video>
+  <video class="vid-slide" data-label="Hot &amp; Crispy" muted playsinline preload="none">
+    <source src="https://assets.mixkit.co/videos/47555/47555-720.mp4" type="video/mp4">
+  </video>
+  <video class="vid-slide" data-label="Fire &amp; Smoke" muted playsinline preload="none">
+    <source src="https://assets.mixkit.co/videos/45723/45723-720.mp4" type="video/mp4">
+  </video>
+  <video class="vid-slide" data-label="Off the Grill" muted playsinline preload="none">
+    <source src="https://assets.mixkit.co/videos/4678/4678-720.mp4" type="video/mp4">
+  </video>
+  <!-- scene label -->
+  <div class="scene-label" id="scene-label"></div>
 
   <div class="overlay"></div>
 
@@ -241,6 +264,69 @@ h1.brand-name .company{
 </section>
 
 
+
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.vid-slide');
+  const label  = document.getElementById('scene-label');
+  let current  = 0;
+  let timer    = null;
+
+  function showLabel(text){
+    label.textContent = text;
+    label.style.opacity = '1';
+    setTimeout(()=>{ label.style.opacity = '0'; }, 3200);
+  }
+
+  function goTo(idx){
+    const prev = slides[current];
+    const next = slides[idx];
+
+    // fade out current
+    prev.classList.remove('active');
+
+    // preload & play next
+    next.preload = 'auto';
+    next.load();
+    next.play().catch(()=>{});
+    next.classList.add('active');
+
+    current = idx;
+    showLabel(next.dataset.label || '');
+  }
+
+  function advance(){
+    const next = (current + 1) % slides.length;
+    goTo(next);
+    // preload the one after next
+    const upcoming = slides[(next + 1) % slides.length];
+    upcoming.preload = 'auto';
+  }
+
+  // On each video end → advance
+  slides.forEach((v, i) => {
+    v.addEventListener('ended', () => {
+      clearTimeout(timer);
+      advance();
+    });
+    // Fallback: if video stalls / is very long, cap at 12s per scene
+    v.addEventListener('playing', () => {
+      clearTimeout(timer);
+      timer = setTimeout(advance, 12000);
+    });
+  });
+
+  // Start first video
+  slides[0].play().catch(()=>{});
+  showLabel(slides[0].dataset.label || '');
+
+  // Fallback kick if autoplay blocked
+  document.addEventListener('click', ()=>{
+    slides[current].play().catch(()=>{});
+  }, {once:true});
+})();
+</script>
 
 </body>
 </html>
