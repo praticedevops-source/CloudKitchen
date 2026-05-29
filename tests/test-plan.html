@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wooster Street Food Company — QA Test Plan</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#CC1318;--navy:#252A62;--dark:#08090f;--white:#ffffff;--pass:#22c55e;--fail:#ef4444;--skip:#f59e0b;--pending:#6b7280}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f1117;color:#e2e8f0;min-height:100vh}
+header{background:linear-gradient(135deg,#1a0607 0%,#0f1117 60%);border-bottom:2px solid var(--red);padding:32px 40px;position:sticky;top:0;z-index:100}
+header h1{font-size:22px;font-weight:700;letter-spacing:0.04em;color:#fff}
+header h1 span{color:var(--red)}
+.header-meta{display:flex;gap:24px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.header-meta p{font-size:12px;color:rgba(255,255,255,0.45);letter-spacing:0.08em}
+.stats-bar{display:flex;gap:16px;margin-left:auto;flex-wrap:wrap}
+.stat{font-size:11px;font-weight:700;letter-spacing:0.1em;padding:4px 12px;border-radius:2px}
+.stat.pass{background:rgba(34,197,94,0.15);color:var(--pass);border:1px solid rgba(34,197,94,0.3)}
+.stat.fail{background:rgba(239,68,68,0.15);color:var(--fail);border:1px solid rgba(239,68,68,0.3)}
+.stat.skip{background:rgba(245,158,11,0.15);color:var(--skip);border:1px solid rgba(245,158,11,0.3)}
+.stat.total{background:rgba(255,255,255,0.07);color:#fff;border:1px solid rgba(255,255,255,0.12)}
+.progress-bar{height:3px;background:rgba(255,255,255,0.08);margin-top:16px}
+.progress-fill{height:100%;background:var(--red);transition:width 0.4s ease;width:0%}
+main{max-width:1100px;margin:0 auto;padding:32px 24px}
+.device-matrix{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:24px 28px;margin-bottom:36px}
+.device-matrix h3{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.device-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.device-chip{font-size:11px;padding:8px 14px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:8px;cursor:pointer;transition:all 0.2s;user-select:none}
+.device-chip:hover{border-color:var(--red);color:#fff}
+.device-chip.active{border-color:var(--red);background:rgba(204,19,24,0.1);color:#fff}
+.device-chip .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);flex-shrink:0}
+.device-chip.active .dot{background:var(--red)}
+.controls{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap;align-items:center}
+.btn{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:9px 20px;border:1px solid;cursor:pointer;transition:all 0.2s;background:transparent}
+.btn-primary{border-color:var(--red);color:var(--red)}
+.btn-primary:hover{background:var(--red);color:#fff}
+.btn-ghost{border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.5)}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+.btn-danger{border-color:rgba(239,68,68,0.4);color:var(--fail)}
+.btn-danger:hover{background:rgba(239,68,68,0.15)}
+.search-box{flex:1;min-width:180px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:9px 16px;font-size:12px;outline:none;font-family:inherit}
+.search-box::placeholder{color:rgba(255,255,255,0.25)}
+.search-box:focus{border-color:rgba(204,19,24,0.5)}
+.category{margin-bottom:32px}
+.cat-header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid var(--red);cursor:pointer;user-select:none}
+.cat-header:hover{background:rgba(255,255,255,0.05)}
+.cat-id{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);font-weight:700;min-width:46px}
+.cat-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.cat-count{font-size:11px;color:rgba(255,255,255,0.3)}
+.cat-progress{font-size:11px;color:rgba(255,255,255,0.3);margin-left:auto}
+.cat-arrow{font-size:12px;color:rgba(255,255,255,0.3);transition:transform 0.2s;margin-left:8px}
+.cat-header.collapsed .cat-arrow{transform:rotate(-90deg)}
+.cat-body{border:1px solid rgba(255,255,255,0.07);border-top:none}
+.cat-body.hidden{display:none}
+.test-row{display:grid;grid-template-columns:38px 1fr 110px 110px;align-items:start;padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.15s}
+.test-row:last-child{border-bottom:none}
+.test-row:hover{background:rgba(255,255,255,0.02)}
+.test-row.filtered-out{display:none}
+.test-num{font-size:10px;color:rgba(255,255,255,0.2);padding-top:2px;font-weight:600}
+.test-info{}
+.test-name{font-size:13px;color:#e2e8f0;font-weight:500;margin-bottom:4px}
+.test-desc{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.6}
+.test-tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.tag{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 7px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3)}
+.tag.mobile{border-color:rgba(37,42,98,0.6);color:#7b83c4}
+.tag.desktop{border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.4)}
+.tag.perf{border-color:rgba(245,158,11,0.4);color:#f59e0b}
+.tag.a11y{border-color:rgba(34,197,94,0.3);color:#4ade80}
+.tag.negative{border-color:rgba(239,68,68,0.3);color:#f87171}
+.test-actions{display:flex;gap:6px;justify-content:flex-end}
+.status-btn{font-size:10px;font-weight:700;letter-spacing:0.1em;padding:5px 12px;border:1px solid;cursor:pointer;transition:all 0.2s;background:transparent;text-transform:uppercase}
+.status-btn.pass-btn{border-color:rgba(34,197,94,0.3);color:rgba(34,197,94,0.5)}
+.status-btn.pass-btn:hover,.test-row.pass .status-btn.pass-btn{border-color:var(--pass);color:var(--pass);background:rgba(34,197,94,0.1)}
+.status-btn.fail-btn{border-color:rgba(239,68,68,0.3);color:rgba(239,68,68,0.5)}
+.status-btn.fail-btn:hover,.test-row.fail .status-btn.fail-btn{border-color:var(--fail);color:var(--fail);background:rgba(239,68,68,0.1)}
+.notes-col{padding-left:8px}
+.notes-input{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:11px;padding:5px 10px;width:100%;outline:none;font-family:inherit;resize:none;min-height:30px}
+.notes-input:focus{border-color:rgba(204,19,24,0.4)}
+.notes-input::placeholder{color:rgba(255,255,255,0.2)}
+.test-row.pass{background:rgba(34,197,94,0.03)}
+.test-row.fail{background:rgba(239,68,68,0.04)}
+footer{text-align:center;padding:32px;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em;border-top:1px solid rgba(255,255,255,0.06);margin-top:40px}
+@media(max-width:700px){
+  .test-row{grid-template-columns:28px 1fr;gap:8px}
+  .test-actions,.notes-col{grid-column:2}
+  header{padding:20px}
+  main{padding:16px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Wooster <span>Street</span> Food Company — QA Test Plan</h1>
+  <div class="header-meta">
+    <p>VERSION: v2.10 · LAST UPDATED: 2026-05-29</p>
+    <p>URL: <a href="https://praticedevops-source.github.io/CloudKitchen/" target="_blank" style="color:var(--red);text-decoration:none">praticedevops-source.github.io/CloudKitchen/</a></p>
+    <div class="stats-bar">
+      <span class="stat total" id="statTotal">0 TOTAL</span>
+      <span class="stat pass" id="statPass">0 PASS</span>
+      <span class="stat fail" id="statFail">0 FAIL</span>
+      <span class="stat skip" id="statSkip">0 PENDING</span>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</header>
+
+<main>
+
+<!-- Device Matrix -->
+<div class="device-matrix">
+  <h3>Testing Device / Environment</h3>
+  <div class="device-grid">
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>Chrome Desktop</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>Firefox Desktop</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>Safari Desktop</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>Edge Desktop</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>iPhone 15 Pro</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>iPhone SE (375px)</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>Samsung Galaxy S24</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>iPad Pro</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>iPad Mini</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>1280×800 Laptop</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>1920×1080 Monitor</div>
+    <div class="device-chip" onclick="toggleDevice(this)"><span class="dot"></span>Chrome DevTools Mobile</div>
+  </div>
+</div>
+
+<div class="controls">
+  <input class="search-box" id="searchBox" type="text" placeholder="Search test cases..." oninput="filterTests()"/>
+  <button class="btn btn-ghost" onclick="expandAll()">Expand All</button>
+  <button class="btn btn-ghost" onclick="collapseAll()">Collapse All</button>
+  <button class="btn btn-ghost" onclick="showFailed()">Show Failed Only</button>
+  <button class="btn btn-ghost" onclick="showAll()">Show All</button>
+  <button class="btn btn-danger" onclick="resetAll()">Reset All</button>
+  <button class="btn btn-primary" onclick="exportResults()">Export Results</button>
+</div>
+
+<div id="testContainer"></div>
+
+</main>
+<footer>Wooster Street Food Company · QA Test Plan v2.10 · Auto-saves to localStorage</footer>
+
+<script>
+const TESTS = [
+  // TC-01 NAVIGATION
+  {cat:'TC-01',catName:'Navigation',id:'N-01',name:'Logo click scrolls to top',desc:'Click the "Wooster Street" logo in the nav. Page should smooth-scroll to the very top.',tags:['desktop','mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-02',name:'Our Story nav link',desc:'Click "Our Story" in nav. Page should smooth-scroll to the About section (#about).',tags:['desktop','mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-03',name:'Menu nav link',desc:'Click "Menu" in nav. Page scrolls to the Menu section with 3D cards (#menu).',tags:['desktop','mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-04',name:'Gallery nav link',desc:'Click "Gallery" in nav. Page scrolls to the gallery stacked-cards section (#gallery).',tags:['desktop','mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-05',name:'Catering nav link',desc:'Click "Catering" in nav. Page scrolls to the CTA/Catering split section (#cta).',tags:['desktop','mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-06',name:'Order Now CTA button',desc:'Click "Order Now" in nav. Should initiate phone call to tel:+18606491166 or show call prompt.',tags:['desktop','mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-07',name:'Nav becomes sticky on scroll',desc:'Scroll down 100px. Nav should remain fixed at top with backdrop blur applied.',tags:['desktop']},
+  {cat:'TC-01',catName:'Navigation',id:'N-08',name:'Hamburger appears on mobile',desc:'At ≤900px width, hamburger icon (3 bars) must be visible in top-right of nav. Desktop nav links must be hidden.',tags:['mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-09',name:'Hamburger opens overlay',desc:'Tap hamburger. Full-screen dark overlay slides open with nav links animated in stagger.',tags:['mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-10',name:'Hamburger overlay link tap',desc:'With overlay open, tap "Menu". Overlay closes and page scrolls to menu section.',tags:['mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-11',name:'Tap outside overlay to close',desc:'Open overlay, then tap the dim backdrop (outside menu items). Overlay should close. Body scroll should unlock.',tags:['mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-12',name:'Body scroll locked while overlay open',desc:'Open hamburger overlay. Try scrolling the background. Page body should not scroll while overlay is active.',tags:['mobile']},
+  {cat:'TC-01',catName:'Navigation',id:'N-13',name:'Active underline on nav link hover',desc:'Hover over each nav link. A red underline should animate in from left to right.',tags:['desktop']},
+
+  // TC-02 HERO
+  {cat:'TC-02',catName:'Hero Section',id:'H-01',name:'Video background loads and plays',desc:'Hero section video autoplays, is muted, and loops. No black flash on load. Video fills full viewport.',tags:['desktop','mobile']},
+  {cat:'TC-02',catName:'Hero Section',id:'H-02',name:'Hero logo visible',desc:'Restaurant logo/wordmark visible over the video background with correct contrast.',tags:['desktop','mobile']},
+  {cat:'TC-02',catName:'Hero Section',id:'H-03',name:'"Explore the Menu" button',desc:'Click "Explore the Menu" button. Page smooth-scrolls to #menu section.',tags:['desktop','mobile']},
+  {cat:'TC-02',catName:'Hero Section',id:'H-04',name:'"Order & Catering" button',desc:'Click "Order & Catering" button. Page smooth-scrolls to #cta section.',tags:['desktop','mobile']},
+  {cat:'TC-02',catName:'Hero Section',id:'H-05',name:'Hero is full viewport height',desc:'Hero section fills 100vh (or 100dvh on iOS). No content visible below fold on load.',tags:['desktop','mobile']},
+  {cat:'TC-02',catName:'Hero Section',id:'H-06',name:'Hero text readable over video',desc:'Headline and subtitle text are legible. Sufficient contrast with the video background.',tags:['desktop','mobile']},
+  {cat:'TC-02',catName:'Hero Section',id:'H-07',name:'Hero on slow connection',desc:'Simulate 3G. Video should degrade gracefully — poster image shown until video loads.',tags:['mobile','perf']},
+
+  // TC-03 ABOUT / OUR STORY
+  {cat:'TC-03',catName:'About / Our Story',id:'A-01',name:'Scroll-driven chapters trigger',desc:'Scroll through the About section. Each of the 4 chapters (Our Roots, The Craft, The Community, The Promise) should reveal as you scroll.',tags:['desktop']},
+  {cat:'TC-03',catName:'About / Our Story',id:'A-02',name:'Parallax background moves',desc:'As you scroll through About, background elements move at different rates creating depth.',tags:['desktop']},
+  {cat:'TC-03',catName:'About / Our Story',id:'A-03',name:'Magnetic card tilt on hover',desc:'Hover over each story card. Card should tilt toward cursor position (magnetic effect).',tags:['desktop']},
+  {cat:'TC-03',catName:'About / Our Story',id:'A-04',name:'About section visible on mobile',desc:'On mobile, the About section should be visible and readable without horizontal scroll. Animations gracefully disabled or simplified.',tags:['mobile']},
+  {cat:'TC-03',catName:'About / Our Story',id:'A-05',name:'SVG icons load correctly',desc:'Each chapter card shows its SVG icon (food/community/craft/promise). No broken image icons.',tags:['desktop','mobile']},
+  {cat:'TC-03',catName:'About / Our Story',id:'A-06',name:'Count-up stats animate',desc:'When the stats row comes into view, numbers count up from 0 to their final value.',tags:['desktop']},
+
+  // TC-04 MENU CARDS
+  {cat:'TC-04',catName:'Menu Cards (3D)',id:'M-01',name:'Three 3D menu cards render',desc:'Menu section shows 3 cards: White Apizza, Caesar Salad, Chicken Alfredo. All text and images visible.',tags:['desktop','mobile']},
+  {cat:'TC-04',catName:'Menu Cards (3D)',id:'M-02',name:'Card hover 3D tilt',desc:'Hover over each menu card. Card tilts in 3D toward cursor. Smooth perspective effect.',tags:['desktop']},
+  {cat:'TC-04',catName:'Menu Cards (3D)',id:'M-03',name:'Card hover glow/shine',desc:'On hover, a subtle light sheen sweeps across the card surface.',tags:['desktop']},
+  {cat:'TC-04',catName:'Menu Cards (3D)',id:'M-04',name:'Menu bridge divider visible',desc:'Between the 3D cards and the full menu tabs, a decorative bridge/divider element separates the two sub-sections.',tags:['desktop','mobile']},
+  {cat:'TC-04',catName:'Menu Cards (3D)',id:'M-05',name:'Cards readable on mobile',desc:'On mobile, cards stack vertically. Text is legible. No overflow or clipping.',tags:['mobile']},
+
+  // TC-05 MENU TABS (FULL MENU)
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-01',name:'All 5 tab labels render',desc:'Tabs visible: Appetizers, Pizza, Pasta & Breads, Salads & Platters, Desserts.',tags:['desktop','mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-02',name:'Default tab active',desc:'On page load, the first tab (Appetizers) is active and its content is displayed.',tags:['desktop','mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-03',name:'Tab switching — Pizza',desc:'Click "Pizza" tab. Pizza items appear. Appetizers content hidden. Active tab indicator moves.',tags:['desktop','mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-04',name:'Tab switching — Pasta & Breads',desc:'Click "Pasta & Breads" tab. Correct items load. No residual content from previous tab.',tags:['desktop','mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-05',name:'Tab switching — Salads & Platters',desc:'Click "Salads & Platters". Items include platter options. Catering platters visible.',tags:['desktop','mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-06',name:'Tab switching — Desserts',desc:'Click "Desserts" tab. Dessert items display correctly.',tags:['desktop','mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-07',name:'Wings sauces listed',desc:'Under Appetizers, Buffalo Wings item should show available sauces listed.',tags:['desktop','mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-08',name:'Tab bar scrollable on mobile',desc:'On narrow screens, tab bar scrolls horizontally. All 5 tabs reachable by swiping.',tags:['mobile']},
+  {cat:'TC-05',catName:'Menu Tabs (Full Menu)',id:'MT-09',name:'Tab active state styling',desc:'Active tab has distinct visual treatment (red underline/background). Inactive tabs are visually subdued.',tags:['desktop','mobile']},
+
+  // TC-06 GALLERY
+  {cat:'TC-06',catName:'Gallery',id:'G-01',name:'12 gallery photos render',desc:'Gallery displays exactly 12 food/restaurant photos. No broken image icons.',tags:['desktop','mobile']},
+  {cat:'TC-06',catName:'Gallery',id:'G-02',name:'Stacked card hover — scale pop',desc:'Hover over the gallery deck. Top card pops/scales up. Underlying cards visible with depth.',tags:['desktop']},
+  {cat:'TC-06',catName:'Gallery',id:'G-03',name:'Card cycling on hover',desc:'As you move the mouse across the deck, different photos come to front based on cursor position.',tags:['desktop']},
+  {cat:'TC-06',catName:'Gallery',id:'G-04',name:'Lightbox opens on click',desc:'Click any gallery photo. A lightbox/modal opens showing the full-size image.',tags:['desktop','mobile']},
+  {cat:'TC-06',catName:'Gallery',id:'G-05',name:'Lightbox closes',desc:'With lightbox open: click outside image, press Escape, or tap close button. Lightbox dismisses.',tags:['desktop','mobile']},
+  {cat:'TC-06',catName:'Gallery',id:'G-06',name:'GSAP entrance animation',desc:'Scroll to gallery. Cards animate in (fade+translate) as section enters viewport.',tags:['desktop']},
+  {cat:'TC-06',catName:'Gallery',id:'G-07',name:'Gallery touch — card cycling',desc:'On mobile, tap/swipe on the gallery deck. Cards respond to touch position to cycle through photos.',tags:['mobile']},
+  {cat:'TC-06',catName:'Gallery',id:'G-08',name:'Lazy loading on gallery images',desc:'Open DevTools > Network. Gallery images have loading="lazy" attribute. Images below fold do not load until scrolled to.',tags:['perf','desktop']},
+
+  // TC-07 CTA / ORDER & CATERING
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-01',name:'Section headline renders',desc:'"Every Table Deserves Extraordinary Food." headline visible. Italic word styled in red.',tags:['desktop','mobile']},
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-02',name:'Split layout — two panels',desc:'On desktop, Order Tonight (left) and Catering & Events (right) sit side by side separated by a red divider line.',tags:['desktop']},
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-03',name:'Split layout stacks on mobile',desc:'On mobile, both panels stack vertically. No horizontal overflow.',tags:['mobile']},
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-04',name:'"Call to Order" button',desc:'Click "Call to Order" in left panel. Device initiates call to 860-649-1166.',tags:['desktop','mobile']},
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-05',name:'Delivery platforms mentioned',desc:'Left panel copy mentions DoorDash, Uber Eats, Grubhub, and Slice.',tags:['desktop','mobile']},
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-06',name:'Catering phone number displayed',desc:'Right panel shows "860-649-1166" as the catering phone number.',tags:['desktop','mobile']},
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-07',name:'"Book Catering" button',desc:'Click "Book Catering" button in right panel. Device initiates call to 860-649-1166.',tags:['desktop','mobile']},
+  {cat:'TC-07',catName:'CTA — Order & Catering',id:'C-08',name:'Button hover states',desc:'Hover over "Call to Order" (fill button) and "Book Catering" (ghost button). Both show color transitions and translateY(-2px) lift.',tags:['desktop']},
+
+  // TC-08 FOOTER
+  {cat:'TC-08',catName:'Footer',id:'F-01',name:'Brand name and logo text',desc:'Footer shows "Wooster Street Food Company" with "Street" in red.',tags:['desktop','mobile']},
+  {cat:'TC-08',catName:'Footer',id:'F-02',name:'Location, phone, email',desc:'Footer shows: Manchester, Connecticut · 860-649-1166 · hello@woosterstreetfoodco.com',tags:['desktop','mobile']},
+  {cat:'TC-08',catName:'Footer',id:'F-03',name:'Explore links present',desc:'Footer Explore column: Our Story, Our Menu, Gallery, Catering — all 4 links present.',tags:['desktop','mobile']},
+  {cat:'TC-08',catName:'Footer',id:'F-04',name:'Order links include Slice',desc:'Footer Order column: DoorDash, Uber Eats, Grubhub, Slice, Direct Order, Catering Inquiry — all 6 present.',tags:['desktop','mobile']},
+  {cat:'TC-08',catName:'Footer',id:'F-05',name:'Hours displayed',desc:'Footer Hours column shows Mon–Fri, Saturday, and Sunday hours.',tags:['desktop','mobile']},
+  {cat:'TC-08',catName:'Footer',id:'F-06',name:'Copyright year is 2026',desc:'Footer bottom row reads "© 2026 Wooster Street Food Company. All rights reserved."',tags:['desktop','mobile']},
+  {cat:'TC-08',catName:'Footer',id:'F-07',name:'No broken social icons',desc:'Social icon area should be empty (IG/FB TBD). No broken icon placeholders showing.',tags:['desktop','mobile']},
+  {cat:'TC-08',catName:'Footer',id:'F-08',name:'Footer link hover states',desc:'Hover over any footer link. Text color transitions from muted to white.',tags:['desktop']},
+  {cat:'TC-08',catName:'Footer',id:'F-09',name:'Footer responsive — 2-column on tablet',desc:'At ~900px, footer grid collapses to 2 columns. No overflow.',tags:['mobile']},
+
+  // TC-09 PERFORMANCE
+  {cat:'TC-09',catName:'Performance',id:'P-01',name:'Page load under 5s on 4G',desc:'Use Chrome DevTools throttle (Fast 4G). Full page visible and usable within 5 seconds.',tags:['perf','desktop']},
+  {cat:'TC-09',catName:'Performance',id:'P-02',name:'No console errors on load',desc:'Open DevTools Console. Page loads with zero red errors.',tags:['desktop','mobile']},
+  {cat:'TC-09',catName:'Performance',id:'P-03',name:'No 404 resource errors',desc:'DevTools Network tab — all resources (fonts, images, scripts) return 200. No 404s.',tags:['desktop']},
+  {cat:'TC-09',catName:'Performance',id:'P-04',name:'Smooth 60fps scroll',desc:'Scroll through the full page. No janky/stuttery frames. About GSAP animations run smoothly.',tags:['perf','desktop']},
+  {cat:'TC-09',catName:'Performance',id:'P-05',name:'Font flash (FOUT) acceptable',desc:'On hard reload, system fallback font should not flash for more than ~300ms before web fonts load.',tags:['perf','desktop']},
+  {cat:'TC-09',catName:'Performance',id:'P-06',name:'Images optimized / not oversized',desc:'Gallery images are not larger than necessary for their display size. Inspect Network → Img tab.',tags:['perf']},
+  {cat:'TC-09',catName:'Performance',id:'P-07',name:'No memory leak on tab leave/return',desc:'Stay on page 5 minutes, leave and return. No console memory warnings. Animations still work.',tags:['perf','desktop']},
+
+  // TC-10 CROSS-DEVICE
+  {cat:'TC-10',catName:'Cross-Device',id:'D-01',name:'iPhone SE (375px) — no horizontal scroll',desc:'At 375px viewport, full site scrolls vertically only. No horizontal overflow on any section.',tags:['mobile']},
+  {cat:'TC-10',catName:'Cross-Device',id:'D-02',name:'iPhone 15 Pro — hero full screen',desc:'Safari on iPhone 15 Pro. Hero fills full screen height using 100dvh. No address bar gap.',tags:['mobile']},
+  {cat:'TC-10',catName:'Cross-Device',id:'D-03',name:'Android Chrome — all sections render',desc:'Open on Samsung Galaxy S24 Chrome. All 8 sections visible and readable.',tags:['mobile']},
+  {cat:'TC-10',catName:'Cross-Device',id:'D-04',name:'iPad — correct breakpoint',desc:'On iPad (768px), layout should be between mobile and desktop. Hamburger visible. Content properly scaled.',tags:['mobile']},
+  {cat:'TC-10',catName:'Cross-Device',id:'D-05',name:'Desktop 1920px — no excessive stretching',desc:'On wide monitor, content max-width constraints prevent text from becoming too wide.',tags:['desktop']},
+  {cat:'TC-10',catName:'Cross-Device',id:'D-06',name:'Touch targets ≥44px on mobile',desc:'All tappable elements (buttons, nav links, tab labels) meet 44×44px minimum touch target size.',tags:['mobile','a11y']},
+  {cat:'TC-10',catName:'Cross-Device',id:'D-07',name:'Pinch-to-zoom not blocked',desc:'On mobile, pinch-to-zoom should work. Meta viewport should not include user-scalable=no.',tags:['mobile','a11y']},
+  {cat:'TC-10',catName:'Cross-Device',id:'D-08',name:'Landscape orientation on phone',desc:'Rotate phone to landscape. Page remains usable. No critical layout breaks.',tags:['mobile']},
+
+  // TC-11 CROSS-BROWSER
+  {cat:'TC-11',catName:'Cross-Browser',id:'B-01',name:'Chrome — full site works',desc:'All animations, tabs, gallery, and CTA buttons function in Chrome.',tags:['desktop']},
+  {cat:'TC-11',catName:'Cross-Browser',id:'B-02',name:'Firefox — full site works',desc:'All sections render correctly in Firefox. GSAP animations play. Gallery hover works.',tags:['desktop']},
+  {cat:'TC-11',catName:'Cross-Browser',id:'B-03',name:'Safari Desktop — full site works',desc:'Safari on macOS. Video hero plays. CSS clip-paths render. Font rendering acceptable.',tags:['desktop']},
+  {cat:'TC-11',catName:'Cross-Browser',id:'B-04',name:'Safari iOS — touch interactions work',desc:'iPhone Safari. Tap interactions on gallery, menu tabs, and CTA buttons all respond correctly.',tags:['mobile']},
+  {cat:'TC-11',catName:'Cross-Browser',id:'B-05',name:'Edge — full site works',desc:'Microsoft Edge (Chromium). Site renders identically to Chrome.',tags:['desktop']},
+
+  // TC-12 ACCESSIBILITY
+  {cat:'TC-12',catName:'Accessibility',id:'AC-01',name:'Tab key navigation',desc:'Press Tab repeatedly from page load. Focus moves through interactive elements in logical order. Focus indicator visible.',tags:['a11y','desktop']},
+  {cat:'TC-12',catName:'Accessibility',id:'AC-02',name:'Hamburger aria-label',desc:'Hamburger button has aria-label="Open menu". Screen reader announces it correctly.',tags:['a11y','mobile']},
+  {cat:'TC-12',catName:'Accessibility',id:'AC-03',name:'Images have alt text',desc:'All gallery images and about section images have meaningful alt attributes.',tags:['a11y']},
+  {cat:'TC-12',catName:'Accessibility',id:'AC-04',name:'Phone link is tappable / accessible',desc:'tel: links in CTA and footer are proper anchor tags. Work with screen reader.',tags:['a11y','mobile']},
+  {cat:'TC-12',catName:'Accessibility',id:'AC-05',name:'Color contrast — body text',desc:'Body text on dark background meets WCAG AA (4.5:1 ratio minimum).',tags:['a11y']},
+  {cat:'TC-12',catName:'Accessibility',id:'AC-06',name:'Color contrast — red on dark',desc:'Red (#CC1318) used on dark background (#08090f) for accent text. Verify contrast ratio ≥ 3:1 for large/bold text.',tags:['a11y']},
+
+  // TC-13 EDGE & NEGATIVE CASES
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-01',name:'Fast repeated tab switching',desc:'Click menu tabs rapidly 10 times. No content duplication. Final clicked tab shows correct content.',tags:['negative']},
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-02',name:'Rapid hamburger open/close',desc:'Tap hamburger open/close 5 times rapidly. Overlay state stays consistent. Body scroll not permanently locked.',tags:['negative','mobile']},
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-03',name:'Multiple lightbox open/close',desc:'Open and close gallery lightbox 5 times. No stacking overlays. Closes cleanly every time.',tags:['negative']},
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-04',name:'Back/forward browser navigation',desc:'Use browser back/forward after scrolling. Page restores scroll position correctly.',tags:['negative','desktop']},
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-05',name:'JavaScript disabled',desc:'Disable JS in browser. Critical content (menu, contact info, hours) still readable. No JS error messages shown.',tags:['negative']},
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-06',name:'Very slow connection — all content readable',desc:'Simulate 3G in DevTools. Even if fonts or video fail to load, site text content is readable with fallback fonts.',tags:['negative','perf']},
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-07',name:'Page reload mid-scroll',desc:'Scroll halfway down, press Cmd+R / F5. Page reloads to top without errors.',tags:['negative']},
+  {cat:'TC-13',catName:'Edge & Negative Cases',id:'E-08',name:'Zoom to 150% / 200% (browser zoom)',desc:'Use browser zoom (Ctrl+Plus) to 150% and 200%. Layout should remain usable. No text overflow.',tags:['negative','a11y']},
+];
+
+// ── State ──────────────────────────────────────────────────────
+let state = {};
+try { state = JSON.parse(localStorage.getItem('wsfc_qa_state') || '{}'); } catch(e){}
+let activeDevices = [];
+try { activeDevices = JSON.parse(localStorage.getItem('wsfc_qa_devices') || '[]'); } catch(e){}
+
+function save(){
+  localStorage.setItem('wsfc_qa_state', JSON.stringify(state));
+  localStorage.setItem('wsfc_qa_devices', JSON.stringify(activeDevices));
+  updateStats();
+}
+
+// ── Render ─────────────────────────────────────────────────────
+function render(){
+  const container = document.getElementById('testContainer');
+  const cats = [...new Set(TESTS.map(t=>t.cat))];
+  const catNames = {};
+  TESTS.forEach(t=>{ catNames[t.cat]=t.catName; });
+
+  container.innerHTML = cats.map(cat=>{
+    const tests = TESTS.filter(t=>t.cat===cat);
+    const rows = tests.map((t,i)=>{
+      const s = state[t.id]||{status:'pending',notes:''};
+      return `<div class="test-row ${s.status!=='pending'?s.status:''}" id="row-${t.id}" data-id="${t.id}" data-name="${t.name.toLowerCase()} ${t.desc.toLowerCase()} ${t.tags.join(' ')}">
+        <div class="test-num">${i+1}</div>
+        <div class="test-info">
+          <div class="test-name"><span style="color:rgba(204,19,24,0.7);font-size:10px;letter-spacing:0.1em;margin-right:8px">${t.id}</span>${t.name}</div>
+          <div class="test-desc">${t.desc}</div>
+          <div class="test-tags">${t.tags.map(tag=>`<span class="tag ${tag}">${tag}</span>`).join('')}</div>
+        </div>
+        <div class="test-actions">
+          <button class="status-btn pass-btn" onclick="setStatus('${t.id}','pass')">✓ Pass</button>
+          <button class="status-btn fail-btn" onclick="setStatus('${t.id}','fail')">✗ Fail</button>
+        </div>
+        <div class="notes-col">
+          <textarea class="notes-input" placeholder="Notes…" onchange="setNotes('${t.id}',this.value)" rows="1">${s.notes||''}</textarea>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="category" id="cat-${cat}">
+      <div class="cat-header" onclick="toggleCat('${cat}')">
+        <span class="cat-id">${cat}</span>
+        <span class="cat-name">${catNames[cat]}</span>
+        <span class="cat-count">${tests.length} tests</span>
+        <span class="cat-progress" id="catprog-${cat}"></span>
+        <span class="cat-arrow">▼</span>
+      </div>
+      <div class="cat-body" id="catbody-${cat}">${rows}</div>
+    </div>`;
+  }).join('');
+
+  // Restore devices
+  document.querySelectorAll('.device-chip').forEach(el=>{
+    if(activeDevices.includes(el.textContent.trim())) el.classList.add('active');
+  });
+  updateStats();
+}
+
+function toggleCat(cat){
+  const body = document.getElementById('catbody-'+cat);
+  const hdr = body.previousElementSibling;
+  body.classList.toggle('hidden');
+  hdr.classList.toggle('collapsed');
+}
+
+function expandAll(){ document.querySelectorAll('.cat-body').forEach(b=>{b.classList.remove('hidden'); b.previousElementSibling.classList.remove('collapsed');}); }
+function collapseAll(){ document.querySelectorAll('.cat-body').forEach(b=>{b.classList.add('hidden'); b.previousElementSibling.classList.add('collapsed');}); }
+
+function setStatus(id, status){
+  state[id] = state[id]||{};
+  if(state[id].status === status){ state[id].status='pending'; }
+  else { state[id].status = status; }
+  const row = document.getElementById('row-'+id);
+  row.className = 'test-row ' + (state[id].status!=='pending' ? state[id].status : '');
+  save();
+  updateCatProgress(id);
+}
+
+function setNotes(id,val){
+  state[id] = state[id]||{};
+  state[id].notes = val;
+  save();
+}
+
+function updateStats(){
+  let pass=0,fail=0,pending=0;
+  TESTS.forEach(t=>{
+    const s=(state[t.id]||{}).status||'pending';
+    if(s==='pass') pass++;
+    else if(s==='fail') fail++;
+    else pending++;
+  });
+  const total=TESTS.length;
+  document.getElementById('statTotal').textContent = total+' TOTAL';
+  document.getElementById('statPass').textContent = pass+' PASS';
+  document.getElementById('statFail').textContent = fail+' FAIL';
+  document.getElementById('statSkip').textContent = pending+' PENDING';
+  const pct = total>0 ? Math.round((pass+fail)/total*100) : 0;
+  document.getElementById('progressFill').style.width = pct+'%';
+
+  // Cat progress
+  const cats = [...new Set(TESTS.map(t=>t.cat))];
+  cats.forEach(cat=>{
+    const cTests = TESTS.filter(t=>t.cat===cat);
+    const cPass = cTests.filter(t=>(state[t.id]||{}).status==='pass').length;
+    const cFail = cTests.filter(t=>(state[t.id]||{}).status==='fail').length;
+    const el = document.getElementById('catprog-'+cat);
+    if(el) el.textContent = `${cPass}✓ ${cFail}✗ / ${cTests.length}`;
+  });
+}
+
+function updateCatProgress(id){
+  const t = TESTS.find(t=>t.id===id);
+  if(t) updateStats();
+}
+
+function filterTests(){
+  const q = document.getElementById('searchBox').value.toLowerCase().trim();
+  document.querySelectorAll('.test-row').forEach(row=>{
+    if(!q || row.dataset.name.includes(q)){
+      row.classList.remove('filtered-out');
+    } else {
+      row.classList.add('filtered-out');
+    }
+  });
+}
+
+function showFailed(){
+  document.querySelectorAll('.test-row').forEach(row=>{
+    if(!row.classList.contains('fail')) row.classList.add('filtered-out');
+    else row.classList.remove('filtered-out');
+  });
+  expandAll();
+}
+
+function showAll(){
+  document.querySelectorAll('.test-row').forEach(row=>row.classList.remove('filtered-out'));
+  document.getElementById('searchBox').value='';
+}
+
+function resetAll(){
+  if(!confirm('Reset ALL test results? This cannot be undone.')) return;
+  state = {};
+  localStorage.removeItem('wsfc_qa_state');
+  document.querySelectorAll('.test-row').forEach(row=>{ row.className='test-row'; });
+  document.querySelectorAll('.notes-input').forEach(el=>el.value='');
+  updateStats();
+}
+
+function toggleDevice(el){
+  el.classList.toggle('active');
+  const name = el.textContent.trim();
+  if(el.classList.contains('active')){
+    if(!activeDevices.includes(name)) activeDevices.push(name);
+  } else {
+    activeDevices = activeDevices.filter(d=>d!==name);
+  }
+  save();
+}
+
+function exportResults(){
+  const lines = ['WSFC QA Test Plan — Export','Date: '+new Date().toLocaleString(),'',''];
+  const cats = [...new Set(TESTS.map(t=>t.cat))];
+  cats.forEach(cat=>{
+    const cTests = TESTS.filter(t=>t.cat===cat);
+    lines.push('═══ '+cat+' — '+cTests[0].catName+' ═══');
+    cTests.forEach(t=>{
+      const s=state[t.id]||{};
+      const status=(s.status||'PENDING').toUpperCase();
+      const notes=s.notes?` | Notes: ${s.notes}`:'';
+      lines.push(`[${status.padEnd(7)}] ${t.id} — ${t.name}${notes}`);
+    });
+    lines.push('');
+  });
+
+  const pass=TESTS.filter(t=>(state[t.id]||{}).status==='pass').length;
+  const fail=TESTS.filter(t=>(state[t.id]||{}).status==='fail').length;
+  lines.push(`SUMMARY: ${pass} PASS / ${fail} FAIL / ${TESTS.length-(pass+fail)} PENDING of ${TESTS.length} total`);
+  if(activeDevices.length) lines.push('Tested on: '+activeDevices.join(', '));
+
+  const blob = new Blob([lines.join('\n')],{type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'wsfc-qa-results-'+new Date().toISOString().slice(0,10)+'.txt';
+  a.click();
+}
+
+render();
+</script>
+</body>
+</html>

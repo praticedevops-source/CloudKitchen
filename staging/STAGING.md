@@ -75,6 +75,7 @@ Any new section or feature should follow this pattern:
 | v2.7 | 2026-05-29 | Merge CTA + Catering → one final section after gallery · split Order/Catering panels · new copy · nav + hero updated |
 | v2.8 | 2026-05-29 | Merge Menu + Full Menu → single section (id="menu") · 3D cards + bridge divider + tabs · nav & footer deduped |
 | v2.9 | 2026-05-29 | Footer: remove IG/TK/FB/TW · add Slice to Order list · fix © 2024 → 2026 · Instagram & Facebook TBD |
+| v2.10 | 2026-05-29 | Mobile responsiveness · hamburger nav + overlay · 4-tier breakpoints (1024/768/480/375px) · iOS dvh fix · gallery lazy load + touch events · QA test plan (tests/test-plan.html) |
 
 ---
 
