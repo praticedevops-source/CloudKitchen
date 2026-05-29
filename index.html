@@ -47,6 +47,9 @@
   ║  v2.6  2026-05-29  Remove Packages section ·         ║
   ║        New Catering Call band (860-649-1166) ·        ║
   ║        Platters/Pizza/Bar pills · Call-to-book CTA    ║
+  ║  v2.7  2026-05-29  Merge CTA + Catering → one final  ║
+  ║        section after gallery · Split Order/Catering  ║
+  ║        panels · New copy · Nav + hero btns updated    ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -507,79 +510,103 @@ h1.brand-name .company{
 }
 .menu-note strong{color:rgba(255,255,255,0.6)}
 
-/* CATERING CALL BAND */
-#catering{
-  padding:110px 56px;background:var(--dark);
-  border-top:1px solid rgba(204,19,24,0.1);
-  border-bottom:1px solid rgba(204,19,24,0.1);
+/* FINAL CTA — merged order + catering */
+#cta{
   position:relative;overflow:hidden;
+  padding:130px 56px;
+  background:var(--dark);
 }
-#catering::before{
+#cta::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(204,19,24,0.07) 0%,transparent 70%);
+  background:
+    radial-gradient(ellipse 90% 60% at 20% 50%,rgba(204,19,24,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 50%,rgba(37,42,98,0.18) 0%,transparent 60%);
   pointer-events:none;
 }
-.cat-wrap{
+.cta-top{
   position:relative;z-index:1;
-  display:flex;align-items:center;justify-content:space-between;gap:64px;
-  max-width:1200px;margin:0 auto;
+  text-align:center;margin-bottom:72px;
 }
-.cat-left{flex:1;min-width:0}
-.cat-eyebrow{
-  font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
-  color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:10px;
+.cta-top .sec-tag{
+  margin-bottom:20px;display:inline-block;
 }
-.cat-eyebrow::before{content:'';width:32px;height:1px;background:var(--red);flex-shrink:0}
-.cat-left h2{
+.cta-top h2{
   font-family:'Playfair Display',serif;
-  font-size:clamp(38px,4.5vw,60px);font-weight:900;
-  color:var(--white);line-height:1.1;margin-bottom:20px;
+  font-size:clamp(40px,6vw,84px);font-weight:900;
+  color:var(--white);line-height:0.95;letter-spacing:-0.02em;
+  margin-bottom:22px;
 }
-.cat-left h2 em{color:var(--red);font-style:italic}
-.cat-left p{
-  font-size:16px;line-height:1.7;color:rgba(255,255,255,0.5);
-  max-width:480px;
+.cta-top h2 em{color:var(--red);font-style:italic}
+.cta-top p{
+  font-size:16px;line-height:1.75;color:rgba(255,255,255,0.42);
+  max-width:520px;margin:0 auto;
 }
-.cat-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.cat-pill{
-  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
-  border:1px solid rgba(204,19,24,0.3);color:rgba(255,255,255,0.5);
-  padding:6px 16px;
+.cta-split{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1px 1fr;
+  gap:0;max-width:1100px;margin:0 auto;
 }
-.cat-right{
-  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:24px;
-  text-align:center;
+.cta-panel{
+  padding:52px 64px;
+  display:flex;flex-direction:column;align-items:flex-start;
+  gap:20px;
 }
-.cat-phone-label{
-  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
-  color:rgba(255,255,255,0.3);
+.cta-panel:last-child{align-items:flex-end;text-align:right}
+.cta-split-rule{
+  background:linear-gradient(to bottom,transparent,rgba(204,19,24,0.22),transparent);
+  align-self:stretch;
 }
-.cat-number{
+.cta-tag{
+  font-size:9px;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--red);display:flex;align-items:center;gap:8px;
+}
+.cta-tag::before{content:'';width:24px;height:1px;background:var(--red)}
+.cta-panel:last-child .cta-tag{flex-direction:row-reverse}
+.cta-panel:last-child .cta-tag::before{order:2}
+.cta-panel h3{
   font-family:'Playfair Display',serif;
-  font-size:clamp(28px,3vw,42px);font-weight:900;
-  color:var(--white);letter-spacing:0.04em;line-height:1;
-  white-space:nowrap;
+  font-size:clamp(28px,3vw,44px);font-weight:900;
+  color:var(--white);line-height:1.05;
 }
-.cat-call-btn{
-  display:inline-flex;align-items:center;gap:12px;
+.cta-panel h3 em{color:var(--red);font-style:italic}
+.cta-panel p{
+  font-size:14px;line-height:1.75;color:rgba(255,255,255,0.45);
+  max-width:340px;
+}
+.cta-panel:last-child p{margin-left:auto}
+.cta-phone{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,2.4vw,34px);font-weight:900;
+  color:var(--white);letter-spacing:0.04em;
+  margin-top:4px;
+}
+.cta-phone span{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;font-family:'Inter',sans-serif;font-weight:400;margin-bottom:6px}
+.btn-cta-fill{
+  display:inline-flex;align-items:center;gap:10px;
   background:var(--red);color:#fff;text-decoration:none;
   font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;
-  padding:18px 40px;
-  transition:background 0.3s,transform 0.25s;
+  padding:16px 40px;
+  transition:background 0.3s,transform 0.25s;margin-top:8px;
 }
-.cat-call-btn:hover{background:var(--red-dark);transform:translateY(-2px)}
-.cat-call-btn svg{flex-shrink:0}
-.cat-divider{
-  width:1px;height:120px;
-  background:linear-gradient(to bottom,transparent,rgba(204,19,24,0.25),transparent);
-  flex-shrink:0;
+.btn-cta-fill:hover{background:var(--red-dark);transform:translateY(-2px)}
+.btn-cta-ghost{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(204,19,24,0.45);color:var(--white);text-decoration:none;
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;
+  padding:16px 40px;
+  transition:border-color 0.3s,background 0.3s,transform 0.25s;margin-top:8px;
 }
+.btn-cta-ghost:hover{border-color:var(--red);background:rgba(204,19,24,0.08);transform:translateY(-2px)}
+.btn-cta-fill svg,.btn-cta-ghost svg{flex-shrink:0}
 @media(max-width:860px){
-  .cat-wrap{flex-direction:column;text-align:center;gap:48px}
-  .cat-eyebrow{justify-content:center}
-  .cat-left p{margin:0 auto}
-  .cat-pills{justify-content:center}
-  .cat-divider{display:none}
+  #cta{padding:80px 24px}
+  .cta-split{grid-template-columns:1fr;gap:0}
+  .cta-split-rule{height:1px;width:60%;margin:0 auto;background:linear-gradient(to right,transparent,rgba(204,19,24,0.22),transparent)}
+  .cta-panel{padding:48px 0;align-items:center;text-align:center}
+  .cta-panel:last-child{align-items:center;text-align:center}
+  .cta-panel p,.cta-panel:last-child p{margin:0 auto}
+  .cta-panel:last-child .cta-tag{flex-direction:row}
+  .cta-panel:last-child .cta-tag::before{order:0}
 }
 
 /* GALLERY — Stacked Cards */
@@ -689,39 +716,6 @@ h1.brand-name .company{
 }
 .lb-dot.active{background:var(--red);transform:scale(1.4)}
 
-/* CTA */
-#cta{
-  position:relative;overflow:hidden;
-  min-height:520px;display:flex;align-items:center;justify-content:center;
-}
-#cta .bg{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(192,57,43,0.25) 0%,rgba(204,19,24,0.1) 100%), var(--char);
-  filter:brightness(1);
-}
-#cta .cta-overlay{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 0%,rgba(8,6,4,0.5) 100%);
-}
-#cta .cta-inner{position:relative;z-index:5;text-align:center;padding:0 40px}
-#cta h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(44px,7vw,96px);font-weight:900;
-  line-height:0.95;letter-spacing:-0.025em;color:var(--cream);margin-bottom:24px;
-}
-#cta h2 em{font-style:italic;color:var(--red)}
-#cta p{font-size:15px;color:rgba(245,230,208,0.55);max-width:440px;margin:0 auto 44px;line-height:1.8}
-.cta-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-.btn-big{
-  font-size:12px;letter-spacing:0.22em;text-transform:uppercase;
-  padding:18px 52px;text-decoration:none;font-weight:600;transition:all 0.3s;
-}
-.btn-big-fill{background:var(--orange);color:#fff}
-.btn-big-fill:hover{opacity:0.82}
-.btn-big-ghost{border:1px solid rgba(204,19,24,0.45);color:var(--cream)}
-.btn-big-ghost:hover{background:rgba(204,19,24,0.1);border-color:var(--red)}
-.tel-link{display:block;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,230,208,0.3);margin-top:22px;text-decoration:none}
-.tel-link:hover{color:var(--red)}
 
 /* FOOTER */
 footer{
@@ -776,7 +770,7 @@ footer{
   .footer-top{grid-template-columns:1fr 1fr;gap:36px}
   .menu-grid-2col{grid-template-columns:1fr}
   footer{padding:52px 24px 28px}
-  #menu,#gallery,#full-menu,#catering,#cta{padding:80px 24px}
+  #menu,#gallery,#full-menu{padding:80px 24px}
 }
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -799,8 +793,9 @@ footer{
   <ul class="nav-links">
     <li><a href="#about">Our Story</a></li>
     <li><a href="#menu">Menu</a></li>
-    <li><a href="#catering">Catering</a></li>
+    <li><a href="#full-menu">Full Menu</a></li>
     <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#cta">Catering</a></li>
   </ul>
   <a href="#cta" class="nav-order">Order Now</a>
 </nav>
@@ -843,8 +838,8 @@ footer{
     </p>
 
     <div class="hero-btns">
-      <a href="#menu" class="btn-primary">Explore Menu</a>
-      <a href="#catering" class="btn-ghost">Catering</a>
+      <a href="#menu" class="btn-primary">Explore the Menu</a>
+      <a href="#cta" class="btn-ghost">Order &amp; Catering</a>
     </div>
   </div>
 
@@ -1164,34 +1159,6 @@ footer{
   </div>
 </section>
 
-<!-- CATERING CALL -->
-<section id="catering">
-  <div class="cat-wrap">
-    <div class="cat-left reveal">
-      <div class="cat-eyebrow">Catering &amp; Events</div>
-      <h2>Feeding a <em>Crowd?</em><br>Give Us a Call.</h2>
-      <p>From office lunches to full wedding receptions — we build a custom menu around your event, your guests, and your budget. Platters, pizzas, pasta, desserts, and full bar options available.</p>
-      <div class="cat-pills">
-        <div class="cat-pill">Cold Cut Platters</div>
-        <div class="cat-pill">Pizza &amp; Pasta</div>
-        <div class="cat-pill">Salad Platters</div>
-        <div class="cat-pill">Desserts</div>
-        <div class="cat-pill">Full Bar Options</div>
-        <div class="cat-pill">Custom Quotes</div>
-      </div>
-    </div>
-    <div class="cat-divider"></div>
-    <div class="cat-right reveal delay-2">
-      <div class="cat-phone-label">Reach us directly</div>
-      <div class="cat-number">860-649-1166</div>
-      <a href="tel:+18606491166" class="cat-call-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
-        Call to Book Catering
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- GALLERY -->
 <section id="gallery">
   <div class="menu-header reveal">
@@ -1227,18 +1194,40 @@ footer{
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ORDER & CATERING — FINAL CTA -->
 <section id="cta">
-  <div class="bg"></div>
-  <div class="cta-overlay"></div>
-  <div class="cta-inner">
-    <h2>Ready to <em>Order</em><br>or Cater?</h2>
-    <p>Whether you're feeding two or two hundred, Wooster Street Food Company has the fire for you.</p>
-    <div class="cta-btns">
-      <a href="mailto:orders@woosterstreet.com" class="btn-big btn-big-fill">Place an Order</a>
-      <a href="#catering" class="btn-big btn-big-ghost">Book Catering</a>
+  <div class="cta-top reveal">
+    <div class="sec-tag">Wooster Street Food Company</div>
+    <h2>Every Table Deserves<br><em>Extraordinary</em> Food.</h2>
+    <p>Order fresh for tonight — or call us to build the perfect menu for your next event. Either way, we've got the fire.</p>
+  </div>
+  <div class="cta-split">
+    <!-- Left — Order -->
+    <div class="cta-panel reveal delay-1">
+      <div class="cta-tag">Order Tonight</div>
+      <h3>Dinner for<br><em>Two</em> or Twenty?</h3>
+      <p>Made fresh every day in Manchester, Connecticut. Available on DoorDash, Uber Eats, and Grubhub — or order direct by phone.</p>
+      <a href="tel:+18606491166" class="btn-cta-fill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+        Call to Order
+      </a>
     </div>
-    <a href="tel:+18606491166" class="tel-link">📞 860-649-1166 — Call to book catering</a>
+    <!-- Divider -->
+    <div class="cta-split-rule"></div>
+    <!-- Right — Catering -->
+    <div class="cta-panel reveal delay-2">
+      <div class="cta-tag">Catering &amp; Events</div>
+      <h3>Feeding a<br><em>Crowd?</em></h3>
+      <p>From office lunches to full wedding receptions — we build a custom spread around your event, your guests, and your budget. Platters, pizzas, pasta, desserts, full bar available.</p>
+      <div class="cta-phone">
+        <span>Call us directly</span>
+        860-649-1166
+      </div>
+      <a href="tel:+18606491166" class="btn-cta-ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+        Book Catering
+      </a>
+    </div>
   </div>
 </section>
 

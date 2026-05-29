@@ -72,6 +72,7 @@ Any new section or feature should follow this pattern:
 | v2.4 | 2026-05-29 | Gallery deep fix — remove preserve-3d · scale-based pop · latest-coord rAF · all hover reliable |
 | v2.5 | 2026-05-29 | Remove stats section · s05 cards updated: White Apizza · Caesar Salad · Chicken Alfredo · Nav Menu → Finest Creations + full menu adjacent |
 | v2.6 | 2026-05-29 | Remove Packages section · New Catering Call band — 860-649-1166 · platters/pizza/bar pills · Call-to-book CTA |
+| v2.7 | 2026-05-29 | Merge CTA + Catering → one final section after gallery · split Order/Catering panels · new copy · nav + hero updated |
 
 ---
 
