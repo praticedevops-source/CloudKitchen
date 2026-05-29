@@ -44,6 +44,9 @@
   ║        stats section · Cards updated: Pizza·Salad·    ║
   ║        Pasta from real menu (White Apizza · Caesar    ║
   ║        Salad · Chicken Alfredo)                       ║
+  ║  v2.6  2026-05-29  Remove Packages section ·         ║
+  ║        New Catering Call band (860-649-1166) ·        ║
+  ║        Platters/Pizza/Bar pills · Call-to-book CTA    ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -504,59 +507,79 @@ h1.brand-name .company{
 }
 .menu-note strong{color:rgba(255,255,255,0.6)}
 
-/* PACKAGES */
-#packages{padding:120px 56px;background:var(--dark)}
-.pkg-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
-  perspective:1400px;margin-top:72px;
+/* CATERING CALL BAND */
+#catering{
+  padding:110px 56px;background:var(--dark);
+  border-top:1px solid rgba(204,19,24,0.1);
+  border-bottom:1px solid rgba(204,19,24,0.1);
+  position:relative;overflow:hidden;
 }
-.pkg-card{
-  background:rgba(245,230,208,0.03);
-  border:1px solid rgba(204,19,24,0.12);
-  padding:48px 40px;
-  transform-style:preserve-3d;
-  transition:transform 0.5s cubic-bezier(0.23,1,0.32,1),background 0.4s,border-color 0.4s;
-  cursor:pointer;position:relative;overflow:hidden;
-}
-.pkg-card::before{
+#catering::before{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(204,19,24,0.06),transparent);
-  opacity:0;transition:opacity 0.4s;
+  background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(204,19,24,0.07) 0%,transparent 70%);
+  pointer-events:none;
 }
-.pkg-card:hover{
-  transform:translateY(-14px) rotateX(5deg) rotateY(-3deg);
-  background:rgba(204,19,24,0.05);border-color:rgba(204,19,24,0.3);
+.cat-wrap{
+  position:relative;z-index:1;
+  display:flex;align-items:center;justify-content:space-between;gap:64px;
+  max-width:1200px;margin:0 auto;
 }
-.pkg-card:hover::before{opacity:1}
-.pkg-card.featured{
-  background:rgba(204,19,24,0.07);border-color:rgba(204,19,24,0.3);
+.cat-left{flex:1;min-width:0}
+.cat-eyebrow{
+  font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:10px;
 }
-.pkg-fire{font-size:22px;margin-bottom:22px}
-.pkg-name{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:8px}
-.pkg-sub{font-size:11px;letter-spacing:0.15em;color:var(--red);margin-bottom:28px;text-transform:uppercase}
-.pkg-price{
-  font-family:'Playfair Display',serif;font-size:52px;font-weight:900;
-  color:var(--cream);line-height:1;margin-bottom:6px;
+.cat-eyebrow::before{content:'';width:32px;height:1px;background:var(--red);flex-shrink:0}
+.cat-left h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,4.5vw,60px);font-weight:900;
+  color:var(--white);line-height:1.1;margin-bottom:20px;
 }
-.pkg-price sup{font-size:24px;color:var(--red);vertical-align:top;margin-top:8px;display:inline-block}
-.pkg-price sub{font-size:16px;color:rgba(245,230,208,0.4)}
-.pkg-min{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,230,208,0.3);margin-bottom:36px}
-.pkg-divider{width:100%;height:1px;background:linear-gradient(to right,rgba(204,19,24,0.3),transparent);margin-bottom:28px}
-.pkg-items{display:flex;flex-direction:column;gap:12px}
-.pkg-item{display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(245,230,208,0.65)}
-.pkg-item-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
-.pkg-cta{
-  display:block;width:100%;margin-top:36px;
-  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
-  background:var(--orange);color:#fff;padding:14px 24px;text-align:center;text-decoration:none;
-  font-weight:600;transition:opacity 0.3s;
+.cat-left h2 em{color:var(--red);font-style:italic}
+.cat-left p{
+  font-size:16px;line-height:1.7;color:rgba(255,255,255,0.5);
+  max-width:480px;
 }
-.pkg-cta:hover{opacity:0.82}
-.pkg-card.featured .pkg-cta{background:var(--red);color:var(--dark)}
-.featured-badge{
-  position:absolute;top:24px;right:24px;
-  font-size:9px;letter-spacing:0.2em;text-transform:uppercase;
-  background:var(--red);color:var(--dark);padding:5px 12px;font-weight:700;
+.cat-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.cat-pill{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  border:1px solid rgba(204,19,24,0.3);color:rgba(255,255,255,0.5);
+  padding:6px 16px;
+}
+.cat-right{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:24px;
+  text-align:center;
+}
+.cat-phone-label{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+}
+.cat-number{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,3vw,42px);font-weight:900;
+  color:var(--white);letter-spacing:0.04em;line-height:1;
+  white-space:nowrap;
+}
+.cat-call-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--red);color:#fff;text-decoration:none;
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;
+  padding:18px 40px;
+  transition:background 0.3s,transform 0.25s;
+}
+.cat-call-btn:hover{background:var(--red-dark);transform:translateY(-2px)}
+.cat-call-btn svg{flex-shrink:0}
+.cat-divider{
+  width:1px;height:120px;
+  background:linear-gradient(to bottom,transparent,rgba(204,19,24,0.25),transparent);
+  flex-shrink:0;
+}
+@media(max-width:860px){
+  .cat-wrap{flex-direction:column;text-align:center;gap:48px}
+  .cat-eyebrow{justify-content:center}
+  .cat-left p{margin:0 auto}
+  .cat-pills{justify-content:center}
+  .cat-divider{display:none}
 }
 
 /* GALLERY — Stacked Cards */
@@ -749,12 +772,11 @@ footer{
   .ch3-stats{gap:40px;flex-wrap:wrap;justify-content:center}
   .chapter-dots{right:16px}
   .cards-3d{grid-template-columns:1fr 1fr}
-.pkg-grid{grid-template-columns:1fr}
   .gallery-grid{columns:2}
   .footer-top{grid-template-columns:1fr 1fr;gap:36px}
   .menu-grid-2col{grid-template-columns:1fr}
   footer{padding:52px 24px 28px}
-  #menu,#packages,#gallery,#full-menu,#stats,#cta{padding:80px 24px}
+  #menu,#gallery,#full-menu,#catering,#cta{padding:80px 24px}
 }
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -777,7 +799,7 @@ footer{
   <ul class="nav-links">
     <li><a href="#about">Our Story</a></li>
     <li><a href="#menu">Menu</a></li>
-    <li><a href="#packages">Packages</a></li>
+    <li><a href="#catering">Catering</a></li>
     <li><a href="#gallery">Gallery</a></li>
   </ul>
   <a href="#cta" class="nav-order">Order Now</a>
@@ -822,7 +844,7 @@ footer{
 
     <div class="hero-btns">
       <a href="#menu" class="btn-primary">Explore Menu</a>
-      <a href="#packages" class="btn-ghost">Catering Packages</a>
+      <a href="#catering" class="btn-ghost">Catering</a>
     </div>
   </div>
 
@@ -1142,67 +1164,30 @@ footer{
   </div>
 </section>
 
-<!-- PACKAGES -->
-<section id="packages">
-  <div class="menu-header reveal">
-    <div class="sec-tag">Catering Packages</div>
-    <h2>Scale the <em>Fire</em><br>Your Way</h2>
-    <p>From intimate dinners to grand corporate events — we bring the whole kitchen to you.</p>
-  </div>
-  <div class="pkg-grid">
-    <!-- Starter -->
-    <div class="pkg-card reveal delay-1">
-      <div class="pkg-fire">🌿</div>
-      <div class="pkg-name">Ember</div>
-      <div class="pkg-sub">Starter Package</div>
-      <div class="pkg-price"><sup>$</sup>18<sub>/person</sub></div>
-      <div class="pkg-min">Minimum 15 guests</div>
-      <div class="pkg-divider"></div>
-      <div class="pkg-items">
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Choice of 2 starters</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Choice of 2 main plates</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>1 dessert selection</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Non-alcoholic beverages</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Eco-friendly packaging</div>
+<!-- CATERING CALL -->
+<section id="catering">
+  <div class="cat-wrap">
+    <div class="cat-left reveal">
+      <div class="cat-eyebrow">Catering &amp; Events</div>
+      <h2>Feeding a <em>Crowd?</em><br>Give Us a Call.</h2>
+      <p>From office lunches to full wedding receptions — we build a custom menu around your event, your guests, and your budget. Platters, pizzas, pasta, desserts, and full bar options available.</p>
+      <div class="cat-pills">
+        <div class="cat-pill">Cold Cut Platters</div>
+        <div class="cat-pill">Pizza &amp; Pasta</div>
+        <div class="cat-pill">Salad Platters</div>
+        <div class="cat-pill">Desserts</div>
+        <div class="cat-pill">Full Bar Options</div>
+        <div class="cat-pill">Custom Quotes</div>
       </div>
-      <a href="#cta" class="pkg-cta">Book This Package</a>
     </div>
-    <!-- Featured -->
-    <div class="pkg-card featured reveal delay-2">
-      <div class="featured-badge">Most Popular</div>
-      <div class="pkg-fire">🔥</div>
-      <div class="pkg-name">Blaze</div>
-      <div class="pkg-sub">Full Experience</div>
-      <div class="pkg-price"><sup>$</sup>32<sub>/person</sub></div>
-      <div class="pkg-min">Minimum 25 guests</div>
-      <div class="pkg-divider"></div>
-      <div class="pkg-items">
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Full starter spread (4 items)</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Choice of 4 main plates</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Salad & grain bowl station</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Dessert platter</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Beverages included</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>On-site service staff</div>
-      </div>
-      <a href="#cta" class="pkg-cta">Book This Package</a>
-    </div>
-    <!-- Premium -->
-    <div class="pkg-card reveal delay-3">
-      <div class="pkg-fire">👑</div>
-      <div class="pkg-name">Inferno</div>
-      <div class="pkg-sub">Premium White-Glove</div>
-      <div class="pkg-price"><sup>$</sup>55<sub>/person</sub></div>
-      <div class="pkg-min">Minimum 40 guests</div>
-      <div class="pkg-divider"></div>
-      <div class="pkg-items">
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Full chef-curated menu</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Live carving station</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Custom dietary options</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Full bar service setup</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>Dedicated event chef</div>
-        <div class="pkg-item"><div class="pkg-item-dot"></div>White-glove cleanup</div>
-      </div>
-      <a href="#cta" class="pkg-cta">Book This Package</a>
+    <div class="cat-divider"></div>
+    <div class="cat-right reveal delay-2">
+      <div class="cat-phone-label">Reach us directly</div>
+      <div class="cat-number">860-649-1166</div>
+      <a href="tel:+18606491166" class="cat-call-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+        Call to Book Catering
+      </a>
     </div>
   </div>
 </section>
@@ -1251,9 +1236,9 @@ footer{
     <p>Whether you're feeding two or two hundred, Wooster Street Food Company has the fire for you.</p>
     <div class="cta-btns">
       <a href="mailto:orders@woosterstreet.com" class="btn-big btn-big-fill">Place an Order</a>
-      <a href="#packages" class="btn-big btn-big-ghost">View Packages</a>
+      <a href="#catering" class="btn-big btn-big-ghost">Book Catering</a>
     </div>
-    <a href="tel:+12035550192" class="tel-link">📞 (203) 555-0192 — Call to book catering</a>
+    <a href="tel:+18606491166" class="tel-link">📞 860-649-1166 — Call to book catering</a>
   </div>
 </section>
 
@@ -1273,7 +1258,7 @@ footer{
         <li><a href="#about">Our Story</a></li>
         <li><a href="#menu">Signature Menu</a></li>
         <li><a href="#full-menu">Full Menu</a></li>
-        <li><a href="#packages">Catering</a></li>
+        <li><a href="#catering">Catering</a></li>
         <li><a href="#gallery">Gallery</a></li>
       </ul>
     </div>
@@ -1368,18 +1353,6 @@ document.querySelectorAll('.card-3d').forEach(card => {
   });
 });
 
-/* PACKAGE CARD TILT */
-document.querySelectorAll('.pkg-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - 0.5;
-    const y = (e.clientY - r.top)  / r.height - 0.5;
-    card.style.transform = `translateY(-14px) rotateX(${-y*8}deg) rotateY(${x*8}deg)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
-});
 </script>
 
 <script>

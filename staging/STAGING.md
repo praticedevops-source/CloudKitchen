@@ -17,7 +17,8 @@
 | 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `MERGED` | 2026-05-29 | Real menu cards: White Apizza · Caesar Salad · Chicken Alfredo · v2.5 |
 | 06 | `s06-stats` | [s06-stats.html](s06-stats.html) | `REMOVED` | 2026-05-29 | Stats section removed from production in v2.5 · file kept as archive |
 | 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `MERGED` | 2026-05-29 | Real menu items: Appetizers, Pizza, Pasta & Breads, Salads & Platters, Desserts · v2.1 |
-| 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `CLEAN` | 2026-05-29 | Ember $18 · Blaze $32 (featured) · Inferno $55 · gold→red pass |
+| 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `REMOVED` | 2026-05-29 | Packages section removed from production in v2.6 · file kept as archive |
+| 08b | `s08b-catering` | [s08b-catering.html](s08b-catering.html) | `MERGED` | 2026-05-29 | New Catering Call band · 860-649-1166 · pills · Call-to-book CTA · v2.6 |
 | 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `MERGED` | 2026-05-29 | 12 photos · stacked cards · scale-pop hover · GSAP entrance · lightbox · v2.4 deep fix |
 | 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `CLEAN` | 2026-05-29 | Call to action — Place an Order / View Packages · gold→red pass |
 | 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `CLEAN` | 2026-05-29 | Links, hours, contact, social icons · gold→red pass |
@@ -70,6 +71,7 @@ Any new section or feature should follow this pattern:
 | v2.3 | 2026-05-29 | Gallery fix — mousemove on deck · remove overflow clip · pointer-events patch |
 | v2.4 | 2026-05-29 | Gallery deep fix — remove preserve-3d · scale-based pop · latest-coord rAF · all hover reliable |
 | v2.5 | 2026-05-29 | Remove stats section · s05 cards updated: White Apizza · Caesar Salad · Chicken Alfredo · Nav Menu → Finest Creations + full menu adjacent |
+| v2.6 | 2026-05-29 | Remove Packages section · New Catering Call band — 860-649-1166 · platters/pizza/bar pills · Call-to-book CTA |
 
 ---
 
