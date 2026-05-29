@@ -11,17 +11,17 @@
 | # | Section ID | File | Status | Last Modified | Notes |
 |---|------------|------|--------|---------------|-------|
 | 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `MERGED` | 2026-05-29 | Nav links updated · Menu merged · Full Menu removed · Catering added · v2.8 |
-| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `CLEAN` | 2026-05-29 | Video bg · logo · red/navy/white · Mixkit CDN carousel (5 scenes) |
+| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `MERGED` | 2026-05-29 | Video bg · logo · red/navy/white · Mixkit CDN carousel · buttons updated v2.8 |
 | 03 | `s03-marquee` | [s03-marquee.html](s03-marquee.html) | `CLEAN` | 2026-05-29 | Red ticker band · ★ separators · seamless loop · gold→red pass |
 | 04 | `s04-about` | [s04-about.html](s04-about.html) | `MERGED` | 2026-05-29 | Scroll-driven 3D story · 4 chapters · GSAP · parallax · magnetic cards · SVG icons · v2.0 |
 | 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `MERGED` | 2026-05-29 | Combined with s07 into one Menu section (id="menu") · cards + bridge + tabs · v2.8 |
 | 06 | `s06-stats` | [s06-stats.html](s06-stats.html) | `REMOVED` | 2026-05-29 | Stats section removed from production in v2.5 · file kept as archive |
 | 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `MERGED` | 2026-05-29 | Merged into s05 — tabs flow below 3D cards in combined Menu section · v2.8 |
 | 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `REMOVED` | 2026-05-29 | Packages section removed from production in v2.6 · file kept as archive |
-| 08b | `s08b-catering` | [s08b-catering.html](s08b-catering.html) | `REMOVED` | 2026-05-29 | Merged into final CTA section in v2.7 · file kept as archive |
+| 08b | `s08b-catering` | *(no file)* | `REMOVED` | 2026-05-29 | Was merged into final CTA section in v2.7 — standalone file was never saved |
 | 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `MERGED` | 2026-05-29 | 12 photos · stacked cards · scale-pop hover · GSAP entrance · lightbox · v2.4 deep fix |
-| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `CLEAN` | 2026-05-29 | Call to action — Place an Order / View Packages · gold→red pass |
-| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `CLEAN` | 2026-05-29 | Links, hours, contact, social icons · gold→red pass |
+| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `MERGED` | 2026-05-29 | Merged Order + Catering split-panel · 860-649-1166 · updated copy · v2.7 |
+| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-05-29 | Real contact data · Manchester CT · 860-649-1166 · v2.8 nav links · © 2026 |
 
 ---
 
