@@ -10,15 +10,15 @@
 
 | # | Section ID | File | Status | Last Modified | Notes |
 |---|------------|------|--------|---------------|-------|
-| 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `CLEAN` | 2026-05-29 | Fixed top nav, logo, links, Order Now button · gold→red pass |
+| 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `MERGED` | 2026-05-29 | Nav links updated · Menu merged · Full Menu removed · Catering added · v2.8 |
 | 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `CLEAN` | 2026-05-29 | Video bg · logo · red/navy/white · Mixkit CDN carousel (5 scenes) |
 | 03 | `s03-marquee` | [s03-marquee.html](s03-marquee.html) | `CLEAN` | 2026-05-29 | Red ticker band · ★ separators · seamless loop · gold→red pass |
 | 04 | `s04-about` | [s04-about.html](s04-about.html) | `MERGED` | 2026-05-29 | Scroll-driven 3D story · 4 chapters · GSAP · parallax · magnetic cards · SVG icons · v2.0 |
-| 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `MERGED` | 2026-05-29 | Real menu cards: White Apizza · Caesar Salad · Chicken Alfredo · v2.5 |
+| 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `MERGED` | 2026-05-29 | Combined with s07 into one Menu section (id="menu") · cards + bridge + tabs · v2.8 |
 | 06 | `s06-stats` | [s06-stats.html](s06-stats.html) | `REMOVED` | 2026-05-29 | Stats section removed from production in v2.5 · file kept as archive |
-| 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `MERGED` | 2026-05-29 | Real menu items: Appetizers, Pizza, Pasta & Breads, Salads & Platters, Desserts · v2.1 |
+| 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `MERGED` | 2026-05-29 | Merged into s05 — tabs flow below 3D cards in combined Menu section · v2.8 |
 | 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `REMOVED` | 2026-05-29 | Packages section removed from production in v2.6 · file kept as archive |
-| 08b | `s08b-catering` | [s08b-catering.html](s08b-catering.html) | `MERGED` | 2026-05-29 | New Catering Call band · 860-649-1166 · pills · Call-to-book CTA · v2.6 |
+| 08b | `s08b-catering` | [s08b-catering.html](s08b-catering.html) | `REMOVED` | 2026-05-29 | Merged into final CTA section in v2.7 · file kept as archive |
 | 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `MERGED` | 2026-05-29 | 12 photos · stacked cards · scale-pop hover · GSAP entrance · lightbox · v2.4 deep fix |
 | 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `CLEAN` | 2026-05-29 | Call to action — Place an Order / View Packages · gold→red pass |
 | 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `CLEAN` | 2026-05-29 | Links, hours, contact, social icons · gold→red pass |
@@ -73,6 +73,7 @@ Any new section or feature should follow this pattern:
 | v2.5 | 2026-05-29 | Remove stats section · s05 cards updated: White Apizza · Caesar Salad · Chicken Alfredo · Nav Menu → Finest Creations + full menu adjacent |
 | v2.6 | 2026-05-29 | Remove Packages section · New Catering Call band — 860-649-1166 · platters/pizza/bar pills · Call-to-book CTA |
 | v2.7 | 2026-05-29 | Merge CTA + Catering → one final section after gallery · split Order/Catering panels · new copy · nav + hero updated |
+| v2.8 | 2026-05-29 | Merge Menu + Full Menu → single section (id="menu") · 3D cards + bridge divider + tabs · nav & footer deduped |
 
 ---
 

@@ -50,6 +50,9 @@
   ║  v2.7  2026-05-29  Merge CTA + Catering → one final  ║
   ║        section after gallery · Split Order/Catering  ║
   ║        panels · New copy · Nav + hero btns updated    ║
+  ║  v2.8  2026-05-29  Merge Menu + Full Menu → one      ║
+  ║        section (id="menu") · Bridge divider between  ║
+  ║        cards & tabs · Nav + footer deduped            ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -389,7 +392,7 @@ h1.brand-name .company{
 .pillar-body{font-size:13px;color:rgba(255,255,255,0.42);line-height:1.75;font-weight:300;position:relative;z-index:1}
 
 /* MENU CARDS */
-#menu{padding:120px 56px;background:var(--dark)}
+#menu{padding:120px 56px 140px;background:var(--dark)}
 .menu-header{text-align:center;margin-bottom:80px}
 .menu-header .sec-tag{justify-content:center}
 .menu-header .sec-tag::before{display:none}
@@ -469,7 +472,8 @@ h1.brand-name .company{
 .card-3d:hover .card-arrow{opacity:1;transform:scale(1)}
 
 /* FULL MENU TABLE */
-#full-menu{padding:120px 56px 140px;background:var(--char)}
+.menu-bridge{padding:64px 0 56px;text-align:center;position:relative}
+.menu-bridge::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(204,19,24,0.22),transparent);}
 .menu-tabs{display:flex;gap:0;margin-bottom:64px;border-bottom:1px solid rgba(204,19,24,0.12);overflow-x:auto}
 .menu-tabs::-webkit-scrollbar{display:none}
 .mtab{
@@ -770,7 +774,7 @@ footer{
   .footer-top{grid-template-columns:1fr 1fr;gap:36px}
   .menu-grid-2col{grid-template-columns:1fr}
   footer{padding:52px 24px 28px}
-  #menu,#gallery,#full-menu{padding:80px 24px}
+  #menu,#gallery{padding:80px 24px}
 }
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -793,7 +797,6 @@ footer{
   <ul class="nav-links">
     <li><a href="#about">Our Story</a></li>
     <li><a href="#menu">Menu</a></li>
-    <li><a href="#full-menu">Full Menu</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#cta">Catering</a></li>
   </ul>
@@ -1054,15 +1057,12 @@ footer{
       </div>
     </div>
   </div>
-</section>
 
-<!-- FULL MENU TABLE -->
-<section id="full-menu">
-  <div class="menu-header reveal">
-    <div class="sec-tag">Complete Menu</div>
-    <h2>Every <em>Dish,</em><br>Every Craving</h2>
-    <p>Made fresh daily in Manchester, Connecticut. Order online or call 860-649-1166.</p>
+  <!-- Bridge: Signature Cards → Full Tabbed Menu -->
+  <div class="menu-bridge">
+    <div class="sec-tag" style="justify-content:center">Every Dish · Every Craving</div>
   </div>
+
   <div class="menu-tabs reveal">
     <div class="mtab active" data-panel="appetizers">Appetizers</div>
     <div class="mtab" data-panel="pizza">Pizza</div>
@@ -1245,8 +1245,7 @@ footer{
       <h5>Explore</h5>
       <ul>
         <li><a href="#about">Our Story</a></li>
-        <li><a href="#menu">Signature Menu</a></li>
-        <li><a href="#full-menu">Full Menu</a></li>
+        <li><a href="#menu">Our Menu</a></li>
         <li><a href="#cta">Catering</a></li>
         <li><a href="#gallery">Gallery</a></li>
       </ul>
