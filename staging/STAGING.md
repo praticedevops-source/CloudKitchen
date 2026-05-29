@@ -13,7 +13,7 @@
 | 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `CLEAN` | 2026-05-29 | Fixed top nav, logo, links, Order Now button · gold→red pass |
 | 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `CLEAN` | 2026-05-29 | Video bg · logo · red/navy/white · Mixkit CDN carousel (5 scenes) |
 | 03 | `s03-marquee` | [s03-marquee.html](s03-marquee.html) | `CLEAN` | 2026-05-29 | Red ticker band · ★ separators · seamless loop · gold→red pass |
-| 04 | `s04-about` | [s04-about.html](s04-about.html) | `MERGED` | 2026-05-29 | 3D clip-path reveal · letter drop · magnetic pillars · digit flip badge · GSAP |
+| 04 | `s04-about` | [s04-about.html](s04-about.html) | `MERGED` | 2026-05-29 | Scroll-driven 3D story · 4 chapters · GSAP · parallax · magnetic cards · SVG icons · v2.0 |
 | 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `CLEAN` | 2026-05-29 | 3 × 3D tilt cards · gold→red pass |
 | 06 | `s06-stats` | [s06-stats.html](s06-stats.html) | `CLEAN` | 2026-05-29 | 4 large numbers (2K+ orders, 48+ items, 4.9★, <35 min) · gold→red pass |
 | 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `CLEAN` | 2026-05-29 | Tabbed menu: Starters, Mains, Bowls, Desserts, Beverages · gold→red pass |
@@ -63,6 +63,8 @@ Any new section or feature should follow this pattern:
 | v1.6 | 2026-05-29 | Curated gallery — 12 unique shots, no duplicates, proper labels |
 | v1.7 | 2026-05-29 | Remove pizza box photo (IMG_2710) · replaced with wooster_street_3974 |
 | v1.8 | 2026-05-29 | s04 approved — About section 3D animation · clip-path reveal · letter drop · magnetic pillar tilt · digit flip badge · mouse parallax · GSAP |
+| v1.9 | 2026-05-29 | Rebrand copy — "Wooster Street Kitchen" → "Wooster Street Food Company" (4 occurrences) |
+| v2.0 | 2026-05-29 | s04 redesign — Scroll-driven Our Story · 4 chapters · GSAP · parallax · magnetic cards · SVG icons · count-up stats |
 
 ---
 

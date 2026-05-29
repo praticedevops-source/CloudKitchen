@@ -25,6 +25,9 @@
   ║        Parallax image · digit flip badge · GSAP        ║
   ║  v1.9  2026-05-29  Rebrand copy — "Wooster Street      ║
   ║        Kitchen" → "Wooster Street Food Company" (4×)  ║
+  ║  v2.0  2026-05-29  s04 approved — Scroll-driven 3D    ║
+  ║        Our Story · 4 chapters · GSAP · parallax ·     ║
+  ║        magnetic cards · SVG icons · count-up stats    ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -202,95 +205,166 @@ h1.brand-name .company{
 }
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ABOUT — v1.8 · 3D animated */
-#about{
-  display:grid;grid-template-columns:1fr 1fr;
-  min-height:100vh;
-  perspective:1400px;
-  transform-style:preserve-3d;
-}
-.about-left{
-  position:relative;overflow:hidden;
-  transform-style:preserve-3d;
-  clip-path:inset(0 100% 0 0);
-}
-.about-img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  filter:brightness(0.62) saturate(1.2) contrast(1.06);
-  transform:scale(1.1);
-  will-change:transform;
-}
-.about-img-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to right,transparent 50%,var(--char) 100%),
-              linear-gradient(to bottom,rgba(8,9,15,0.35),transparent 40%,rgba(8,9,15,0.55) 100%);
-  pointer-events:none;
-}
-.about-fire-tag{
-  position:absolute;top:44px;left:40px;z-index:5;
-  display:flex;align-items:center;gap:8px;
-  background:rgba(8,9,15,0.75);backdrop-filter:blur(14px);
-  border:1px solid rgba(204,19,24,0.3);padding:9px 18px;
-  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);
-  opacity:0;transform:translateY(-12px);
-}
-.fdot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blink 1.4s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.1}}
-.about-badge{
-  position:absolute;bottom:44px;left:40px;z-index:5;
-  background:rgba(8,9,15,0.84);backdrop-filter:blur(16px);
-  border:1px solid rgba(204,19,24,0.22);padding:22px 28px;
-  opacity:0;
-}
-.ab-label{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.ab-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--white);display:flex;}
-.dg{display:inline-block;opacity:0;transform:rotateY(-90deg);transform-origin:left center;}
-.about-right{
-  background:var(--char);
-  padding:80px 68px 80px 64px;
-  display:flex;flex-direction:column;justify-content:center;
-  position:relative;overflow:hidden;
-  clip-path:inset(0 0 0 100%);
-}
-.deco-bg-num{
-  position:absolute;top:-20px;right:-10px;
-  font-family:'Playfair Display',serif;font-size:280px;font-weight:900;
-  color:rgba(204,19,24,0.028);line-height:1;pointer-events:none;user-select:none;
-}
+/* ABOUT — v2.0 · Scroll-driven 3D story */
+/* shared utility — used by menu/packages/gallery too */
 .sec-tag{
   font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--red);
   margin-bottom:22px;display:flex;align-items:center;gap:14px;
   opacity:0;transform:translateX(18px);
 }
 .sec-tag::before{content:'';display:block;width:26px;height:1px;background:var(--red)}
-h2.sec-title{
+
+/* scroll stage */
+.story-stage{position:relative;height:500vh}
+.story-sticky{
+  position:sticky;top:0;height:100vh;
+  overflow:hidden;perspective:1200px;
+}
+/* progress bar */
+.story-progress{position:absolute;top:0;left:0;right:0;height:2px;z-index:100;background:rgba(255,255,255,0.07)}
+.story-progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--red-dark),var(--red));
+  transition:width 0.05s linear;
+  box-shadow:0 0 10px var(--red);
+}
+/* chapter dots */
+.chapter-dots{
+  position:absolute;right:36px;top:50%;transform:translateY(-50%);
+  z-index:100;display:flex;flex-direction:column;gap:14px;
+}
+.chapter-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  cursor:pointer;transition:all 0.4s ease;position:relative;
+}
+.chapter-dot::before{content:'';position:absolute;inset:-5px;border-radius:50%;border:1px solid transparent;transition:border-color 0.4s}
+.chapter-dot.active{background:var(--red);box-shadow:0 0 12px var(--red);transform:scale(1.5)}
+.chapter-dot.active::before{border-color:rgba(204,19,24,0.4)}
+/* scroll cue */
+.scroll-cue{
+  position:absolute;bottom:42px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;transition:opacity 0.6s;z-index:100;pointer-events:none;
+}
+.scroll-cue.show{opacity:1}
+.scroll-cue-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.3));animation:scuLine 2s ease-in-out infinite}
+.scroll-cue-text{font-size:8px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+@keyframes scuLine{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+/* chapter slides */
+.chapter{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:rotateX(8deg) scale(0.95);
+  transform-origin:50% 50%;transform-style:preserve-3d;
+  will-change:opacity,transform;pointer-events:none;
+}
+.chapter.active{opacity:1;transform:rotateX(0deg) scale(1);pointer-events:all}
+/* bg images */
+.chapter-bg{position:absolute;inset:-5%;background-size:cover;background-position:center;will-change:transform}
+.chapter-bg::after{content:'';position:absolute;inset:0}
+#ch1 .chapter-bg::after{background:linear-gradient(135deg,rgba(8,9,15,0.80) 0%,rgba(8,9,15,0.40) 60%,rgba(8,9,15,0.75) 100%)}
+#ch2 .chapter-bg::after{background:linear-gradient(to right,rgba(8,9,15,0.90) 0%,rgba(8,9,15,0.28) 70%,rgba(8,9,15,0.75) 100%)}
+#ch3 .chapter-bg::after{background:linear-gradient(to top,rgba(8,9,15,0.94) 0%,rgba(8,9,15,0.22) 55%,rgba(8,9,15,0.72) 100%)}
+#ch4 .chapter-bg::after{background:rgba(8,9,15,0.92)}
+/* content layout */
+.ch-content{position:relative;z-index:10;width:100%;max-width:1320px;padding:0 80px;display:flex;gap:0}
+#ch1 .ch-content{flex-direction:column;align-items:flex-start;padding-bottom:60px}
+#ch2 .ch-content{flex-direction:column;align-items:flex-start}
+#ch3 .ch-content{flex-direction:column;align-items:center;text-align:center}
+#ch4 .ch-content{flex-direction:column;align-items:center;text-align:center;gap:56px}
+.ch-num{
   font-family:'Playfair Display',serif;
-  font-size:clamp(34px,4vw,60px);font-weight:900;
-  line-height:1.08;letter-spacing:-0.02em;color:var(--white);margin-bottom:26px;
+  font-size:clamp(120px,16vw,200px);font-weight:900;line-height:0.85;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.05);
+  position:absolute;right:80px;bottom:-20px;pointer-events:none;user-select:none;
 }
-h2.sec-title em{font-style:italic;color:var(--red);display:inline;}
-.ch{display:inline-block;opacity:0;transform:translateY(-36px) rotateX(90deg);transform-origin:50% 100%;will-change:transform,opacity;}
-.sp{display:inline-block;width:0.3em;}
-.sec-desc{font-size:14px;line-height:1.88;color:rgba(255,255,255,0.42);max-width:420px;margin-bottom:44px;opacity:0;transform:translateY(14px);}
-.divline{width:100%;height:1px;background:linear-gradient(to right,rgba(204,19,24,0.45),transparent);margin-bottom:34px;transform:scaleX(0);transform-origin:left center;}
-.pillars{display:flex;flex-direction:column;gap:0}
-.pillar{
-  display:flex;align-items:center;gap:22px;padding:17px 0;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-  cursor:default;opacity:0;transform:translateY(18px);
-  transform-style:preserve-3d;will-change:transform;position:relative;
+.ch-eyebrow{
+  font-size:9px;letter-spacing:0.42em;text-transform:uppercase;
+  color:var(--red);margin-bottom:24px;
+  display:flex;align-items:center;gap:14px;
+  opacity:0;transform:translateY(20px);
 }
-.pillar:first-child{border-top:1px solid rgba(255,255,255,0.06)}
-.pillar::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--red);transition:width 0.4s ease;}
-.pillar:hover::after{width:100%}
+.ch-eyebrow::before{content:'';width:40px;height:1px;background:var(--red);box-shadow:0 0 8px var(--red)}
+.ch-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,7vw,100px);font-weight:400;line-height:1.02;margin-bottom:0;
+}
+.ch-headline em{font-style:italic;color:var(--red)}
+.ch-headline .line{display:block;overflow:hidden}
+.ch-headline .line span{display:block;transform:translateY(110%);opacity:0}
+.ch-divider{
+  width:0;height:1px;
+  background:linear-gradient(90deg,var(--red),transparent);
+  margin:32px 0;box-shadow:0 0 6px rgba(204,19,24,0.35);
+}
+.ch-body{
+  font-size:clamp(14px,1.5vw,17px);font-weight:300;
+  color:rgba(255,255,255,0.76);line-height:1.88;
+  max-width:500px;opacity:0;transform:translateY(22px);
+}
+.ch-year-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(204,19,24,0.35);padding:8px 20px;
+  font-size:10px;letter-spacing:0.32em;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);margin-top:44px;
+  opacity:0;transform:translateY(16px);
+}
+.ch-year-tag strong{color:var(--red);font-weight:600;font-size:12px;letter-spacing:0.08em}
+/* ch2 split panel */
+.ch2-img-panel{
+  position:absolute;right:0;top:0;bottom:0;width:40%;
+  overflow:hidden;opacity:0;transform:translateX(60px);
+}
+.ch2-img-panel img{width:100%;height:100%;object-fit:cover;filter:brightness(0.62) saturate(1.25);transform:scale(1.08);will-change:transform}
+.ch2-img-panel::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to right,var(--dark) 0%,transparent 40%)}
+/* ch3 stats */
+.ch3-stats{display:flex;gap:72px;margin-top:32px;opacity:0;transform:translateY(28px)}
+.ch3-stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,6.5vw,84px);font-weight:700;color:var(--white);
+  line-height:1;display:flex;align-items:flex-start;gap:4px;
+}
+.ch3-stat-num sup{font-size:0.42em;color:var(--red);margin-top:10px;font-family:'Inter',sans-serif;font-weight:400}
+.ch3-stat-label{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-top:10px}
+/* ch4 pillar grid */
+.ch4-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,5.5vw,74px);font-weight:400;line-height:1.06;
+  opacity:0;transform:translateY(28px) rotateX(12deg);transform-origin:50% 100%;
+}
+.ch4-headline em{font-style:italic;color:var(--red)}
+.pillar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:100%;opacity:0;transform:translateY(32px)}
+.pillar-card{
+  background:rgba(255,255,255,0.032);border:1px solid rgba(255,255,255,0.065);
+  padding:34px 26px;position:relative;overflow:hidden;
+  cursor:default;transform-style:preserve-3d;transition:box-shadow 0.4s;
+  opacity:0;transform:translateY(30px) rotateX(14deg);
+}
+.pillar-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+  transform:scaleX(0);transition:transform 0.5s ease;
+}
+.pillar-card:hover::before{transform:scaleX(1)}
+.pillar-card::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(204,19,24,0.07) 0%,transparent 65%);
+  opacity:0;transition:opacity 0.4s;
+}
+.pillar-card:hover::after{opacity:1}
+.pillar-card:hover{box-shadow:0 28px 64px rgba(0,0,0,0.5),0 0 0 1px rgba(204,19,24,0.15)}
 .pillar-icon{
-  width:44px;height:44px;border:1px solid rgba(204,19,24,0.28);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px;
-  transition:background 0.3s,border-color 0.3s,box-shadow 0.3s;
+  width:44px;height:44px;border:1px solid rgba(204,19,24,0.28);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;color:var(--red);
+  transition:border-color 0.4s,background 0.4s,box-shadow 0.4s;position:relative;z-index:1;
 }
-.pillar:hover .pillar-icon{background:rgba(204,19,24,0.12);border-color:rgba(204,19,24,0.65);box-shadow:0 0 22px rgba(204,19,24,0.22);}
-.pillar-text h4{font-size:13.5px;font-weight:600;color:var(--white);margin-bottom:3px}
-.pillar-text p{font-size:12px;color:rgba(255,255,255,0.36);line-height:1.55}
+.pillar-icon svg{display:block;flex-shrink:0}
+.pillar-card:hover .pillar-icon{background:rgba(204,19,24,0.1);border-color:var(--red);box-shadow:0 0 14px rgba(204,19,24,0.25)}
+.pillar-n{font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(204,19,24,0.45);margin-bottom:13px;position:relative;z-index:1}
+.pillar-title{font-family:'Playfair Display',serif;font-size:clamp(17px,1.8vw,22px);font-weight:400;margin-bottom:12px;line-height:1.2;position:relative;z-index:1}
+.pillar-body{font-size:13px;color:rgba(255,255,255,0.42);line-height:1.75;font-weight:300;position:relative;z-index:1}
 
 /* MENU CARDS */
 #menu{padding:120px 56px;background:var(--dark)}
@@ -633,9 +707,12 @@ footer{
   .nav-links,.nav-order{display:none}
   .hero-content{padding:0 24px 64px;flex-direction:column;gap:32px;align-items:flex-start}
   .hero-stats{justify-content:flex-start}
-  #about{grid-template-columns:1fr}
-  .about-left{min-height:50vh}
-  .about-right{padding:56px 28px}
+  .ch-content{padding:0 32px}
+  .ch-num{right:24px;font-size:100px}
+  .pillar-grid{grid-template-columns:repeat(2,1fr)}
+  .ch2-img-panel{display:none}
+  .ch3-stats{gap:40px;flex-wrap:wrap;justify-content:center}
+  .chapter-dots{right:16px}
   .cards-3d{grid-template-columns:1fr 1fr}
   #stats{grid-template-columns:1fr 1fr;gap:36px}
   .pkg-grid{grid-template-columns:1fr}
@@ -741,33 +818,127 @@ footer{
   </div>
 </div>
 
-<!-- ABOUT — v1.8 · 3D animated -->
-<section id="about">
-  <div class="about-left" id="about-left">
-    <img class="about-img" id="about-img" src="images/wooster_street_3637.jpeg" alt="Wooster Street Food Company"/>
-    <div class="about-img-overlay"></div>
-    <div class="about-fire-tag" id="fire-tag"><div class="fdot"></div>&nbsp;Live Kitchen</div>
-    <div class="about-badge" id="about-badge">
-      <div class="ab-label">Founded</div>
-      <div class="ab-val">
-        <span class="dg" id="dg0">2</span><span class="dg" id="dg1">0</span><span class="dg" id="dg2">1</span><span class="dg" id="dg3">9</span>
+<!-- ABOUT — v2.0 · Scroll-driven 3D story -->
+<div class="story-stage" id="about">
+  <div class="story-sticky" id="storySticky">
+
+    <div class="story-progress"><div class="story-progress-fill" id="progressFill"></div></div>
+
+    <div class="chapter-dots" id="chapterDots">
+      <div class="chapter-dot active" data-ch="0"></div>
+      <div class="chapter-dot" data-ch="1"></div>
+      <div class="chapter-dot" data-ch="2"></div>
+      <div class="chapter-dot" data-ch="3"></div>
+    </div>
+
+    <div class="scroll-cue show" id="scrollCue">
+      <div class="scroll-cue-line"></div>
+      <div class="scroll-cue-text">Scroll</div>
+    </div>
+
+    <!-- CH1 — ORIGIN -->
+    <div class="chapter active" id="ch1">
+      <div class="chapter-bg" id="ch1bg" style="background-image:url('images/FullSizeRender.jpeg')"></div>
+      <div class="ch-num">01</div>
+      <div class="ch-content">
+        <div class="ch-eyebrow" id="ch1-eyebrow">Our Story</div>
+        <div class="ch-headline" id="ch1-headline">
+          <div class="line"><span>Born on</span></div>
+          <div class="line"><span>Wooster <em>Street.</em></span></div>
+        </div>
+        <div class="ch-divider" id="ch1-divider"></div>
+        <div class="ch-body" id="ch1-body">What began as a single oven and an uncompromising belief in fresh, honest food has become something far bigger — a kitchen built on craft, community, and the relentless pursuit of flavor.</div>
+        <div class="ch-year-tag" id="ch1-tag">Est.&nbsp;<strong>1990</strong>&nbsp;·&nbsp;New Haven, CT</div>
       </div>
     </div>
-  </div>
-  <div class="about-right" id="about-right">
-    <div class="deco-bg-num">01</div>
-    <div class="sec-tag" id="about-sec-tag">Our Philosophy</div>
-    <h2 class="sec-title" id="about-title"></h2>
-    <p class="sec-desc" id="about-desc">Wooster Street Food Company was born from a simple belief: great food shouldn't require a great occasion. We bring the craft, the fire, and the flavor — right to your table, wherever that may be.</p>
-    <div class="divline" id="about-divline"></div>
-    <div class="pillars">
-      <div class="pillar" id="ap0"><div class="pillar-icon">🔥</div><div class="pillar-text"><h4>Fire-Crafted Quality</h4><p>Every dish built with restaurant-grade technique and seasonal ingredients.</p></div></div>
-      <div class="pillar" id="ap1"><div class="pillar-icon">⚡</div><div class="pillar-text"><h4>Lightning-Fast Delivery</h4><p>From our kitchen to your door in under 35 minutes, guaranteed fresh.</p></div></div>
-      <div class="pillar" id="ap2"><div class="pillar-icon">🌿</div><div class="pillar-text"><h4>Locally Sourced</h4><p>Partnered with regional farms for the freshest possible ingredients.</p></div></div>
-      <div class="pillar" id="ap3"><div class="pillar-icon">🎯</div><div class="pillar-text"><h4>Zero Waste Kitchen</h4><p>Sustainable packaging and farm-to-table ethos in every order.</p></div></div>
+
+    <!-- CH2 — CRAFT -->
+    <div class="chapter" id="ch2">
+      <div class="chapter-bg" id="ch2bg" style="background-image:url('images/wooster_street_3583.jpeg')"></div>
+      <div class="ch2-img-panel" id="ch2panel">
+        <img src="images/wooster_street_3980.jpeg" alt="Sliced pizza" id="ch2panelImg"/>
+      </div>
+      <div class="ch-num">02</div>
+      <div class="ch-content">
+        <div class="ch-eyebrow" id="ch2-eyebrow">The Craft</div>
+        <div class="ch-headline" id="ch2-headline">
+          <div class="line"><span>Every dough.</span></div>
+          <div class="line"><span><em>Hand-built.</em></span></div>
+        </div>
+        <div class="ch-divider" id="ch2-divider"></div>
+        <div class="ch-body" id="ch2-body">No shortcuts. Our dough is mixed fresh daily, stretched by hand, topped with ingredients you can actually pronounce. This is the long way — and it's the only way we know.</div>
+      </div>
     </div>
-  </div>
-</section>
+
+    <!-- CH3 — FIRE -->
+    <div class="chapter" id="ch3">
+      <div class="chapter-bg" id="ch3bg" style="background-image:url('images/wooster_street_3980.jpeg')"></div>
+      <div class="ch-num">03</div>
+      <div class="ch-content">
+        <div class="ch-eyebrow" id="ch3-eyebrow">The Fire</div>
+        <div class="ch-headline" id="ch3-headline">
+          <div class="line"><span>Fired with</span></div>
+          <div class="line"><span><em>Intention.</em></span></div>
+        </div>
+        <div class="ch-divider" id="ch3-divider"></div>
+        <div class="ch-body" id="ch3-body">High heat. Precise timing. Every pie pulled at the exact right moment. The char you see isn't a mistake — it's the signature of a kitchen that knows exactly what it's doing.</div>
+        <div class="ch3-stats" id="ch3-stats">
+          <div class="ch3-stat">
+            <div class="ch3-stat-num"><span id="cn1">0</span><sup>K+</sup></div>
+            <div class="ch3-stat-label">Orders delivered</div>
+          </div>
+          <div class="ch3-stat">
+            <div class="ch3-stat-num"><span id="cn2">0</span></div>
+            <div class="ch3-stat-label">Menu items</div>
+          </div>
+          <div class="ch3-stat">
+            <div class="ch3-stat-num"><span id="cn3">0.0</span><sup>★</sup></div>
+            <div class="ch3-stat-label">Avg. rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CH4 — PHILOSOPHY -->
+    <div class="chapter" id="ch4">
+      <div class="chapter-bg" id="ch4bg" style="background-image:url('images/wooster_street_3637.jpeg')"></div>
+      <div class="ch-num">04</div>
+      <div class="ch-content">
+        <div id="ch4-header">
+          <div class="ch-eyebrow" id="ch4-eyebrow" style="justify-content:center">Our Philosophy</div>
+          <div class="ch4-headline" id="ch4-headline">What We <em>Stand For</em></div>
+        </div>
+        <div class="pillar-grid" id="pillarGrid">
+          <div class="pillar-card" id="pc0">
+            <div class="pillar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 0-4 4-4 9a4 4 0 0 0 8 0c0-2-1-3.5-1-3.5s-.5 2-2 2c-1 0-1.5-1-1.5-2C11.5 5.5 12 2 12 2Z"/><path d="M9 17c-1.5 0-3-1-3-3 0-2 1.5-3.5 3-4"/></svg></div>
+            <div class="pillar-n">01</div>
+            <div class="pillar-title">Made Fresh Daily</div>
+            <div class="pillar-body">Dough mixed at dawn. Toppings prepped by hand. Nothing sits in a freezer overnight.</div>
+          </div>
+          <div class="pillar-card" id="pc1">
+            <div class="pillar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-10 0 0 1 4 1 7a5 5 0 0 1-5 5"/><path d="M12 21c0-5 2-8 5-10"/></svg></div>
+            <div class="pillar-n">02</div>
+            <div class="pillar-title">Real Ingredients</div>
+            <div class="pillar-body">Premium cheese, whole-milk mozzarella, house-made sauces. Simple list. Big difference.</div>
+          </div>
+          <div class="pillar-card" id="pc2">
+            <div class="pillar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 15.5"/></svg></div>
+            <div class="pillar-n">03</div>
+            <div class="pillar-title">Fast Without Rush</div>
+            <div class="pillar-body">Under 35 minutes. Not because we cut corners — because we've mastered the flow.</div>
+          </div>
+          <div class="pillar-card" id="pc3">
+            <div class="pillar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div class="pillar-n">04</div>
+            <div class="pillar-title">Community First</div>
+            <div class="pillar-body">Born here. Built here. Every order supports the neighborhood that made us possible.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /story-sticky -->
+</div><!-- /story-stage -->
 
 <!-- MENU CARDS -->
 <section id="menu">
@@ -1291,88 +1462,141 @@ document.querySelectorAll('.pkg-card').forEach(card => {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 /* ══════════════════════════════════════
-   ABOUT SECTION — 3D Animation (v1.8)
+   ABOUT SECTION — Scroll Story (v2.0)
 ══════════════════════════════════════ */
 (function(){
-  /* 1. Build headline with animated char spans */
-  const title = document.getElementById('about-title');
-  if(!title) return;
-  const line1 = 'Fired with';
-  const line2 = 'Intention';
-  let html = '';
-  for(let i=0;i<line1.length;i++){
-    html += line1[i]===' ' ? '<span class="sp"></span>' : `<span class="ch">${line1[i]}</span>`;
+'use strict';
+const CHAPTERS  = ['ch1','ch2','ch3','ch4'];
+let currentChap = 0;
+let animated    = new Set();
+let transitioning = false;
+
+const stage    = document.getElementById('about');
+const sticky   = document.getElementById('storySticky');
+const fillEl   = document.getElementById('progressFill');
+const dotsAll  = document.querySelectorAll('.chapter-dot');
+const scrollCue= document.getElementById('scrollCue');
+if(!stage) return;
+
+/* set line overflow for reveal */
+document.querySelectorAll('.ch-headline .line').forEach(l=>{ l.style.overflow='hidden'; });
+/* pre-set pillar cards */
+gsap.set(['#pc0','#pc1','#pc2','#pc3'],{ opacity:0, y:30, rotateX:14 });
+
+/* ── animate chapter (once) ── */
+function animateChapter(idx){
+  if(animated.has(idx)) return;
+  animated.add(idx);
+  const tl = gsap.timeline({ defaults:{ ease:'expo.out' } });
+  if(idx===0){
+    tl.to('#ch1-eyebrow',            { opacity:1, y:0, duration:0.7 }, 0.1)
+      .to('#ch1-headline .line span',{ y:'0%', opacity:1, duration:0.85, stagger:0.14, ease:'power4.out'}, 0.25)
+      .to('#ch1-divider',            { width:130, duration:0.9, ease:'power3.inOut'}, 0.6)
+      .to('#ch1-body',               { opacity:1, y:0, duration:1.3, ease:'power1.out'}, 0.8)
+      .to('#ch1-tag',                { opacity:1, y:0, duration:0.55, ease:'back.out(1.6)'}, 1.15);
   }
-  html += '<br><em>';
-  for(let i=0;i<line2.length;i++){ html += `<span class="ch">${line2[i]}</span>`; }
-  html += '</em>';
-  title.innerHTML = html;
-
-  /* 2. Intersection Observer — trigger once section enters viewport */
-  const section = document.getElementById('about');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        observer.disconnect();
-        runAboutAnimation();
-      }
-    });
-  }, { threshold: 0.15 });
-  observer.observe(section);
-
-  function runAboutAnimation(){
-    const tl = gsap.timeline({ defaults:{ ease:'expo.out' } });
-
-    tl.to('#about-left',  { clipPath:'inset(0 0% 0 0)', duration:1.1, ease:'power4.inOut' })
-      .to('#about-right', { clipPath:'inset(0 0 0 0%)', duration:1.1, ease:'power4.inOut' }, '<')
-      .to('#about-sec-tag', { opacity:1, x:0, duration:0.55, ease:'power3.out' }, '-=0.4')
-      .to('#about-title .ch', { opacity:1, y:0, rotateX:0, duration:0.52, stagger:0.036, ease:'back.out(1.8)' }, '-=0.25')
-      .to('#about-desc',   { opacity:1, y:0, duration:0.65 }, '-=0.35')
-      .to('#about-divline',{ scaleX:1,  duration:0.9, ease:'power2.inOut' }, '-=0.3')
-      .to(['#ap0','#ap1','#ap2','#ap3'], { opacity:1, y:0, duration:0.5, stagger:0.1, ease:'back.out(1.5)' }, '-=0.45')
-      .to('#fire-tag',    { opacity:1, y:0, duration:0.45, ease:'back.out(1.6)' }, '-=0.85')
-      .to('#about-badge', { opacity:1, duration:0.4 }, '-=0.3')
-      .call(() => {
-        ['dg0','dg1','dg2','dg3'].forEach((id,i) => {
-          setTimeout(() => {
-            gsap.to(document.getElementById(id), {
-              opacity:1, rotateY:0, duration:0.45, ease:'back.out(1.5)',
-              transformOrigin:'left center', transformPerspective:400
-            });
-          }, i * 110);
-        });
-      }, [], '-=0.2');
+  if(idx===1){
+    tl.to('#ch2-eyebrow',            { opacity:1, y:0, duration:0.65 }, 0.1)
+      .to('#ch2-headline .line span',{ y:'0%', opacity:1, duration:0.85, stagger:0.14, ease:'power4.out'}, 0.2)
+      .to('#ch2-divider',            { width:120, duration:0.85, ease:'power3.inOut'}, 0.55)
+      .to('#ch2-body',               { opacity:1, y:0, duration:1.3, ease:'power1.out'}, 0.75)
+      .to('#ch2panel',               { opacity:1, x:0, duration:1.1, ease:'power3.out'}, 0.15);
   }
+  if(idx===2){
+    tl.to('#ch3-eyebrow',            { opacity:1, y:0, duration:0.65 }, 0.1)
+      .to('#ch3-headline .line span',{ y:'0%', opacity:1, duration:0.85, stagger:0.14, ease:'power4.out'}, 0.2)
+      .to('#ch3-divider',            { width:120, duration:0.85, ease:'power3.inOut'}, 0.55)
+      .to('#ch3-body',               { opacity:1, y:0, duration:1.3, ease:'power1.out'}, 0.75)
+      .to('#ch3-stats',              { opacity:1, y:0, duration:0.7, ease:'back.out(1.2)'}, 0.9)
+      .call(countUp, [], 1.0);
+  }
+  if(idx===3){
+    tl.to('#ch4-eyebrow',            { opacity:1, y:0, duration:0.65 }, 0.1)
+      .to('#ch4-headline',           { opacity:1, y:0, rotateX:0, duration:0.8, ease:'power3.out'}, 0.25)
+      .to('#pillarGrid',             { opacity:1, y:0, duration:0.4 }, 0.55)
+      .to(['#pc0','#pc1','#pc2','#pc3'],{ opacity:1, y:0, rotateX:0, duration:0.6, stagger:0.1, ease:'back.out(1.4)', transformPerspective:900 }, 0.6);
+  }
+}
 
-  /* 3. Mouse parallax on about section */
-  const img = document.getElementById('about-img');
-  section.addEventListener('mousemove', (e) => {
-    const r = section.getBoundingClientRect();
-    const mx = ((e.clientX - r.left) / r.width  - 0.5) * 2;
-    const my = ((e.clientY - r.top)  / r.height - 0.5) * 2;
-    gsap.to(section, { rotateY:mx*1.8, rotateX:my*-1.2, duration:1.3, ease:'power2.out', transformPerspective:1400 });
-    gsap.to(img,     { x:mx*14, y:my*9, duration:1.5, ease:'power2.out' });
+/* ── count-up ── */
+function countUp(){
+  [['cn1',0,2,0],['cn2',0,48,0],['cn3',0,4.9,1]].forEach(([id,from,to,dec])=>{
+    const node=document.getElementById(id);
+    let t0=null; const dur=1400;
+    function frame(ts){ if(!t0)t0=ts; const p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3); node.textContent=(from+(to-from)*e).toFixed(dec); if(p<1)requestAnimationFrame(frame); }
+    requestAnimationFrame(frame);
   });
-  section.addEventListener('mouseleave', () => {
-    gsap.to(section, { rotateY:0, rotateX:0, duration:1.1, ease:'power3.out' });
-    gsap.to(img,     { x:0, y:0, duration:1.1, ease:'power3.out' });
-  });
+}
 
-  /* 4. Magnetic 3D tilt on pillars */
-  document.querySelectorAll('.pillar').forEach(pillar => {
-    let rect = null;
-    pillar.addEventListener('mouseenter', () => { rect = pillar.getBoundingClientRect(); });
-    pillar.addEventListener('mousemove', (e) => {
-      if(!rect) rect = pillar.getBoundingClientRect();
-      const rx = ((e.clientY - rect.top  - rect.height/2) / (rect.height/2)) * -7;
-      const ry = ((e.clientX - rect.left - rect.width/2)  / (rect.width/2))  *  9;
-      gsap.to(pillar, { rotateX:rx, rotateY:ry, scale:1.025, duration:0.25, ease:'power2.out', transformPerspective:700 });
-    });
-    pillar.addEventListener('mouseleave', () => {
-      rect = null;
-      gsap.to(pillar, { rotateX:0, rotateY:0, scale:1, duration:0.7, ease:'elastic.out(1,0.55)' });
-    });
+/* ── transition ── */
+function goToChapter(idx){
+  if(idx===currentChap||transitioning) return;
+  const dir=idx>currentChap?1:-1;
+  const outEl=document.getElementById(CHAPTERS[currentChap]);
+  const inEl =document.getElementById(CHAPTERS[idx]);
+  transitioning=true;
+  gsap.to(outEl,{ opacity:0, rotateX:dir*-7, scale:0.96, duration:0.5, ease:'power2.in',
+    onComplete(){ outEl.classList.remove('active'); gsap.set(outEl,{rotateX:dir*8,scale:0.95}); }
   });
+  gsap.set(inEl,{ opacity:0, rotateX:dir*8, scale:0.95 });
+  inEl.classList.add('active');
+  gsap.to(inEl,{ opacity:1, rotateX:0, scale:1, duration:0.75, ease:'expo.out', delay:0.14,
+    onComplete(){ transitioning=false; animateChapter(idx); }
+  });
+  currentChap=idx;
+  dotsAll.forEach((d,i)=>d.classList.toggle('active',i===idx));
+  if(idx>0) scrollCue.classList.remove('show');
+}
+
+/* ── scroll driver ── */
+function onScroll(){
+  const scrollY=window.scrollY, stageTop=stage.offsetTop, stageH=stage.offsetHeight, viewH=window.innerHeight, range=stageH-viewH;
+  if(scrollY<stageTop-viewH*0.4||scrollY>stageTop+stageH) return;
+  const prog=Math.max(0,Math.min(1,(scrollY-stageTop)/range));
+  fillEl.style.width=(prog*100)+'%';
+  const chIdx=Math.min(CHAPTERS.length-1,Math.floor(prog*CHAPTERS.length));
+  if(chIdx!==currentChap) goToChapter(chIdx);
+  const chProg=(prog*CHAPTERS.length)%1;
+  const bgEl=document.getElementById(CHAPTERS[currentChap]+'bg');
+  if(bgEl){ bgEl.style.transform='translateY('+((chProg-0.5)*6)+'%)'; }
+  if(currentChap===1){ const img=document.getElementById('ch2panelImg'); if(img) img.style.transform='scale(1.08) translateY('+((chProg-0.5)*-4)+'%)'; }
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('load',()=>{ onScroll(); animateChapter(0); });
+onScroll();
+
+/* ── dot click ── */
+dotsAll.forEach((dot,i)=>{
+  dot.addEventListener('click',()=>{
+    const t=stage.offsetTop+(i/(CHAPTERS.length-1))*(stage.offsetHeight-window.innerHeight);
+    window.scrollTo({top:t,behavior:'smooth'});
+  });
+});
+
+/* ── mouse parallax ── */
+sticky.addEventListener('mousemove',(e)=>{
+  const w=window.innerWidth,h=window.innerHeight;
+  const mx=(e.clientX/w-0.5)*2, my=(e.clientY/h-0.5)*2;
+  const bgEl=document.getElementById(CHAPTERS[currentChap]+'bg');
+  if(bgEl) gsap.to(bgEl,{x:mx*18,duration:1.5,ease:'power2.out'});
+  gsap.to(sticky,{rotateY:mx*1.4,rotateX:my*-0.9,duration:1.6,ease:'power2.out',transformPerspective:1600});
+});
+sticky.addEventListener('mouseleave',()=>{
+  const bgEl=document.getElementById(CHAPTERS[currentChap]+'bg');
+  if(bgEl) gsap.to(bgEl,{x:0,duration:1.1,ease:'power3.out'});
+  gsap.to(sticky,{rotateY:0,rotateX:0,duration:1.2,ease:'power3.out'});
+});
+
+/* ── magnetic pillar cards ── */
+document.querySelectorAll('.pillar-card').forEach(card=>{
+  let rect=null;
+  card.addEventListener('mouseenter',()=>{ rect=card.getBoundingClientRect(); });
+  card.addEventListener('mousemove',(e)=>{
+    if(!rect) rect=card.getBoundingClientRect();
+    gsap.to(card,{rotateX:((e.clientY-rect.top-rect.height/2)/(rect.height/2))*-9,rotateY:((e.clientX-rect.left-rect.width/2)/(rect.width/2))*11,scale:1.03,duration:0.22,ease:'power2.out',transformPerspective:800});
+  });
+  card.addEventListener('mouseleave',()=>{ rect=null; gsap.to(card,{rotateX:0,rotateY:0,scale:1,duration:0.8,ease:'elastic.out(1,0.5)'}); });
+});
 })();
 </script>
 </body>
