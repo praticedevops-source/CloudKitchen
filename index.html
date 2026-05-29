@@ -34,6 +34,11 @@
   ║  v2.2  2026-05-29  s09 approved — Gallery redesign    ║
   ║        Stacked cards · 3D hover pop (translateZ) ·    ║
   ║        Perspective depth · GSAP entrance · lightbox   ║
+  ║  v2.3  2026-05-29  Gallery fix — mousemove on deck    ║
+  ║        remove overflow clip · pointer-events patch    ║
+  ║  v2.4  2026-05-29  Gallery deep fix — remove          ║
+  ║        preserve-3d · scale-based pop · latest-coord   ║
+  ║        rAF · all hover now fully reliable             ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -576,12 +581,12 @@ h1.brand-name .company{
 .gallery-stage{perspective:1800px;perspective-origin:50% 40%}
 .gallery-deck{
   display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
-  transform-style:preserve-3d;position:relative;
+  position:relative;
 }
 .gal-card{
   position:relative;border-radius:4px;overflow:hidden;cursor:pointer;
   will-change:transform,filter,box-shadow;
-  transform:rotate(var(--rot,0deg)) translate(var(--tx,0px),var(--ty,0px)) translateZ(0px);
+  transform:rotate(var(--rot,0deg)) translate(var(--tx,0px),var(--ty,0px));
   box-shadow:0 4px 16px rgba(0,0,0,0.5),0 1px 4px rgba(0,0,0,0.4);
   transition:transform 0.55s cubic-bezier(0.23,1,0.32,1),box-shadow 0.55s cubic-bezier(0.23,1,0.32,1),filter 0.45s ease;
 }
@@ -598,15 +603,14 @@ h1.brand-name .company{
 .gal-card:nth-child(11){--rot:1.4deg;--tx:2px;--ty:-5px}
 .gal-card:nth-child(12){--rot:-1.9deg;--tx:-3px;--ty:3px}
 .gallery-deck.deck-active .gal-card{
-  transform:rotate(var(--rot,0deg)) translate(var(--tx,0px),var(--ty,0px)) translateZ(-40px) scale(0.93);
+  transform:rotate(var(--rot,0deg)) translate(var(--tx,0px),var(--ty,0px)) scale(0.94);
   filter:brightness(0.45) saturate(0.6);
 }
 .gallery-deck.deck-active .gal-card.card-active{
-  transform:rotate(0deg) translate(0px,0px) translateZ(160px) scale(1.22)!important;
+  transform:rotate(0deg) translate(0px,0px) scale(1.14)!important;
   filter:brightness(1.05) saturate(1.25)!important;
-  box-shadow:0 50px 100px rgba(0,0,0,0.85),0 20px 40px rgba(0,0,0,0.6),0 0 60px rgba(204,19,24,0.18);
-  z-index:50;
-  pointer-events:none;
+  box-shadow:0 45px 90px rgba(0,0,0,0.85),0 18px 36px rgba(0,0,0,0.6),0 0 50px rgba(204,19,24,0.22);
+  z-index:10;
 }
 .gal-img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1)}
 .gal-card.card-active .gal-img{transform:scale(1.04)}
@@ -1464,12 +1468,13 @@ document.querySelectorAll('.pkg-card').forEach(card => {
     const cards   = Array.from(deck.querySelectorAll('.gal-card'));
     let activeCard = null, rafId = null;
 
-    /* Single mousemove on deck — immune to z-overlap blocking mouseenter on cards */
+    /* Single mousemove on deck — nearest-center calc, immune to z-overlap */
+    let mx = 0, my = 0;
     deck.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY; /* capture BEFORE gate so rAF always has latest coords */
       if(rafId) return;
       rafId = requestAnimationFrame(() => {
         rafId = null;
-        const mx = e.clientX, my = e.clientY;
         let nearest = null, minD = Infinity;
         cards.forEach(card => {
           const r  = card.getBoundingClientRect();

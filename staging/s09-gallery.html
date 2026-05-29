@@ -46,7 +46,6 @@ body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:18px;
-  transform-style:preserve-3d;
   position:relative;
 }
 
@@ -58,8 +57,7 @@ body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
   will-change:transform,filter,box-shadow;
   transform:
     rotate(var(--rot,0deg))
-    translate(var(--tx,0px),var(--ty,0px))
-    translateZ(0px);
+    translate(var(--tx,0px),var(--ty,0px));
   box-shadow:
     0 4px 16px rgba(0,0,0,0.5),
     0 1px 4px rgba(0,0,0,0.4);
@@ -88,25 +86,22 @@ body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
   transform:
     rotate(var(--rot,0deg))
     translate(var(--tx,0px),var(--ty,0px))
-    translateZ(-40px)
-    scale(0.93);
+    scale(0.94);
   filter:brightness(0.45) saturate(0.6);
 }
 
-/* The hovered card pops forward in 3D */
+/* The hovered card pops forward */
 .gallery-deck.deck-active .gal-card.card-active{
   transform:
     rotate(0deg)
     translate(0px,0px)
-    translateZ(160px)
-    scale(1.22) !important;
+    scale(1.14) !important;
   filter:brightness(1.05) saturate(1.25) !important;
   box-shadow:
-    0 50px 100px rgba(0,0,0,0.85),
-    0 20px 40px rgba(0,0,0,0.6),
-    0 0 60px rgba(204,19,24,0.18);
-  z-index:50;
-  pointer-events:none;
+    0 45px 90px rgba(0,0,0,0.85),
+    0 18px 36px rgba(0,0,0,0.6),
+    0 0 50px rgba(204,19,24,0.22);
+  z-index:10;
 }
 
 .gal-img{
@@ -357,12 +352,13 @@ body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
   const cards  = Array.from(deck.querySelectorAll('.gal-card'));
   let  activeCard = null, rafId = null;
 
-  /* Single mousemove — immune to z-overlap blocking mouseenter */
+  /* Single mousemove — nearest-center calc, immune to z-overlap */
+  let mx = 0, my = 0;
   deck.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY; /* capture BEFORE gate so rAF always has latest coords */
     if(rafId) return;
     rafId = requestAnimationFrame(() => {
       rafId = null;
-      const mx = e.clientX, my = e.clientY;
       let nearest = null, minD = Infinity;
       cards.forEach(card => {
         const r  = card.getBoundingClientRect();
