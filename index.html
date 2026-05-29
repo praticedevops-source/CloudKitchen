@@ -572,7 +572,7 @@ h1.brand-name .company{
 }
 
 /* GALLERY — Stacked Cards */
-#gallery{padding:120px 56px 140px;background:var(--char);overflow:hidden}
+#gallery{padding:120px 56px 140px;background:var(--char)}
 .gallery-stage{perspective:1800px;perspective-origin:50% 40%}
 .gallery-deck{
   display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
@@ -606,6 +606,7 @@ h1.brand-name .company{
   filter:brightness(1.05) saturate(1.25)!important;
   box-shadow:0 50px 100px rgba(0,0,0,0.85),0 20px 40px rgba(0,0,0,0.6),0 0 60px rgba(204,19,24,0.18);
   z-index:50;
+  pointer-events:none;
 }
 .gal-img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1)}
 .gal-card.card-active .gal-img{transform:scale(1.04)}
@@ -1459,20 +1460,35 @@ document.querySelectorAll('.pkg-card').forEach(card => {
   /* ── GALLERY STACK + LIGHTBOX ── */
   (function(){
     const deck    = document.getElementById('gallery-deck');
-    const cards   = deck ? deck.querySelectorAll('.gal-card') : [];
-    let activeCard = null;
+    if(!deck) return;
+    const cards   = Array.from(deck.querySelectorAll('.gal-card'));
+    let activeCard = null, rafId = null;
 
-    /* Stack hover */
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        if(activeCard === card) return;
-        activeCard = card;
-        deck.classList.add('deck-active');
-        cards.forEach(c => c.classList.remove('card-active'));
-        card.classList.add('card-active');
+    /* Single mousemove on deck — immune to z-overlap blocking mouseenter on cards */
+    deck.addEventListener('mousemove', (e) => {
+      if(rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const mx = e.clientX, my = e.clientY;
+        let nearest = null, minD = Infinity;
+        cards.forEach(card => {
+          const r  = card.getBoundingClientRect();
+          const cx = (r.left + r.right)  * 0.5;
+          const cy = (r.top  + r.bottom) * 0.5;
+          const d  = (mx - cx) * (mx - cx) + (my - cy) * (my - cy);
+          if(d < minD){ minD = d; nearest = card; }
+        });
+        if(nearest && nearest !== activeCard){
+          activeCard = nearest;
+          deck.classList.add('deck-active');
+          cards.forEach(c => c.classList.remove('card-active'));
+          nearest.classList.add('card-active');
+        }
       });
     });
-    if(deck) deck.addEventListener('mouseleave', () => {
+
+    deck.addEventListener('mouseleave', () => {
+      cancelAnimationFrame(rafId); rafId = null;
       deck.classList.remove('deck-active');
       cards.forEach(c => c.classList.remove('card-active'));
       activeCard = null;
