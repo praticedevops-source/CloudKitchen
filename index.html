@@ -57,7 +57,9 @@ nav.scrolled{background:rgba(8,9,15,0.94);backdrop-filter:blur(20px);padding:14p
 
 /* VIDEO BACKGROUND */
 #hero{position:relative;width:100%;height:100vh;overflow:hidden}
-#bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.vid-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:0;transition:opacity 1.6s ease-in-out}
+.vid-slide.active{opacity:1}
+.scene-label{position:absolute;bottom:80px;left:56px;z-index:12;font-size:8px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.30);font-family:'Inter',sans-serif;opacity:0;transition:opacity 0.8s ease;pointer-events:none}
 
 /* CINEMATIC OVERLAY */
 .overlay{
@@ -590,12 +592,24 @@ footer{
 
 <!-- HERO -->
 <section id="hero">
-  <video id="bg-video" autoplay muted loop playsinline>
+  <!-- VIDEO CAROUSEL: Kitchen → Pizza → Fries → BBQ Wings → Salad -->
+  <video class="vid-slide active" data-label="Live Kitchen" autoplay muted playsinline preload="auto">
     <source src="https://videos.pexels.com/video-files/4253135/4253135-hd_1920_1080_25fps.mp4" type="video/mp4">
-    <source src="https://videos.pexels.com/video-files/4253135/4253135-sd_960_506_25fps.mp4" type="video/mp4">
-    <source src="https://videos.pexels.com/video-files/4253356/4253356-sd_960_506_25fps.mp4" type="video/mp4">
-    <source src="https://videos.pexels.com/video-files/4252284/4252284-sd_960_506_25fps.mp4" type="video/mp4">
   </video>
+  <video class="vid-slide" data-label="Fresh from the Oven" muted playsinline preload="none">
+    <source src="https://videos.pexels.com/video-files/5898381/5898381-sd_960_506_30fps.mp4" type="video/mp4">
+  </video>
+  <video class="vid-slide" data-label="Hot &amp; Crispy" muted playsinline preload="none">
+    <source src="https://videos.pexels.com/video-files/8879803/8879803-hd_1366_720_25fps.mp4" type="video/mp4">
+  </video>
+  <video class="vid-slide" data-label="Fire &amp; Smoke" muted playsinline preload="none">
+    <source src="https://videos.pexels.com/video-files/5616130/5616130-hd_1280_720_25fps.mp4" type="video/mp4">
+  </video>
+  <video class="vid-slide" data-label="Garden Fresh" muted playsinline preload="none">
+    <source src="https://videos.pexels.com/video-files/6613032/6613032-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+  <div class="scene-label" id="scene-label"></div>
+
   <div class="overlay"></div>
 
   <!-- CENTERED HERO TEXT -->
@@ -1103,6 +1117,44 @@ document.querySelectorAll('.pkg-card').forEach(card => {
     card.style.transform = '';
   });
 });
+</script>
+
+<script>
+// Video carousel
+(function(){
+  var slides = document.querySelectorAll('.vid-slide');
+  var label  = document.getElementById('scene-label');
+  var current = 0, timer = null;
+  function showLabel(t){
+    if(!label) return;
+    label.textContent = t;
+    label.style.opacity='1';
+    setTimeout(function(){label.style.opacity='0';},3200);
+  }
+  function goTo(idx){
+    slides[current].classList.remove('active');
+    var next = slides[idx];
+    next.preload='auto';
+    try{next.load();}catch(e){}
+    try{next.play();}catch(e){}
+    next.classList.add('active');
+    current = idx;
+    showLabel(next.dataset.label||'');
+  }
+  function advance(){
+    clearTimeout(timer);
+    goTo((current+1)%slides.length);
+    var up = slides[(current+1)%slides.length];
+    up.preload='auto';
+  }
+  slides.forEach(function(v){
+    v.addEventListener('ended', function(){ clearTimeout(timer); advance(); });
+    v.addEventListener('playing', function(){ clearTimeout(timer); timer=setTimeout(advance,12000); });
+  });
+  slides[0].play().catch(function(){});
+  showLabel(slides[0].dataset.label||'');
+  document.addEventListener('click',function(){slides[current].play().catch(function(){});},{once:true});
+})();
 </script>
 </body>
 </html>
