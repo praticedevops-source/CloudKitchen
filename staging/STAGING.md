@@ -1,4 +1,4 @@
-# Wooster Street Kitchen — Staging Status Board
+# Wooster Street Food Company — Staging Status Board
 
 > **Workflow:** Edit `preview.html` → Say "approve [section]" → Claude merges into `index.html` + bumps version log
 >
@@ -11,7 +11,7 @@
 | # | Section ID | File | Status | Last Modified | Notes |
 |---|------------|------|--------|---------------|-------|
 | 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `CLEAN` | 2026-05-28 | Fixed top nav, logo, links, Order Now button |
-| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `CLEAN` | 2026-05-28 | Three.js canvas, fire particles, mouse parallax, stats |
+| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `MERGED` | 2026-05-29 | Video bg · logo · red/navy/white palette · Est.2019 · nav redesign |
 | 03 | `s03-marquee` | [s03-marquee.html](s03-marquee.html) | `CLEAN` | 2026-05-28 | Scrolling gold ticker band |
 | 04 | `s04-about` | [s04-about.html](s04-about.html) | `CLEAN` | 2026-05-28 | Split image + pillars (Fire-Crafted, Delivery, Sourced, Zero Waste) |
 | 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `CLEAN` | 2026-05-28 | 3 × 3D tilt cards (Flatbreads, Grain Bowls, Smoked Provisions) |
@@ -55,18 +55,19 @@ Any new section or feature should follow this pattern:
 | Version | Date | Changes |
 |---------|------|---------|
 | v1.0 | 2026-05-28 | Initial build — Three.js hero · 3D cards · full menu tabs · Packages · Gallery · Footer · Cursor |
+| v1.1 | 2026-05-29 | s02 approved — video bg hero · logo · red/navy/white palette · Est.2019 placement |
 
 ---
 
 ## Design Tokens (shared across all sections)
 
 ```css
---cream:  #f5e6d0   /* primary text, backgrounds */
---gold:   #c8954a   /* accents, borders, highlights */
---red:    #c0392b   /* fire accent */
---dark:   #080604   /* primary background */
---char:   #120d09   /* charcoal — alternating sections */
---orange: #d4521a   /* CTA buttons, fire elements */
+--white:    #ffffff   /* primary text */
+--red:      #CC1318   /* brand red — accents, CTA, dividers */
+--red-dark: #9e0f13   /* deeper red for hover states */
+--navy:     #252A62   /* brand navy — stats bar, subtle UI */
+--dark:     #08090f   /* primary background (navy-tinted near-black) */
+--char:     #0d0e18   /* charcoal — alternating sections */
 ```
 
 Fonts: `Playfair Display` (headings) · `Inter` (body)
