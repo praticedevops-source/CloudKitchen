@@ -20,8 +20,8 @@
 | 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `REMOVED` | 2026-05-29 | Packages section removed from production in v2.6 · file kept as archive |
 | 08b | `s08b-catering` | *(no file)* | `REMOVED` | 2026-05-29 | Was merged into final CTA section in v2.7 — standalone file was never saved |
 | 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `MERGED` | 2026-05-29 | 12 photos · stacked cards · scale-pop hover · GSAP entrance · lightbox · v2.4 deep fix |
-| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `MERGED` | 2026-05-29 | Merged Order + Catering split-panel · 860-649-1166 · updated copy · v2.7 |
-| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-05-29 | Real contact data · Manchester CT · 860-649-1166 · v2.8 nav links · © 2026 |
+| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `MERGED` | 2026-05-29 | Split-panel Order + Catering · Slice added to copy · 860-649-1166 · v2.9 |
+| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-05-29 | Slice added · IG/TK/FB/TW removed · Instagram+Facebook TBD · © 2026 · v2.9 |
 
 ---
 
@@ -74,6 +74,7 @@ Any new section or feature should follow this pattern:
 | v2.6 | 2026-05-29 | Remove Packages section · New Catering Call band — 860-649-1166 · platters/pizza/bar pills · Call-to-book CTA |
 | v2.7 | 2026-05-29 | Merge CTA + Catering → one final section after gallery · split Order/Catering panels · new copy · nav + hero updated |
 | v2.8 | 2026-05-29 | Merge Menu + Full Menu → single section (id="menu") · 3D cards + bridge divider + tabs · nav & footer deduped |
+| v2.9 | 2026-05-29 | Footer: remove IG/TK/FB/TW · add Slice to Order list · fix © 2024 → 2026 · Instagram & Facebook TBD |
 
 ---
 
