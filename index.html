@@ -39,6 +39,11 @@
   ║  v2.4  2026-05-29  Gallery deep fix — remove          ║
   ║        preserve-3d · scale-based pop · latest-coord   ║
   ║        rAF · all hover now fully reliable             ║
+  ║  v2.5  2026-05-29  Nav Menu → #menu (Finest           ║
+  ║        Creations) + #full-menu adjacent · Remove      ║
+  ║        stats section · Cards updated: Pizza·Salad·    ║
+  ║        Pasta from real menu (White Apizza · Caesar    ║
+  ║        Salad · Chicken Alfredo)                       ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -457,28 +462,6 @@ h1.brand-name .company{
 }
 .card-3d:hover .card-arrow{opacity:1;transform:scale(1)}
 
-/* STATS */
-#stats{
-  padding:96px 56px;
-  background:linear-gradient(135deg,rgba(192,57,43,0.06) 0%,rgba(204,19,24,0.04) 100%);
-  border-top:1px solid rgba(204,19,24,0.08);
-  border-bottom:1px solid rgba(204,19,24,0.08);
-  display:grid;grid-template-columns:repeat(4,1fr);gap:48px;
-  text-align:center;
-}
-.big-stat{}
-.big-stat-n{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(52px,6vw,88px);font-weight:900;
-  color:var(--cream);line-height:1;
-}
-.big-stat-n sup{font-size:40%;color:var(--red);vertical-align:top;margin-top:12px;display:inline-block}
-.big-stat-label{
-  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
-  color:rgba(245,230,208,0.35);margin-top:10px;
-}
-.big-stat-desc{font-size:12px;color:rgba(245,230,208,0.22);margin-top:6px;line-height:1.5}
-
 /* FULL MENU TABLE */
 #full-menu{padding:120px 56px 140px;background:var(--char)}
 .menu-tabs{display:flex;gap:0;margin-bottom:64px;border-bottom:1px solid rgba(204,19,24,0.12);overflow-x:auto}
@@ -766,8 +749,7 @@ footer{
   .ch3-stats{gap:40px;flex-wrap:wrap;justify-content:center}
   .chapter-dots{right:16px}
   .cards-3d{grid-template-columns:1fr 1fr}
-  #stats{grid-template-columns:1fr 1fr;gap:36px}
-  .pkg-grid{grid-template-columns:1fr}
+.pkg-grid{grid-template-columns:1fr}
   .gallery-grid{columns:2}
   .footer-top{grid-template-columns:1fr 1fr;gap:36px}
   .menu-grid-2col{grid-template-columns:1fr}
@@ -1000,10 +982,10 @@ footer{
     <p>Each dish is a story told through smoke, spice, and craft — designed to travel perfectly and arrive extraordinary.</p>
   </div>
   <div class="cards-3d">
-    <!-- Card 1 -->
+    <!-- Card 1 — Pizza -->
     <div class="card-3d reveal delay-1">
       <div class="card-inner">
-        <img class="card-img" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80" alt="Flatbreads"/>
+        <img class="card-img" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80" alt="Pizza"/>
         <div class="card-grad"></div>
         <div class="card-3d-shine"></div>
         <div class="card-num">01</div>
@@ -1011,17 +993,17 @@ footer{
           <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#CC1318" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div class="card-body">
-          <div class="card-cat">Wood-Fired</div>
-          <div class="card-name">Heritage Flatbreads</div>
-          <div class="card-items">Heirloom tomato · Burrata · Wild herbs · Chili oil</div>
+          <div class="card-cat">Classic &amp; Specialty Pies</div>
+          <div class="card-name">White Apizza</div>
+          <div class="card-items">Garlic oil · Ricotta · Mozzarella · Fresh basil</div>
           <div class="card-price"><span>from</span> $18</div>
         </div>
       </div>
     </div>
-    <!-- Card 2 -->
+    <!-- Card 2 — Salad -->
     <div class="card-3d reveal delay-2">
       <div class="card-inner">
-        <img class="card-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop&q=80" alt="Bowls"/>
+        <img class="card-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop&q=80" alt="Salad"/>
         <div class="card-grad"></div>
         <div class="card-3d-shine"></div>
         <div class="card-num">02</div>
@@ -1029,17 +1011,17 @@ footer{
           <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#CC1318" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div class="card-body">
-          <div class="card-cat">Signature Bowls</div>
-          <div class="card-name">Ember Grain Bowls</div>
-          <div class="card-items">Roasted farro · Charred veg · Tahini · Herb salsa</div>
-          <div class="card-price"><span>from</span> $16</div>
+          <div class="card-cat">Fresh Salads</div>
+          <div class="card-name">Caesar Salad</div>
+          <div class="card-items">Romaine · Shaved Parmesan · House Caesar · Garlic croutons</div>
+          <div class="card-price"><span>from</span> $11</div>
         </div>
       </div>
     </div>
-    <!-- Card 3 -->
+    <!-- Card 3 — Pasta -->
     <div class="card-3d reveal delay-3">
       <div class="card-inner">
-        <img class="card-img" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&auto=format&fit=crop&q=80" alt="Proteins"/>
+        <img class="card-img" src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&auto=format&fit=crop&q=80" alt="Pasta"/>
         <div class="card-grad"></div>
         <div class="card-3d-shine"></div>
         <div class="card-num">03</div>
@@ -1047,37 +1029,13 @@ footer{
           <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#CC1318" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div class="card-body">
-          <div class="card-cat">Fire &amp; Protein</div>
-          <div class="card-name">Smoked Provisions</div>
-          <div class="card-items">Slow-smoked brisket · Short rib · House-cured salmon</div>
-          <div class="card-price"><span>from</span> $24</div>
+          <div class="card-cat">House Pasta</div>
+          <div class="card-name">Chicken Alfredo</div>
+          <div class="card-items">Grilled chicken · Creamy Alfredo · Fettuccine · Parmesan</div>
+          <div class="card-price"><span>from</span> $19</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section id="stats">
-  <div class="big-stat reveal delay-1">
-    <div class="big-stat-n">2<sup>K+</sup></div>
-    <div class="big-stat-label">Monthly Orders</div>
-    <div class="big-stat-desc">Delivered fresh every month</div>
-  </div>
-  <div class="big-stat reveal delay-2">
-    <div class="big-stat-n">48<sup>+</sup></div>
-    <div class="big-stat-label">Menu Items</div>
-    <div class="big-stat-desc">Rotating seasonal selections</div>
-  </div>
-  <div class="big-stat reveal delay-3">
-    <div class="big-stat-n">4.9<sup>★</sup></div>
-    <div class="big-stat-label">Average Rating</div>
-    <div class="big-stat-desc">Across all delivery platforms</div>
-  </div>
-  <div class="big-stat reveal delay-4">
-    <div class="big-stat-n">&lt;35<sup>min</sup></div>
-    <div class="big-stat-label">Delivery Time</div>
-    <div class="big-stat-desc">Guaranteed or it's on us</div>
   </div>
 </section>
 
