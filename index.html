@@ -10,6 +10,8 @@
   ║        Est.2019 placement · nav redesign            ║
   ║  v1.2  2026-05-29  Switch to Mixkit CDN videos     ║
   ║        Fixes 403 hotlink block from Pexels          ║
+  ║  v1.3  2026-05-29  Full brand color pass              ║
+  ║        All gold → red across all sections            ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -30,10 +32,10 @@
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
 ::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-thumb{background:var(--gold)}
+::-webkit-scrollbar-thumb{background:var(--red)}
 
 /* CURSOR */
-.cursor{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,width 0.3s,height 0.3s,opacity 0.3s;mix-blend-mode:difference}
+.cursor{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--red);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,width 0.3s,height 0.3s,opacity 0.3s;mix-blend-mode:difference}
 .cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,149,74,0.5);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.15s ease,width 0.4s,height 0.4s}
 body:hover .cursor{opacity:1}
 
@@ -116,7 +118,7 @@ h1.brand-name .company{
 
 .divider{
   width:60px;height:1px;
-  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  background:linear-gradient(to right,transparent,var(--red),transparent);
   margin:32px auto;
   opacity:0;animation:fadeIn 1s ease 0.9s forwards;
 }
@@ -158,7 +160,7 @@ h1.brand-name .company{
 }
 .sline{width:1px;height:44px;background:linear-gradient(to bottom,var(--red),transparent);animation:pulse 2.2s ease-in-out infinite}
 
-.scroll-ind .sline{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:spulse 2s ease-in-out infinite}
+.scroll-ind .sline{width:1px;height:50px;background:linear-gradient(to bottom,var(--red),transparent);animation:spulse 2s ease-in-out infinite}
 @keyframes spulse{0%,100%{opacity:0.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.25)}}
 
 /* MARQUEE BAND */
@@ -215,7 +217,7 @@ h1.brand-name .company{
   display:flex;align-items:center;gap:8px;
   background:rgba(8,6,4,0.72);backdrop-filter:blur(12px);
   border:1px solid rgba(200,149,74,0.3);padding:9px 18px;
-  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);
+  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);
 }
 .fdot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blink 1.3s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.1}}
@@ -224,7 +226,7 @@ h1.brand-name .company{
   background:rgba(8,6,4,0.78);backdrop-filter:blur(14px);
   border:1px solid rgba(200,149,74,0.22);padding:20px 26px;
 }
-.ab-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.ab-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
 .ab-val{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--cream)}
 .about-right{
   background:var(--char);
@@ -239,16 +241,16 @@ h1.brand-name .company{
   pointer-events:none;user-select:none;
 }
 .sec-tag{
-  font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);
+  font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--red);
   margin-bottom:22px;display:flex;align-items:center;gap:14px;
 }
-.sec-tag::before{content:'';display:block;width:26px;height:1px;background:var(--gold)}
+.sec-tag::before{content:'';display:block;width:26px;height:1px;background:var(--red)}
 h2.sec-title{
   font-family:'Playfair Display',serif;
   font-size:clamp(36px,4.2vw,62px);font-weight:900;
   line-height:1.04;letter-spacing:-0.02em;color:var(--cream);margin-bottom:26px;
 }
-h2.sec-title em{font-style:italic;color:var(--gold)}
+h2.sec-title em{font-style:italic;color:var(--red)}
 .sec-desc{font-size:14px;line-height:1.85;color:rgba(245,230,208,0.55);max-width:400px;margin-bottom:44px}
 .divline{width:100%;height:1px;background:linear-gradient(to right,rgba(200,149,74,0.3),transparent);margin-bottom:36px}
 .pillars{display:flex;flex-direction:column;gap:0}
@@ -273,13 +275,13 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
 .menu-header{text-align:center;margin-bottom:80px}
 .menu-header .sec-tag{justify-content:center}
 .menu-header .sec-tag::before{display:none}
-.menu-header .sec-tag::after{content:'';display:block;width:26px;height:1px;background:var(--gold)}
+.menu-header .sec-tag::after{content:'';display:block;width:26px;height:1px;background:var(--red)}
 .menu-header h2{
   font-family:'Playfair Display',serif;
   font-size:clamp(42px,6vw,82px);font-weight:900;
   line-height:0.95;letter-spacing:-0.025em;color:var(--cream);
 }
-.menu-header h2 em{font-style:italic;color:var(--gold)}
+.menu-header h2 em{font-style:italic;color:var(--red)}
 .menu-header p{font-size:14px;color:rgba(245,230,208,0.45);max-width:500px;margin:24px auto 0;line-height:1.8}
 
 /* 3D CARD GRID */
@@ -325,21 +327,21 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
 .card-3d:hover .card-3d-shine{opacity:1}
 .card-num{
   position:absolute;top:22px;left:22px;
-  font-size:9px;letter-spacing:0.25em;color:var(--gold);
+  font-size:9px;letter-spacing:0.25em;color:var(--red);
   background:rgba(8,6,4,0.7);backdrop-filter:blur(8px);
   border:1px solid rgba(200,149,74,0.2);padding:5px 12px;
 }
 .card-body{
   position:absolute;bottom:0;left:0;right:0;padding:28px;
 }
-.card-cat{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.card-cat{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
 .card-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:6px;line-height:1.1}
 .card-items{font-size:11px;color:rgba(245,230,208,0.42);line-height:1.6;margin-bottom:14px}
 .card-price{
   display:inline-flex;align-items:center;gap:6px;
   font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);
 }
-.card-price span{font-size:11px;color:var(--gold)}
+.card-price span{font-size:11px;color:var(--red)}
 .card-arrow{
   position:absolute;top:22px;right:22px;
   width:34px;height:34px;border:1px solid rgba(200,149,74,0.3);
@@ -363,7 +365,7 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
   font-size:clamp(52px,6vw,88px);font-weight:900;
   color:var(--cream);line-height:1;
 }
-.big-stat-n sup{font-size:40%;color:var(--gold);vertical-align:top;margin-top:12px;display:inline-block}
+.big-stat-n sup{font-size:40%;color:var(--red);vertical-align:top;margin-top:12px;display:inline-block}
 .big-stat-label{
   font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
   color:rgba(245,230,208,0.35);margin-top:10px;
@@ -378,7 +380,7 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
   padding:14px 28px;cursor:pointer;color:rgba(245,230,208,0.4);
   border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.3s;
 }
-.mtab.active,.mtab:hover{color:var(--cream);border-bottom-color:var(--gold)}
+.mtab.active,.mtab:hover{color:var(--cream);border-bottom-color:var(--red)}
 .menu-panel{display:none}
 .menu-panel.active{display:block}
 .menu-grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
@@ -392,7 +394,7 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
 .menu-row-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
 .menu-row-desc{font-size:11px;color:rgba(245,230,208,0.35);margin-top:3px;line-height:1.5}
 .menu-row-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);white-space:nowrap}
-.menu-row-price span{font-size:11px;color:var(--gold)}
+.menu-row-price span{font-size:11px;color:var(--red)}
 
 /* PACKAGES */
 #packages{padding:120px 56px;background:var(--dark)}
@@ -423,18 +425,18 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
 }
 .pkg-fire{font-size:22px;margin-bottom:22px}
 .pkg-name{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:8px}
-.pkg-sub{font-size:11px;letter-spacing:0.15em;color:var(--gold);margin-bottom:28px;text-transform:uppercase}
+.pkg-sub{font-size:11px;letter-spacing:0.15em;color:var(--red);margin-bottom:28px;text-transform:uppercase}
 .pkg-price{
   font-family:'Playfair Display',serif;font-size:52px;font-weight:900;
   color:var(--cream);line-height:1;margin-bottom:6px;
 }
-.pkg-price sup{font-size:24px;color:var(--gold);vertical-align:top;margin-top:8px;display:inline-block}
+.pkg-price sup{font-size:24px;color:var(--red);vertical-align:top;margin-top:8px;display:inline-block}
 .pkg-price sub{font-size:16px;color:rgba(245,230,208,0.4)}
 .pkg-min{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,230,208,0.3);margin-bottom:36px}
 .pkg-divider{width:100%;height:1px;background:linear-gradient(to right,rgba(200,149,74,0.3),transparent);margin-bottom:28px}
 .pkg-items{display:flex;flex-direction:column;gap:12px}
 .pkg-item{display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(245,230,208,0.65)}
-.pkg-item-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.pkg-item-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
 .pkg-cta{
   display:block;width:100%;margin-top:36px;
   font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
@@ -442,11 +444,11 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
   font-weight:600;transition:opacity 0.3s;
 }
 .pkg-cta:hover{opacity:0.82}
-.pkg-card.featured .pkg-cta{background:var(--gold);color:var(--dark)}
+.pkg-card.featured .pkg-cta{background:var(--red);color:var(--dark)}
 .featured-badge{
   position:absolute;top:24px;right:24px;
   font-size:9px;letter-spacing:0.2em;text-transform:uppercase;
-  background:var(--gold);color:var(--dark);padding:5px 12px;font-weight:700;
+  background:var(--red);color:var(--dark);padding:5px 12px;font-weight:700;
 }
 
 /* GALLERY */
@@ -476,7 +478,7 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
   display:flex;align-items:flex-end;padding:18px;
 }
 .gal-item:hover .gal-overlay{opacity:1}
-.gal-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold)}
+.gal-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red)}
 
 /* CTA */
 #cta{
@@ -498,7 +500,7 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
   font-size:clamp(44px,7vw,96px);font-weight:900;
   line-height:0.95;letter-spacing:-0.025em;color:var(--cream);margin-bottom:24px;
 }
-#cta h2 em{font-style:italic;color:var(--gold)}
+#cta h2 em{font-style:italic;color:var(--red)}
 #cta p{font-size:15px;color:rgba(245,230,208,0.55);max-width:440px;margin:0 auto 44px;line-height:1.8}
 .cta-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
 .btn-big{
@@ -508,9 +510,9 @@ h2.sec-title em{font-style:italic;color:var(--gold)}
 .btn-big-fill{background:var(--orange);color:#fff}
 .btn-big-fill:hover{opacity:0.82}
 .btn-big-ghost{border:1px solid rgba(200,149,74,0.45);color:var(--cream)}
-.btn-big-ghost:hover{background:rgba(200,149,74,0.1);border-color:var(--gold)}
+.btn-big-ghost:hover{background:rgba(200,149,74,0.1);border-color:var(--red)}
 .tel-link{display:block;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,230,208,0.3);margin-top:22px;text-decoration:none}
-.tel-link:hover{color:var(--gold)}
+.tel-link:hover{color:var(--red)}
 
 /* FOOTER */
 footer{
@@ -519,11 +521,11 @@ footer{
 }
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
 .footer-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:0.08em;color:var(--cream);margin-bottom:16px}
-.footer-logo span{color:var(--gold)}
+.footer-logo span{color:var(--red)}
 .footer-desc{font-size:13px;color:rgba(245,230,208,0.4);line-height:1.8;max-width:280px;margin-bottom:24px}
 .footer-contact-item{font-size:12px;color:rgba(245,230,208,0.45);margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.footer-contact-item span{color:var(--gold);font-size:14px}
-.footer-col h5{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.footer-contact-item span{color:var(--red);font-size:14px}
+.footer-col h5{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
 .footer-col ul{list-style:none}
 .footer-col ul li{margin-bottom:12px}
 .footer-col ul li a{font-size:13px;color:rgba(245,230,208,0.4);text-decoration:none;transition:color 0.3s}
@@ -537,7 +539,7 @@ footer{
   color:rgba(245,230,208,0.4);font-size:13px;text-decoration:none;
   transition:all 0.3s;
 }
-.social-links a:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,149,74,0.08)}
+.social-links a:hover{border-color:var(--red);color:var(--red);background:rgba(200,149,74,0.08)}
 
 /* SCROLL REVEAL */
 .reveal{opacity:0;transform:translateY(44px) rotateX(8deg);transform-origin:top;transition:opacity 0.8s cubic-bezier(0.23,1,0.32,1),transform 0.8s cubic-bezier(0.23,1,0.32,1)}
@@ -728,7 +730,7 @@ footer{
         <div class="card-3d-shine"></div>
         <div class="card-num">01</div>
         <div class="card-arrow">
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#c8954a" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#CC1318" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div class="card-body">
           <div class="card-cat">Wood-Fired</div>
@@ -746,7 +748,7 @@ footer{
         <div class="card-3d-shine"></div>
         <div class="card-num">02</div>
         <div class="card-arrow">
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#c8954a" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#CC1318" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div class="card-body">
           <div class="card-cat">Signature Bowls</div>
@@ -764,7 +766,7 @@ footer{
         <div class="card-3d-shine"></div>
         <div class="card-num">03</div>
         <div class="card-arrow">
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#c8954a" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#CC1318" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div class="card-body">
           <div class="card-cat">Fire &amp; Protein</div>
