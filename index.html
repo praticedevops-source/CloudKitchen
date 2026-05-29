@@ -22,7 +22,7 @@
 :root{
   --white:#ffffff;--red:#CC1318;--red-dark:#9e0f13;
   --navy:#252A62;--dark:#08090f;
-  --cream:#ffffff;--gold:#CC1318;--orange:#CC1318;
+  --cream:#ffffff;--gold:#c8954a;--orange:#CC1318;
   --char:#0d0e18;--smoke:rgba(255,255,255,0.06);
 }
 html{scroll-behavior:smooth}
@@ -56,7 +56,7 @@ nav.scrolled{background:rgba(8,9,15,0.94);backdrop-filter:blur(20px);padding:14p
 .nav-order:hover{background:var(--red);color:#fff;border-color:var(--red)}
 
 /* VIDEO BACKGROUND */
-#hero{position:fixed;inset:0;top:37px;width:100%;height:calc(100vh - 37px);overflow:hidden}
+#hero{position:relative;width:100%;height:100vh;overflow:hidden}
 #bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
 
 /* CINEMATIC OVERLAY */
@@ -74,37 +74,12 @@ nav.scrolled{background:rgba(8,9,15,0.94);backdrop-filter:blur(20px);padding:14p
 
 
 
-/* NAV */
-nav{
-  position:absolute;top:0;left:0;right:0;z-index:10;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:24px 56px;
-}
-.nav-logo{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
-.nav-logo img{
-  height:68px;width:auto;object-fit:contain;
-  filter:drop-shadow(0 2px 12px rgba(0,0,0,0.7)) brightness(1.15);
-}
-.nav-logo-est{
-  font-size:7px;letter-spacing:0.42em;text-transform:uppercase;
-  color:rgba(255,255,255,0.40);padding-left:2px;font-family:'Inter',sans-serif;
-}
-.nav-links{display:flex;align-items:center;gap:36px}
-.nav-links a{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.3s}
-.nav-links a:hover{color:var(--red)}
-.nav-cta{
-  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
-  background:transparent;border:1px solid rgba(204,19,24,0.65);
-  color:var(--red);padding:10px 24px;cursor:pointer;
-  transition:all 0.3s;font-family:'Inter',sans-serif;
-}
-.nav-cta:hover{background:var(--red);color:var(--white);border-color:var(--red)}
 
 /* CENTERED HERO TEXT */
 .hero-center{
   position:absolute;inset:0;z-index:5;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:60px;
-  text-align:center;padding:0 40px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 40px 80px;
 }
 .eyebrow-line{
   display:flex;align-items:center;gap:18px;
