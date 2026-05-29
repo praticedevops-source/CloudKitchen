@@ -3,12 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>[s07 · FULL MENU] Wooster Street Kitchen — Staging</title>
+<title>s07 · Full Menu — Wooster Street Food Company (Staging)</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--cream:#f5e6d0;--gold:#c8954a;--red:#c0392b;--dark:#080604;--char:#120d09;--orange:#d4521a;}
-body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream)}
+:root{
+  --white:#ffffff;--red:#CC1318;--red-dark:#9e0f13;
+  --navy:#252A62;--dark:#08090f;--char:#0d0e18;
+}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white)}
 
 /* ── STAGING DEV BANNER ── */
 #dev-banner{
@@ -17,38 +20,99 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream)}
   display:flex;align-items:center;gap:16px;padding:8px 20px;font-size:11px;letter-spacing:0.12em;
 }
 .db-section{background:rgba(204,19,24,0.15);border:1px solid rgba(204,19,24,0.4);color:var(--red);padding:3px 10px;font-weight:600;}
-.db-name{color:var(--cream);font-weight:500}
-.db-hint{color:rgba(245,230,208,0.3);font-size:10px}
+.db-name{color:var(--white);font-weight:500}
+.db-hint{color:rgba(255,255,255,0.3);font-size:10px}
 .db-status{margin-left:auto;padding:3px 12px;font-weight:700;}
-.db-status.clean{background:rgba(80,80,80,0.3);color:#999;border:1px solid rgba(150,150,150,0.3)}
 .db-status.draft{background:rgba(200,140,0,0.2);color:#f5a623;border:1px solid rgba(200,140,0,0.4)}
 
 /* ── FULL MENU ── */
-#full-menu{padding:120px 56px;background:var(--char)}
+#full-menu{padding:120px 56px 140px;background:var(--char)}
 .menu-header{text-align:center;margin-bottom:64px}
-.sec-tag{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--red);margin-bottom:22px;display:flex;align-items:center;justify-content:center;gap:14px;}
+.sec-tag{
+  font-size:9px;letter-spacing:0.38em;text-transform:uppercase;
+  color:var(--red);margin-bottom:22px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+}
 .sec-tag::before,.sec-tag::after{content:'';display:block;width:26px;height:1px;background:var(--red)}
-.menu-header h2{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,82px);font-weight:900;line-height:0.95;letter-spacing:-0.025em;color:var(--cream);}
+.menu-header h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,6vw,82px);
+  font-weight:900;line-height:0.95;letter-spacing:-0.025em;color:var(--white);
+}
 .menu-header h2 em{font-style:italic;color:var(--red)}
-.menu-header p{font-size:14px;color:rgba(245,230,208,0.45);max-width:500px;margin:24px auto 0;line-height:1.8}
+.menu-header p{font-size:14px;color:rgba(255,255,255,0.42);max-width:500px;margin:24px auto 0;line-height:1.8}
 
-.menu-tabs{display:flex;gap:0;margin-bottom:64px;border-bottom:1px solid rgba(204,19,24,0.12)}
-.mtab{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:14px 28px;cursor:pointer;color:rgba(245,230,208,0.4);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.3s;}
-.mtab.active,.mtab:hover{color:var(--cream);border-bottom-color:var(--red)}
+/* ── TABS ── */
+.menu-tabs{
+  display:flex;gap:0;margin-bottom:64px;
+  border-bottom:1px solid rgba(204,19,24,0.12);
+  overflow-x:auto;
+}
+.menu-tabs::-webkit-scrollbar{display:none}
+.mtab{
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  padding:14px 28px;cursor:pointer;color:rgba(255,255,255,0.38);
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:all 0.3s;white-space:nowrap;flex-shrink:0;
+}
+.mtab.active,.mtab:hover{color:var(--white);border-bottom-color:var(--red)}
 .menu-panel{display:none}
 .menu-panel.active{display:block}
+
+/* ── MENU GRID ── */
 .menu-grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
-.menu-row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid rgba(245,230,208,0.06);transition:padding-left 0.25s;cursor:default;}
+.menu-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.055);
+  transition:padding-left 0.25s;cursor:default;
+}
 .menu-row:hover{padding-left:8px}
 .menu-row-left{flex:1;padding-right:24px}
-.menu-row-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
-.menu-row-desc{font-size:11px;color:rgba(245,230,208,0.35);margin-top:3px;line-height:1.5}
-.menu-row-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);white-space:nowrap}
+.menu-row-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--white)}
+.menu-row-desc{font-size:11px;color:rgba(255,255,255,0.32);margin-top:3px;line-height:1.5}
+.menu-row-price{
+  font-family:'Playfair Display',serif;font-size:20px;
+  color:var(--white);white-space:nowrap;
+}
 .menu-row-price span{font-size:11px;color:var(--red)}
+.menu-row-price.mkt{font-size:13px;letter-spacing:0.05em;color:rgba(255,255,255,0.42)}
+
+/* ── CATEGORY DIVIDER ── */
+.menu-cat{
+  grid-column:1/-1;
+  font-size:9px;letter-spacing:0.32em;text-transform:uppercase;
+  color:var(--red);padding:28px 0 10px;
+  border-bottom:1px solid rgba(204,19,24,0.18);
+  margin-bottom:4px;
+}
+
+/* ── WINGS SAUCE LIST ── */
+.sauce-list{
+  grid-column:1/-1;
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:12px 0 20px;
+}
+.sauce-chip{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  border:1px solid rgba(204,19,24,0.35);color:rgba(255,255,255,0.55);
+  padding:5px 14px;border-radius:20px;
+  transition:background 0.25s,color 0.25s,border-color 0.25s;
+}
+.sauce-chip:hover{background:rgba(204,19,24,0.15);color:var(--white);border-color:var(--red)}
+
+/* ── BAR OPTIONS NOTE ── */
+.menu-note{
+  grid-column:1/-1;
+  font-size:12px;color:rgba(255,255,255,0.35);
+  line-height:1.8;padding:20px 0 8px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  margin-top:8px;
+}
+.menu-note strong{color:rgba(255,255,255,0.6)}
 
 @media(max-width:900px){
   .menu-grid-2col{grid-template-columns:1fr}
-  #full-menu{padding:80px 24px}
+  #full-menu{padding:80px 24px 100px}
   .mtab{padding:12px 16px;font-size:10px}
 }
 </style>
@@ -58,9 +122,9 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream)}
 <!-- STAGING DEV BANNER -->
 <div id="dev-banner">
   <span class="db-section">s07</span>
-  <span class="db-name">FULL MENU — Tabbed Menu Table</span>
-  <span class="db-hint">5 tabs: Starters · Mains · Bowls · Desserts · Beverages · Click tabs to switch</span>
-  <span class="db-status clean">● CLEAN</span>
+  <span class="db-name">FULL MENU — Real Wooster Street Items</span>
+  <span class="db-hint">5 tabs: Appetizers · Pizza · Pasta & Breads · Salads & Platters · Desserts</span>
+  <span class="db-status draft">● DRAFT</span>
 </div>
 
 <!-- FULL MENU TABLE -->
@@ -68,71 +132,379 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream)}
   <div class="menu-header">
     <div class="sec-tag">Complete Menu</div>
     <h2>Every <em>Dish,</em><br>Every Craving</h2>
-    <p>Browse our full offering — from starters to sweets, crafted fresh each morning.</p>
+    <p>Made fresh daily in Manchester, Connecticut. Order online or call 860-649-1166.</p>
   </div>
+
   <div class="menu-tabs">
-    <div class="mtab active" data-panel="starters">Starters</div>
-    <div class="mtab" data-panel="mains">Main Plates</div>
-    <div class="mtab" data-panel="bowls">Bowls &amp; Salads</div>
+    <div class="mtab active" data-panel="appetizers">Appetizers</div>
+    <div class="mtab" data-panel="pizza">Pizza</div>
+    <div class="mtab" data-panel="pasta">Pasta &amp; Breads</div>
+    <div class="mtab" data-panel="salads">Salads &amp; Platters</div>
     <div class="mtab" data-panel="desserts">Desserts</div>
-    <div class="mtab" data-panel="drinks">Beverages</div>
   </div>
 
-  <!-- Starters -->
-  <div class="menu-panel active" id="panel-starters">
+  <!-- ══ APPETIZERS ══ -->
+  <div class="menu-panel active" id="panel-appetizers">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Charred Flatbread Bites</div><div class="menu-row-desc">Whipped ricotta, fig jam, micro basil</div></div><div class="menu-row-price"><span>$</span>12</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Ember-Roasted Hummus</div><div class="menu-row-desc">Smoked paprika, pine nuts, warm pita</div></div><div class="menu-row-price"><span>$</span>11</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Crispy Cauliflower</div><div class="menu-row-desc">Harissa aioli, pomegranate, herb oil</div></div><div class="menu-row-price"><span>$</span>13</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Bone Marrow Toast</div><div class="menu-row-desc">Chimichurri, pickled shallots, sourdough</div></div><div class="menu-row-price"><span>$</span>16</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Smoked Salmon Tartine</div><div class="menu-row-desc">Crème fraîche, capers, dill, lemon zest</div></div><div class="menu-row-price"><span>$</span>17</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fire-Roasted Tomato Bisque</div><div class="menu-row-desc">Calabrian chili, basil cream, croutons</div></div><div class="menu-row-price"><span>$</span>10</div></div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Garlic Knots</div>
+          <div class="menu-row-desc">Baked fresh, tossed in garlic butter &amp; parsley</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>7</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Fried Mozzarella</div>
+          <div class="menu-row-desc">Golden-fried, served with marinara dipping sauce</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>10</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Fried Ravioli</div>
+          <div class="menu-row-desc">Crispy cheese ravioli, served with marinara</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>11</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Fried Dough</div>
+          <div class="menu-row-desc">Classic Italian-style, dusted with powdered sugar</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>7</div>
+      </div>
+
+      <div class="menu-cat">Wings — Choose Your Sauce</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Buffalo Wings</div>
+          <div class="menu-row-desc">Served with celery &amp; ranch or blue cheese</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>14</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">BBQ Wings</div>
+          <div class="menu-row-desc">Slow-smoked BBQ glaze, celery &amp; dipping sauce</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>14</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Plain Wings</div>
+          <div class="menu-row-desc">Naked &amp; crispy — sauce on the side</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>13</div>
+      </div>
+
+      <div style="grid-column:1/-1;padding:14px 0 8px">
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px">Available sauces</div>
+        <div class="sauce-list">
+          <div class="sauce-chip">Mild Buffalo</div>
+          <div class="sauce-chip">Hot Buffalo</div>
+          <div class="sauce-chip">BBQ</div>
+          <div class="sauce-chip">Garlic Parmesan</div>
+          <div class="sauce-chip">Honey Hot</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Mains -->
-  <div class="menu-panel" id="panel-mains">
+  <!-- ══ PIZZA ══ -->
+  <div class="menu-panel" id="panel-pizza">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">12-Hour Smoked Brisket</div><div class="menu-row-desc">House rub, pickled jalapeño, brioche bun</div></div><div class="menu-row-price"><span>$</span>26</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Braised Short Rib Plate</div><div class="menu-row-desc">Red wine reduction, truffled grits, gremolata</div></div><div class="menu-row-price"><span>$</span>32</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Heritage Chicken Thighs</div><div class="menu-row-desc">Za'atar spice, lemon yogurt, charred flatbread</div></div><div class="menu-row-price"><span>$</span>22</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Pan-Seared Halibut</div><div class="menu-row-desc">Saffron broth, fennel, citrus salsa verde</div></div><div class="menu-row-price"><span>$</span>28</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Wild Mushroom Risotto</div><div class="menu-row-desc">Black truffle, aged parmigiano, fresh herbs</div></div><div class="menu-row-price"><span>$</span>21</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Spiced Lamb Meatballs</div><div class="menu-row-desc">Tomato sugo, whipped feta, mint gremolata</div></div><div class="menu-row-price"><span>$</span>24</div></div>
+
+      <div class="menu-cat">Classic Pies</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Cheese Pizza</div>
+          <div class="menu-row-desc">House tomato sauce, whole milk mozzarella</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>18</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Pepperoni Pizza</div>
+          <div class="menu-row-desc">Cup-and-char pepperoni, tomato sauce, mozzarella</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>21</div>
+      </div>
+
+      <div class="menu-cat">Specialty Pizzas</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Buffalo Chicken Pie</div>
+          <div class="menu-row-desc">Grilled chicken, buffalo sauce, blue cheese, red onion</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>24</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Meat Lover's Pie</div>
+          <div class="menu-row-desc">Pepperoni, sausage, bacon, ham, mozzarella</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>25</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">White Apizza</div>
+          <div class="menu-row-desc">Garlic oil, ricotta, mozzarella, fresh basil</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>22</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Garden Veggie Pie</div>
+          <div class="menu-row-desc">Peppers, mushrooms, onions, olives, spinach</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>22</div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Bowls -->
-  <div class="menu-panel" id="panel-bowls">
+  <!-- ══ PASTA & BREADS ══ -->
+  <div class="menu-panel" id="panel-pasta">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Ember Grain Bowl</div><div class="menu-row-desc">Farro, charred veg, tahini, herb salsa</div></div><div class="menu-row-price"><span>$</span>16</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Kale &amp; Ancient Grain Salad</div><div class="menu-row-desc">Roasted squash, pepitas, pomegranate vinaigrette</div></div><div class="menu-row-price"><span>$</span>15</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Poke-Style Tuna Bowl</div><div class="menu-row-desc">Sushi-grade tuna, avocado, soy-ginger dressing</div></div><div class="menu-row-price"><span>$</span>19</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Roasted Beet &amp; Goat Cheese</div><div class="menu-row-desc">Arugula, candied walnut, champagne vinaigrette</div></div><div class="menu-row-price"><span>$</span>14</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Mediterranean Quinoa Bowl</div><div class="menu-row-desc">Olives, cucumber, heirloom tomato, tzatziki</div></div><div class="menu-row-price"><span>$</span>15</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Chipotle BBQ Chicken Bowl</div><div class="menu-row-desc">Cilantro rice, black bean, pickled red onion</div></div><div class="menu-row-price"><span>$</span>17</div></div>
+
+      <div class="menu-cat">Pasta Selections</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Penne with Tomato Sauce</div>
+          <div class="menu-row-desc">Classic house-made marinara, fresh basil, Parmesan</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>14</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Baked Ziti</div>
+          <div class="menu-row-desc">Ricotta, mozzarella, tomato sauce, baked until golden</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>16</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Chicken Alfredo</div>
+          <div class="menu-row-desc">Grilled chicken, creamy Alfredo, fettuccine, Parmesan</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>19</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Chicken Pesto</div>
+          <div class="menu-row-desc">Grilled chicken, house basil pesto, penne, cherry tomato</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>19</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Pasta Primavera</div>
+          <div class="menu-row-desc">Seasonal vegetables, garlic, olive oil, light tomato broth</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>16</div>
+      </div>
+
+      <div class="menu-cat">Stuffed Breads</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Buffalo Chicken Bread</div>
+          <div class="menu-row-desc">Grilled chicken, buffalo sauce, mozzarella, baked in-house</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>13</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Pepperoni &amp; Cheese Bread</div>
+          <div class="menu-row-desc">Cup-and-char pepperoni, mozzarella, house tomato</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>13</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Veggie Stuffed Bread</div>
+          <div class="menu-row-desc">Roasted peppers, spinach, mushrooms, mozzarella</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>12</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Chicken Bacon Ranch Bread</div>
+          <div class="menu-row-desc">Grilled chicken, crispy bacon, ranch, mozzarella</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>14</div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Desserts -->
+  <!-- ══ SALADS & PLATTERS ══ -->
+  <div class="menu-panel" id="panel-salads">
+    <div class="menu-grid-2col">
+
+      <div class="menu-cat">Salads</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">House Salad</div>
+          <div class="menu-row-desc">Mixed greens, tomato, cucumber, red onion, house Italian dressing</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>9</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Caesar Salad</div>
+          <div class="menu-row-desc">Romaine, shaved Parmesan, house Caesar, garlic croutons</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>11</div>
+      </div>
+
+      <div class="menu-cat">Catering Cold Platters</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Cold Cut Platter</div>
+          <div class="menu-row-desc">Assorted Italian meats, cheese, olives &amp; accompaniments</div>
+        </div>
+        <div class="menu-row-price mkt">Catering</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Sandwich Platter</div>
+          <div class="menu-row-desc">Assorted half-subs &amp; wraps, individually portioned</div>
+        </div>
+        <div class="menu-row-price mkt">Catering</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Veggie Platter</div>
+          <div class="menu-row-desc">Seasonal crudités with hummus &amp; ranch dip</div>
+        </div>
+        <div class="menu-row-price mkt">Catering</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Fruit Platter</div>
+          <div class="menu-row-desc">Seasonal fresh-cut fruits, beautifully arranged</div>
+        </div>
+        <div class="menu-row-price mkt">Catering</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Fresh Mozzarella Skewers</div>
+          <div class="menu-row-desc">Bocconcini, cherry tomato, basil, EVOO &amp; balsamic</div>
+        </div>
+        <div class="menu-row-price mkt">Catering</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Fruit Skewers</div>
+          <div class="menu-row-desc">Seasonal fruit on skewers, served with honey yogurt dip</div>
+        </div>
+        <div class="menu-row-price mkt">Catering</div>
+      </div>
+
+      <div class="menu-note">
+        <strong>Catering items</strong> are priced per person based on event size &amp; selections.
+        Call us at <strong>860-649-1166</strong> or email for a custom quote.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DESSERTS ══ -->
   <div class="menu-panel" id="panel-desserts">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Salted Caramel Pot de Crème</div><div class="menu-row-desc">Fleur de sel, candied almond, crème fraîche</div></div><div class="menu-row-price"><span>$</span>9</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Burnt Basque Cheesecake</div><div class="menu-row-desc">Seasonal berry coulis, powdered sugar</div></div><div class="menu-row-price"><span>$</span>11</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Warm Chocolate Torte</div><div class="menu-row-desc">Valrhona 72%, vanilla bean gelato, caramel</div></div><div class="menu-row-price"><span>$</span>12</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Honey Panna Cotta</div><div class="menu-row-desc">Wildflower honey, blood orange, pistachios</div></div><div class="menu-row-price"><span>$</span>9</div></div>
+
+      <div class="menu-cat">Sweets</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Cheesecake</div>
+          <div class="menu-row-desc">Classic New York–style, served with berry compote</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>8</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Peanut Butter Pie</div>
+          <div class="menu-row-desc">Creamy peanut butter filling, chocolate ganache crust</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>8</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Apple Pie</div>
+          <div class="menu-row-desc">Warm cinnamon spiced apples, buttery flaky crust</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>8</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Limoncello Cake</div>
+          <div class="menu-row-desc">Light lemon sponge, limoncello glaze, whipped cream</div>
+        </div>
+        <div class="menu-row-price"><span>$</span>9</div>
+      </div>
+
+      <div class="menu-cat">Bar Options — Catering &amp; Events</div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Beer &amp; Wine Bar</div>
+          <div class="menu-row-desc">Curated selection of craft beers &amp; Italian wines</div>
+        </div>
+        <div class="menu-row-price mkt">Per Person</div>
+      </div>
+
+      <div class="menu-row">
+        <div class="menu-row-left">
+          <div class="menu-row-name">Full Liquor Bar</div>
+          <div class="menu-row-desc">Premium spirits, mixers, beer &amp; wine — full open bar</div>
+        </div>
+        <div class="menu-row-price mkt">Per Person</div>
+      </div>
+
+      <div class="menu-note">
+        <strong>Bar packages</strong> are available for private events &amp; catering orders.
+        Contact us at <strong>860-649-1166</strong> to customize your event bar.
+      </div>
+
     </div>
   </div>
 
-  <!-- Drinks -->
-  <div class="menu-panel" id="panel-drinks">
-    <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Cold Brew House Blend</div><div class="menu-row-desc">Single-origin, slow-steeped 18 hours</div></div><div class="menu-row-price"><span>$</span>6</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Seasonal Agua Fresca</div><div class="menu-row-desc">Rotating fruit blend, lemon, fresh mint</div></div><div class="menu-row-price"><span>$</span>5</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Sparkling Lemonade</div><div class="menu-row-desc">Housemade, lavender or hibiscus</div></div><div class="menu-row-price"><span>$</span>5</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Turmeric Ginger Tonic</div><div class="menu-row-desc">Coconut water base, lemon, honey</div></div><div class="menu-row-price"><span>$</span>7</div></div>
-    </div>
-  </div>
 </section>
 
 <script>
@@ -142,7 +514,7 @@ document.querySelectorAll('.mtab').forEach(tab => {
     document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
     const panel = document.getElementById('panel-' + tab.dataset.panel);
-    if (panel) panel.classList.add('active');
+    if(panel) panel.classList.add('active');
   });
 });
 </script>

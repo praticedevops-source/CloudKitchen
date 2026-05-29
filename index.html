@@ -28,6 +28,12 @@
   ║  v2.0  2026-05-29  s04 approved — Scroll-driven 3D    ║
   ║        Our Story · 4 chapters · GSAP · parallax ·     ║
   ║        magnetic cards · SVG icons · count-up stats    ║
+  ║  v2.1  2026-05-29  s07 approved — Real menu items     ║
+  ║        Appetizers·Pizza·Pasta&Breads·Salads·Desserts  ║
+  ║        Wings sauces · Catering platters · Bar opts    ║
+  ║  v2.2  2026-05-29  s09 approved — Gallery redesign    ║
+  ║        Stacked cards · 3D hover pop (translateZ) ·    ║
+  ║        Perspective depth · GSAP entrance · lightbox   ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -469,28 +475,46 @@ h1.brand-name .company{
 .big-stat-desc{font-size:12px;color:rgba(245,230,208,0.22);margin-top:6px;line-height:1.5}
 
 /* FULL MENU TABLE */
-#full-menu{padding:120px 56px;background:var(--char)}
-.menu-tabs{display:flex;gap:0;margin-bottom:64px;border-bottom:1px solid rgba(204,19,24,0.12)}
+#full-menu{padding:120px 56px 140px;background:var(--char)}
+.menu-tabs{display:flex;gap:0;margin-bottom:64px;border-bottom:1px solid rgba(204,19,24,0.12);overflow-x:auto}
+.menu-tabs::-webkit-scrollbar{display:none}
 .mtab{
   font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
-  padding:14px 28px;cursor:pointer;color:rgba(245,230,208,0.4);
-  border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.3s;
+  padding:14px 28px;cursor:pointer;color:rgba(255,255,255,0.38);
+  border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.3s;white-space:nowrap;flex-shrink:0;
 }
-.mtab.active,.mtab:hover{color:var(--cream);border-bottom-color:var(--red)}
+.mtab.active,.mtab:hover{color:var(--white);border-bottom-color:var(--red)}
 .menu-panel{display:none}
 .menu-panel.active{display:block}
 .menu-grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
 .menu-row{
   display:flex;align-items:center;justify-content:space-between;
-  padding:18px 0;border-bottom:1px solid rgba(245,230,208,0.06);
+  padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.055);
   transition:padding-left 0.25s;cursor:default;
 }
 .menu-row:hover{padding-left:8px}
 .menu-row-left{flex:1;padding-right:24px}
-.menu-row-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
-.menu-row-desc{font-size:11px;color:rgba(245,230,208,0.35);margin-top:3px;line-height:1.5}
-.menu-row-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);white-space:nowrap}
+.menu-row-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--white)}
+.menu-row-desc{font-size:11px;color:rgba(255,255,255,0.32);margin-top:3px;line-height:1.5}
+.menu-row-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--white);white-space:nowrap}
 .menu-row-price span{font-size:11px;color:var(--red)}
+.menu-row-price.mkt{font-size:13px;letter-spacing:0.05em;color:rgba(255,255,255,0.42)}
+.menu-cat{
+  grid-column:1/-1;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;
+  color:var(--red);padding:28px 0 10px;border-bottom:1px solid rgba(204,19,24,0.18);margin-bottom:4px;
+}
+.sauce-list{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;padding:12px 0 20px}
+.sauce-chip{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  border:1px solid rgba(204,19,24,0.35);color:rgba(255,255,255,0.55);
+  padding:5px 14px;border-radius:20px;transition:background 0.25s,color 0.25s,border-color 0.25s;
+}
+.sauce-chip:hover{background:rgba(204,19,24,0.15);color:var(--white);border-color:var(--red)}
+.menu-note{
+  grid-column:1/-1;font-size:12px;color:rgba(255,255,255,0.35);
+  line-height:1.8;padding:20px 0 8px;border-top:1px solid rgba(255,255,255,0.05);margin-top:8px;
+}
+.menu-note strong{color:rgba(255,255,255,0.6)}
 
 /* PACKAGES */
 #packages{padding:120px 56px;background:var(--dark)}
@@ -547,40 +571,63 @@ h1.brand-name .company{
   background:var(--red);color:var(--dark);padding:5px 12px;font-weight:700;
 }
 
-/* GALLERY */
-#gallery{padding:120px 56px;background:var(--char)}
-.gallery-grid{
-  columns:4;column-gap:14px;
-  margin-top:72px;
+/* GALLERY — Stacked Cards */
+#gallery{padding:120px 56px 140px;background:var(--char);overflow:hidden}
+.gallery-stage{perspective:1800px;perspective-origin:50% 40%}
+.gallery-deck{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+  transform-style:preserve-3d;position:relative;
 }
-.gal-item{
-  break-inside:avoid;margin-bottom:14px;overflow:hidden;
-  position:relative;cursor:pointer;border-radius:2px;
-  transition:transform 0.45s cubic-bezier(0.23,1,0.32,1),box-shadow 0.45s;
+.gal-card{
+  position:relative;border-radius:4px;overflow:hidden;cursor:pointer;
+  will-change:transform,filter,box-shadow;
+  transform:rotate(var(--rot,0deg)) translate(var(--tx,0px),var(--ty,0px)) translateZ(0px);
+  box-shadow:0 4px 16px rgba(0,0,0,0.5),0 1px 4px rgba(0,0,0,0.4);
+  transition:transform 0.55s cubic-bezier(0.23,1,0.32,1),box-shadow 0.55s cubic-bezier(0.23,1,0.32,1),filter 0.45s ease;
 }
-.gal-item:hover{transform:scale(1.025) translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,0.55)}
-.gal-img{
-  width:100%;display:block;
-  filter:brightness(0.72) saturate(1.1);
-  transition:filter 0.5s,transform 0.6s;
-  transform:scale(1.05);
+.gal-card:nth-child(1){--rot:-1.5deg;--tx:-3px;--ty:5px}
+.gal-card:nth-child(2){--rot:1.2deg;--tx:2px;--ty:-4px}
+.gal-card:nth-child(3){--rot:-0.8deg;--tx:4px;--ty:3px}
+.gal-card:nth-child(4){--rot:2.1deg;--tx:-5px;--ty:-2px}
+.gal-card:nth-child(5){--rot:-2.4deg;--tx:6px;--ty:4px}
+.gal-card:nth-child(6){--rot:0.9deg;--tx:-2px;--ty:-6px}
+.gal-card:nth-child(7){--rot:1.7deg;--tx:3px;--ty:2px}
+.gal-card:nth-child(8){--rot:-1.1deg;--tx:-4px;--ty:7px}
+.gal-card:nth-child(9){--rot:2.3deg;--tx:5px;--ty:-3px}
+.gal-card:nth-child(10){--rot:-0.6deg;--tx:-6px;--ty:4px}
+.gal-card:nth-child(11){--rot:1.4deg;--tx:2px;--ty:-5px}
+.gal-card:nth-child(12){--rot:-1.9deg;--tx:-3px;--ty:3px}
+.gallery-deck.deck-active .gal-card{
+  transform:rotate(var(--rot,0deg)) translate(var(--tx,0px),var(--ty,0px)) translateZ(-40px) scale(0.93);
+  filter:brightness(0.45) saturate(0.6);
 }
-.gal-item:hover .gal-img{filter:brightness(0.45) saturate(1.6);transform:scale(1.0)}
+.gallery-deck.deck-active .gal-card.card-active{
+  transform:rotate(0deg) translate(0px,0px) translateZ(160px) scale(1.22)!important;
+  filter:brightness(1.05) saturate(1.25)!important;
+  box-shadow:0 50px 100px rgba(0,0,0,0.85),0 20px 40px rgba(0,0,0,0.6),0 0 60px rgba(204,19,24,0.18);
+  z-index:50;
+}
+.gal-img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1)}
+.gal-card.card-active .gal-img{transform:scale(1.04)}
 .gal-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(8,6,4,0.88) 0%,rgba(8,6,4,0.1) 55%,transparent 100%);
-  opacity:0;transition:opacity 0.4s;
-  display:flex;align-items:flex-end;justify-content:space-between;padding:16px 18px;
+  background:linear-gradient(to top,rgba(8,6,4,0.88) 0%,rgba(8,6,4,0.05) 50%,transparent 100%);
+  opacity:0;transition:opacity 0.35s ease;
+  display:flex;align-items:flex-end;justify-content:space-between;padding:16px 18px;pointer-events:none;
 }
-.gal-item:hover .gal-overlay{opacity:1}
-.gal-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);font-weight:500}
-.gal-zoom{
-  width:28px;height:28px;border:1px solid rgba(255,255,255,0.5);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:16px;color:#fff;line-height:1;flex-shrink:0;
-  transition:background 0.3s,border-color 0.3s;
+.gal-card.card-active .gal-overlay{opacity:1}
+.gal-label{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--white);font-weight:500}
+.gal-icon{
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:#fff;line-height:1;flex-shrink:0;
+  background:var(--red);
 }
-.gal-item:hover .gal-zoom{background:var(--red);border-color:var(--red)}
+.gal-card::before{
+  content:'';position:absolute;inset:0;border:1px solid rgba(204,19,24,0.0);
+  border-radius:4px;transition:border-color 0.35s;pointer-events:none;z-index:5;
+}
+.gal-card.card-active::before{border-color:rgba(204,19,24,0.4)}
 
 /* LIGHTBOX */
 .lb-backdrop{
@@ -1034,69 +1081,100 @@ footer{
   <div class="menu-header reveal">
     <div class="sec-tag">Complete Menu</div>
     <h2>Every <em>Dish,</em><br>Every Craving</h2>
-    <p>Browse our full offering — from starters to sweets, crafted fresh each morning.</p>
+    <p>Made fresh daily in Manchester, Connecticut. Order online or call 860-649-1166.</p>
   </div>
   <div class="menu-tabs reveal">
-    <div class="mtab active" data-panel="starters">Starters</div>
-    <div class="mtab" data-panel="mains">Main Plates</div>
-    <div class="mtab" data-panel="bowls">Bowls &amp; Salads</div>
+    <div class="mtab active" data-panel="appetizers">Appetizers</div>
+    <div class="mtab" data-panel="pizza">Pizza</div>
+    <div class="mtab" data-panel="pasta">Pasta &amp; Breads</div>
+    <div class="mtab" data-panel="salads">Salads &amp; Platters</div>
     <div class="mtab" data-panel="desserts">Desserts</div>
-    <div class="mtab" data-panel="drinks">Beverages</div>
   </div>
 
-  <!-- Starters -->
-  <div class="menu-panel active" id="panel-starters">
+  <!-- Appetizers -->
+  <div class="menu-panel active" id="panel-appetizers">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Charred Flatbread Bites</div><div class="menu-row-desc">Whipped ricotta, fig jam, micro basil</div></div><div class="menu-row-price"><span>$</span>12</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Ember-Roasted Hummus</div><div class="menu-row-desc">Smoked paprika, pine nuts, warm pita</div></div><div class="menu-row-price"><span>$</span>11</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Crispy Cauliflower</div><div class="menu-row-desc">Harissa aioli, pomegranate, herb oil</div></div><div class="menu-row-price"><span>$</span>13</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Bone Marrow Toast</div><div class="menu-row-desc">Chimichurri, pickled shallots, sourdough</div></div><div class="menu-row-price"><span>$</span>16</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Smoked Salmon Tartine</div><div class="menu-row-desc">Crème fraîche, capers, dill, lemon zest</div></div><div class="menu-row-price"><span>$</span>17</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fire-Roasted Tomato Bisque</div><div class="menu-row-desc">Calabrian chili, basil cream, croutons</div></div><div class="menu-row-price"><span>$</span>10</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Garlic Knots</div><div class="menu-row-desc">Baked fresh, tossed in garlic butter &amp; parsley</div></div><div class="menu-row-price"><span>$</span>7</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fried Mozzarella</div><div class="menu-row-desc">Golden-fried, served with marinara dipping sauce</div></div><div class="menu-row-price"><span>$</span>10</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fried Ravioli</div><div class="menu-row-desc">Crispy cheese ravioli, served with marinara</div></div><div class="menu-row-price"><span>$</span>11</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fried Dough</div><div class="menu-row-desc">Classic Italian-style, dusted with powdered sugar</div></div><div class="menu-row-price"><span>$</span>7</div></div>
+      <div class="menu-cat">Wings — Choose Your Sauce</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Buffalo Wings</div><div class="menu-row-desc">Served with celery &amp; ranch or blue cheese</div></div><div class="menu-row-price"><span>$</span>14</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">BBQ Wings</div><div class="menu-row-desc">Slow-smoked BBQ glaze, celery &amp; dipping sauce</div></div><div class="menu-row-price"><span>$</span>14</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Plain Wings</div><div class="menu-row-desc">Naked &amp; crispy — sauce on the side</div></div><div class="menu-row-price"><span>$</span>13</div></div>
+      <div style="grid-column:1/-1;padding:14px 0 8px">
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px">Available sauces</div>
+        <div class="sauce-list">
+          <div class="sauce-chip">Mild Buffalo</div>
+          <div class="sauce-chip">Hot Buffalo</div>
+          <div class="sauce-chip">BBQ</div>
+          <div class="sauce-chip">Garlic Parmesan</div>
+          <div class="sauce-chip">Honey Hot</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Mains -->
-  <div class="menu-panel" id="panel-mains">
+  <!-- Pizza -->
+  <div class="menu-panel" id="panel-pizza">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">12-Hour Smoked Brisket</div><div class="menu-row-desc">House rub, pickled jalapeño, brioche bun</div></div><div class="menu-row-price"><span>$</span>26</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Braised Short Rib Plate</div><div class="menu-row-desc">Red wine reduction, truffled grits, gremolata</div></div><div class="menu-row-price"><span>$</span>32</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Heritage Chicken Thighs</div><div class="menu-row-desc">Za'atar spice, lemon yogurt, charred flatbread</div></div><div class="menu-row-price"><span>$</span>22</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Pan-Seared Halibut</div><div class="menu-row-desc">Saffron broth, fennel, citrus salsa verde</div></div><div class="menu-row-price"><span>$</span>28</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Wild Mushroom Risotto</div><div class="menu-row-desc">Black truffle, aged parmigiano, fresh herbs</div></div><div class="menu-row-price"><span>$</span>21</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Spiced Lamb Meatballs</div><div class="menu-row-desc">Tomato sugo, whipped feta, mint gremolata</div></div><div class="menu-row-price"><span>$</span>24</div></div>
+      <div class="menu-cat">Classic Pies</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Cheese Pizza</div><div class="menu-row-desc">House tomato sauce, whole milk mozzarella</div></div><div class="menu-row-price"><span>$</span>18</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Pepperoni Pizza</div><div class="menu-row-desc">Cup-and-char pepperoni, tomato sauce, mozzarella</div></div><div class="menu-row-price"><span>$</span>21</div></div>
+      <div class="menu-cat">Specialty Pizzas</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Buffalo Chicken Pie</div><div class="menu-row-desc">Grilled chicken, buffalo sauce, blue cheese, red onion</div></div><div class="menu-row-price"><span>$</span>24</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Meat Lover's Pie</div><div class="menu-row-desc">Pepperoni, sausage, bacon, ham, mozzarella</div></div><div class="menu-row-price"><span>$</span>25</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">White Apizza</div><div class="menu-row-desc">Garlic oil, ricotta, mozzarella, fresh basil</div></div><div class="menu-row-price"><span>$</span>22</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Garden Veggie Pie</div><div class="menu-row-desc">Peppers, mushrooms, onions, olives, spinach</div></div><div class="menu-row-price"><span>$</span>22</div></div>
     </div>
   </div>
 
-  <!-- Bowls -->
-  <div class="menu-panel" id="panel-bowls">
+  <!-- Pasta & Breads -->
+  <div class="menu-panel" id="panel-pasta">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Ember Grain Bowl</div><div class="menu-row-desc">Farro, charred veg, tahini, herb salsa</div></div><div class="menu-row-price"><span>$</span>16</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Kale & Ancient Grain Salad</div><div class="menu-row-desc">Roasted squash, pepitas, pomegranate vinaigrette</div></div><div class="menu-row-price"><span>$</span>15</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Poke-Style Tuna Bowl</div><div class="menu-row-desc">Sushi-grade tuna, avocado, soy-ginger dressing</div></div><div class="menu-row-price"><span>$</span>19</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Roasted Beet & Goat Cheese</div><div class="menu-row-desc">Arugula, candied walnut, champagne vinaigrette</div></div><div class="menu-row-price"><span>$</span>14</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Mediterranean Quinoa Bowl</div><div class="menu-row-desc">Olives, cucumber, heirloom tomato, tzatziki</div></div><div class="menu-row-price"><span>$</span>15</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Chipotle BBQ Chicken Bowl</div><div class="menu-row-desc">Cilantro rice, black bean, pickled red onion</div></div><div class="menu-row-price"><span>$</span>17</div></div>
+      <div class="menu-cat">Pasta Selections</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Penne with Tomato Sauce</div><div class="menu-row-desc">Classic house-made marinara, fresh basil, Parmesan</div></div><div class="menu-row-price"><span>$</span>14</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Baked Ziti</div><div class="menu-row-desc">Ricotta, mozzarella, tomato sauce, baked until golden</div></div><div class="menu-row-price"><span>$</span>16</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Chicken Alfredo</div><div class="menu-row-desc">Grilled chicken, creamy Alfredo, fettuccine, Parmesan</div></div><div class="menu-row-price"><span>$</span>19</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Chicken Pesto</div><div class="menu-row-desc">Grilled chicken, house basil pesto, penne, cherry tomato</div></div><div class="menu-row-price"><span>$</span>19</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Pasta Primavera</div><div class="menu-row-desc">Seasonal vegetables, garlic, olive oil, light tomato broth</div></div><div class="menu-row-price"><span>$</span>16</div></div>
+      <div class="menu-cat">Stuffed Breads</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Buffalo Chicken Bread</div><div class="menu-row-desc">Grilled chicken, buffalo sauce, mozzarella, baked in-house</div></div><div class="menu-row-price"><span>$</span>13</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Pepperoni &amp; Cheese Bread</div><div class="menu-row-desc">Cup-and-char pepperoni, mozzarella, house tomato</div></div><div class="menu-row-price"><span>$</span>13</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Veggie Stuffed Bread</div><div class="menu-row-desc">Roasted peppers, spinach, mushrooms, mozzarella</div></div><div class="menu-row-price"><span>$</span>12</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Chicken Bacon Ranch Bread</div><div class="menu-row-desc">Grilled chicken, crispy bacon, ranch, mozzarella</div></div><div class="menu-row-price"><span>$</span>14</div></div>
+    </div>
+  </div>
+
+  <!-- Salads & Platters -->
+  <div class="menu-panel" id="panel-salads">
+    <div class="menu-grid-2col">
+      <div class="menu-cat">Salads</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">House Salad</div><div class="menu-row-desc">Mixed greens, tomato, cucumber, red onion, house Italian dressing</div></div><div class="menu-row-price"><span>$</span>9</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Caesar Salad</div><div class="menu-row-desc">Romaine, shaved Parmesan, house Caesar, garlic croutons</div></div><div class="menu-row-price"><span>$</span>11</div></div>
+      <div class="menu-cat">Catering Cold Platters</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Cold Cut Platter</div><div class="menu-row-desc">Assorted Italian meats, cheese, olives &amp; accompaniments</div></div><div class="menu-row-price mkt">Catering</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Sandwich Platter</div><div class="menu-row-desc">Assorted half-subs &amp; wraps, individually portioned</div></div><div class="menu-row-price mkt">Catering</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Veggie Platter</div><div class="menu-row-desc">Seasonal crudités with hummus &amp; ranch dip</div></div><div class="menu-row-price mkt">Catering</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fruit Platter</div><div class="menu-row-desc">Seasonal fresh-cut fruits, beautifully arranged</div></div><div class="menu-row-price mkt">Catering</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fresh Mozzarella Skewers</div><div class="menu-row-desc">Bocconcini, cherry tomato, basil, EVOO &amp; balsamic</div></div><div class="menu-row-price mkt">Catering</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Fruit Skewers</div><div class="menu-row-desc">Seasonal fruit on skewers, served with honey yogurt dip</div></div><div class="menu-row-price mkt">Catering</div></div>
+      <div class="menu-note"><strong>Catering items</strong> are priced per person based on event size &amp; selections. Call us at <strong>860-649-1166</strong> for a custom quote.</div>
     </div>
   </div>
 
   <!-- Desserts -->
   <div class="menu-panel" id="panel-desserts">
     <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Salted Caramel Pot de Crème</div><div class="menu-row-desc">Fleur de sel, candied almond, crème fraîche</div></div><div class="menu-row-price"><span>$</span>9</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Burnt Basque Cheesecake</div><div class="menu-row-desc">Seasonal berry coulis, powdered sugar</div></div><div class="menu-row-price"><span>$</span>11</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Warm Chocolate Torte</div><div class="menu-row-desc">Valrhona 72%, vanilla bean gelato, caramel</div></div><div class="menu-row-price"><span>$</span>12</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Honey Panna Cotta</div><div class="menu-row-desc">Wildflower honey, blood orange, pistachios</div></div><div class="menu-row-price"><span>$</span>9</div></div>
-    </div>
-  </div>
-
-  <!-- Drinks -->
-  <div class="menu-panel" id="panel-drinks">
-    <div class="menu-grid-2col">
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Cold Brew House Blend</div><div class="menu-row-desc">Single-origin, slow-steeped 18 hours</div></div><div class="menu-row-price"><span>$</span>6</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Seasonal Agua Fresca</div><div class="menu-row-desc">Rotating fruit blend, lemon, fresh mint</div></div><div class="menu-row-price"><span>$</span>5</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Sparkling Lemonade</div><div class="menu-row-desc">Housemade, lavender or hibiscus</div></div><div class="menu-row-price"><span>$</span>5</div></div>
-      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Turmeric Ginger Tonic</div><div class="menu-row-desc">Coconut water base, lemon, honey</div></div><div class="menu-row-price"><span>$</span>7</div></div>
+      <div class="menu-cat">Sweets</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Cheesecake</div><div class="menu-row-desc">Classic New York–style, served with berry compote</div></div><div class="menu-row-price"><span>$</span>8</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Peanut Butter Pie</div><div class="menu-row-desc">Creamy peanut butter filling, chocolate ganache crust</div></div><div class="menu-row-price"><span>$</span>8</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Apple Pie</div><div class="menu-row-desc">Warm cinnamon spiced apples, buttery flaky crust</div></div><div class="menu-row-price"><span>$</span>8</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Limoncello Cake</div><div class="menu-row-desc">Light lemon sponge, limoncello glaze, whipped cream</div></div><div class="menu-row-price"><span>$</span>9</div></div>
+      <div class="menu-cat">Bar Options — Catering &amp; Events</div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Beer &amp; Wine Bar</div><div class="menu-row-desc">Curated selection of craft beers &amp; Italian wines</div></div><div class="menu-row-price mkt">Per Person</div></div>
+      <div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">Full Liquor Bar</div><div class="menu-row-desc">Premium spirits, mixers, beer &amp; wine — full open bar</div></div><div class="menu-row-price mkt">Per Person</div></div>
+      <div class="menu-note"><strong>Bar packages</strong> are available for private events &amp; catering orders. Contact us at <strong>860-649-1166</strong> to customize your event bar.</div>
     </div>
   </div>
 </section>
@@ -1173,54 +1251,20 @@ footer{
     <h2>Behind the <em>Fire</em></h2>
     <p>A glimpse into the craft, the kitchen, and the passion that fuels every dish.</p>
   </div>
-      <div class="gallery-grid">
-    <div class="gal-item reveal delay-1" data-lb="0">
-      <img class="gal-img" src="images/wooster_street_3583.jpeg" alt="Crafted by Hand"/>
-      <div class="gal-overlay"><div class="gal-label">Crafted by Hand</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="1">
-      <img class="gal-img" src="images/wooster_street_3980.jpeg" alt="Sliced & Served"/>
-      <div class="gal-overlay"><div class="gal-label">Sliced & Served</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-1" data-lb="2">
-      <img class="gal-img" src="images/wooster_street_3861.jpeg" alt="White Apizza"/>
-      <div class="gal-overlay"><div class="gal-label">White Apizza</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-3" data-lb="3">
-      <img class="gal-img" src="images/wooster_street_3900.jpeg" alt="Buffalo Chicken Pie"/>
-      <div class="gal-overlay"><div class="gal-label">Buffalo Chicken Pie</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="4">
-      <img class="gal-img" src="images/wooster_street_3968.jpeg" alt="Meat Lover's"/>
-      <div class="gal-overlay"><div class="gal-label">Meat Lover's</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-4" data-lb="5">
-      <img class="gal-img" src="images/wooster_street_3644.jpeg" alt="Cobb Salad"/>
-      <div class="gal-overlay"><div class="gal-label">Cobb Salad</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-1" data-lb="6">
-      <img class="gal-img" src="images/wooster_street_4046.jpeg" alt="Crispy Bites"/>
-      <div class="gal-overlay"><div class="gal-label">Crispy Bites</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-3" data-lb="7">
-      <img class="gal-img" src="images/IMG_1896.jpeg" alt="Garden Veggie"/>
-      <div class="gal-overlay"><div class="gal-label">Garden Veggie</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="8">
-      <img class="gal-img" src="images/IMG_0893.jpeg" alt="Fresh from the Oven"/>
-      <div class="gal-overlay"><div class="gal-label">Fresh from the Oven</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-1" data-lb="9">
-      <img class="gal-img" src="images/wooster_street_3974.jpeg" alt="Sausage &amp; Pepperoni"/>
-      <div class="gal-overlay"><div class="gal-label">Sausage &amp; Pepperoni</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-4" data-lb="10">
-      <img class="gal-img" src="images/FullSizeRender.jpeg" alt="Since 1990"/>
-      <div class="gal-overlay"><div class="gal-label">Since 1990</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="11">
-      <img class="gal-img" src="images/wooster_street_3637.jpeg" alt="Built Fresh Daily"/>
-      <div class="gal-overlay"><div class="gal-label">Built Fresh Daily</div><div class="gal-zoom">&#43;</div></div>
+  <div class="gallery-stage">
+    <div class="gallery-deck" id="gallery-deck">
+      <div class="gal-card" data-index="0"><img class="gal-img" src="images/wooster_street_3583.jpeg" alt="Crafted by Hand"/><div class="gal-overlay"><div class="gal-label">Crafted by Hand</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="1"><img class="gal-img" src="images/wooster_street_3980.jpeg" alt="Sliced &amp; Served"/><div class="gal-overlay"><div class="gal-label">Sliced &amp; Served</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="2"><img class="gal-img" src="images/wooster_street_3861.jpeg" alt="White Apizza"/><div class="gal-overlay"><div class="gal-label">White Apizza</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="3"><img class="gal-img" src="images/wooster_street_3900.jpeg" alt="Buffalo Chicken Pie"/><div class="gal-overlay"><div class="gal-label">Buffalo Chicken Pie</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="4"><img class="gal-img" src="images/wooster_street_3968.jpeg" alt="Meat Lover's"/><div class="gal-overlay"><div class="gal-label">Meat Lover's</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="5"><img class="gal-img" src="images/wooster_street_3644.jpeg" alt="Cobb Salad"/><div class="gal-overlay"><div class="gal-label">Cobb Salad</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="6"><img class="gal-img" src="images/wooster_street_4046.jpeg" alt="Crispy Bites"/><div class="gal-overlay"><div class="gal-label">Crispy Bites</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="7"><img class="gal-img" src="images/IMG_1896.jpeg" alt="Garden Veggie"/><div class="gal-overlay"><div class="gal-label">Garden Veggie</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="8"><img class="gal-img" src="images/IMG_0893.jpeg" alt="Fresh from the Oven"/><div class="gal-overlay"><div class="gal-label">Fresh from the Oven</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="9"><img class="gal-img" src="images/wooster_street_3974.jpeg" alt="Sausage &amp; Pepperoni"/><div class="gal-overlay"><div class="gal-label">Sausage &amp; Pepperoni</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="10"><img class="gal-img" src="images/FullSizeRender.jpeg" alt="Since 1990"/><div class="gal-overlay"><div class="gal-label">Since 1990</div><div class="gal-icon">&#43;</div></div></div>
+      <div class="gal-card" data-index="11"><img class="gal-img" src="images/wooster_street_3637.jpeg" alt="Built Fresh Daily"/><div class="gal-overlay"><div class="gal-label">Built Fresh Daily</div><div class="gal-icon">&#43;</div></div></div>
     </div>
   </div>
 
@@ -1343,7 +1387,7 @@ document.querySelectorAll('.mtab').forEach(tab => {
     document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
-    const panel = document.getElementById('panel-' + tab.dataset.tab);
+    const panel = document.getElementById('panel-' + tab.dataset.panel);
     if (panel) panel.classList.add('active');
   });
 });
@@ -1412,48 +1456,66 @@ document.querySelectorAll('.pkg-card').forEach(card => {
   document.addEventListener('click',function(){slides[current].play().catch(function(){});},{once:true});
 })();
 
-  /* ── LIGHTBOX ── */
+  /* ── GALLERY STACK + LIGHTBOX ── */
   (function(){
-    const items = document.querySelectorAll('.gal-item[data-lb]');
+    const deck    = document.getElementById('gallery-deck');
+    const cards   = deck ? deck.querySelectorAll('.gal-card') : [];
+    let activeCard = null;
+
+    /* Stack hover */
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        if(activeCard === card) return;
+        activeCard = card;
+        deck.classList.add('deck-active');
+        cards.forEach(c => c.classList.remove('card-active'));
+        card.classList.add('card-active');
+      });
+    });
+    if(deck) deck.addEventListener('mouseleave', () => {
+      deck.classList.remove('deck-active');
+      cards.forEach(c => c.classList.remove('card-active'));
+      activeCard = null;
+    });
+
+    /* Lightbox */
     const backdrop = document.getElementById('lb-backdrop');
-    const img = document.getElementById('lb-img');
-    const caption = document.getElementById('lb-caption');
+    const lbImg    = document.getElementById('lb-img');
+    const caption  = document.getElementById('lb-caption');
     const dotsWrap = document.getElementById('lb-dots');
     let current = 0;
-    const data = [];
-    items.forEach((el,i)=>{
-      const src = el.querySelector('.gal-img').src.replace(/w=\d+/,'w=1600');
-      const lbl = el.querySelector('.gal-label').textContent;
-      data.push({src,lbl});
-      el.addEventListener('click',()=>open(i));
-      // build dots
-      const d = document.createElement('div');
-      d.className='lb-dot'+(i===0?' active':'');
-      d.addEventListener('click',()=>go(i));
-      dotsWrap.appendChild(d);
+    const data  = [];
+    cards.forEach((card, i) => {
+      const src = card.querySelector('.gal-img').src;
+      const lbl = card.querySelector('.gal-label').textContent;
+      data.push({src, lbl});
+      const dot = document.createElement('div');
+      dot.className = 'lb-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => lbGo(i));
+      dotsWrap.appendChild(dot);
+      card.addEventListener('click', () => lbOpen(i));
     });
-    function open(i){current=i;backdrop.classList.add('open');go(i,true);}
-    function close(){backdrop.classList.remove('open');}
-    function go(i,instant){
+    function lbOpen(i){ current=i; backdrop.classList.add('open'); lbGo(i,true); }
+    function lbClose(){ backdrop.classList.remove('open'); }
+    function lbGo(i,instant){
       current=(i+data.length)%data.length;
-      if(!instant){img.classList.add('fade');}
+      if(!instant){ lbImg.classList.add('fade'); }
       setTimeout(()=>{
-        img.src=data[current].src;
-        img.alt=data[current].lbl;
+        lbImg.src=data[current].src; lbImg.alt=data[current].lbl;
         caption.textContent=data[current].lbl;
         document.querySelectorAll('.lb-dot').forEach((d,j)=>d.classList.toggle('active',j===current));
-        img.classList.remove('fade');
-      },instant?0:200);
+        lbImg.classList.remove('fade');
+      }, instant?0:200);
     }
-    document.getElementById('lb-close').addEventListener('click',close);
-    document.getElementById('lb-prev').addEventListener('click',()=>go(current-1));
-    document.getElementById('lb-next').addEventListener('click',()=>go(current+1));
-    backdrop.addEventListener('click',(e)=>{if(e.target===backdrop)close();});
+    document.getElementById('lb-close').addEventListener('click',lbClose);
+    document.getElementById('lb-prev').addEventListener('click',()=>lbGo(current-1));
+    document.getElementById('lb-next').addEventListener('click',()=>lbGo(current+1));
+    backdrop.addEventListener('click',(e)=>{if(e.target===backdrop)lbClose();});
     document.addEventListener('keydown',(e)=>{
       if(!backdrop.classList.contains('open'))return;
-      if(e.key==='Escape')close();
-      if(e.key==='ArrowLeft')go(current-1);
-      if(e.key==='ArrowRight')go(current+1);
+      if(e.key==='Escape')lbClose();
+      if(e.key==='ArrowLeft')lbGo(current-1);
+      if(e.key==='ArrowRight')lbGo(current+1);
     });
   })();
 </script>

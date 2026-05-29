@@ -13,51 +13,163 @@
 }
 body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
 
-/* SECTION HEADER */
-.menu-header{text-align:center;margin-bottom:0;padding:0 56px}
+/* ── STAGING DEV BANNER ── */
+#dev-banner{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:#1a1200;border-bottom:1px solid rgba(204,19,24,0.35);
+  display:flex;align-items:center;gap:16px;padding:8px 20px;font-size:11px;letter-spacing:0.12em;
+}
+.db-section{background:rgba(204,19,24,0.15);border:1px solid rgba(204,19,24,0.4);color:#CC1318;padding:3px 10px;font-weight:600;}
+.db-name{color:#fff;font-weight:500}
+.db-hint{color:rgba(255,255,255,0.3);font-size:10px}
+.db-status{margin-left:auto;padding:3px 12px;font-weight:700;}
+.db-status.draft{background:rgba(200,140,0,0.2);color:#f5a623;border:1px solid rgba(200,140,0,0.4)}
+
+/* ── SECTION ── */
+#gallery{
+  padding:120px 56px 140px;
+  background:var(--char);
+  overflow:hidden;
+}
+.menu-header{text-align:center;margin-bottom:80px}
 .sec-tag{font-size:9px;letter-spacing:0.38em;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:block}
 .menu-header h2{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,60px);font-weight:400;line-height:1.1;margin-bottom:20px}
 .menu-header h2 em{font-style:italic;color:var(--red)}
 .menu-header p{color:rgba(255,255,255,0.5);font-size:14px;line-height:1.7;max-width:540px;margin:0 auto}
-#gallery{padding:120px 56px;background:var(--char)}
 
-.gallery-grid{
-  columns:4;column-gap:14px;
-  margin-top:72px;
+/* ── STACK GALLERY ── */
+.gallery-stage{
+  perspective:1800px;
+  perspective-origin:50% 40%;
 }
-.gal-item{
-  break-inside:avoid;margin-bottom:14px;overflow:hidden;
-  position:relative;cursor:pointer;border-radius:2px;
-  transition:transform 0.45s cubic-bezier(0.23,1,0.32,1),box-shadow 0.45s;
+
+.gallery-deck{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  transform-style:preserve-3d;
+  position:relative;
 }
-.gal-item:hover{transform:scale(1.025) translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,0.55)}
+
+.gal-card{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+  cursor:pointer;
+  will-change:transform,filter,box-shadow;
+  transform:
+    rotate(var(--rot,0deg))
+    translate(var(--tx,0px),var(--ty,0px))
+    translateZ(0px);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.5),
+    0 1px 4px rgba(0,0,0,0.4);
+  transition:
+    transform 0.55s cubic-bezier(0.23,1,0.32,1),
+    box-shadow 0.55s cubic-bezier(0.23,1,0.32,1),
+    filter 0.45s ease;
+}
+
+/* Individual card stagger rotations — scattered photo feel */
+.gal-card:nth-child(1){--rot:-1.5deg;--tx:-3px;--ty:5px}
+.gal-card:nth-child(2){--rot:1.2deg;--tx:2px;--ty:-4px}
+.gal-card:nth-child(3){--rot:-0.8deg;--tx:4px;--ty:3px}
+.gal-card:nth-child(4){--rot:2.1deg;--tx:-5px;--ty:-2px}
+.gal-card:nth-child(5){--rot:-2.4deg;--tx:6px;--ty:4px}
+.gal-card:nth-child(6){--rot:0.9deg;--tx:-2px;--ty:-6px}
+.gal-card:nth-child(7){--rot:1.7deg;--tx:3px;--ty:2px}
+.gal-card:nth-child(8){--rot:-1.1deg;--tx:-4px;--ty:7px}
+.gal-card:nth-child(9){--rot:2.3deg;--tx:5px;--ty:-3px}
+.gal-card:nth-child(10){--rot:-0.6deg;--tx:-6px;--ty:4px}
+.gal-card:nth-child(11){--rot:1.4deg;--tx:2px;--ty:-5px}
+.gal-card:nth-child(12){--rot:-1.9deg;--tx:-3px;--ty:3px}
+
+/* When deck is hovered — all non-active cards recede into the stack */
+.gallery-deck.deck-active .gal-card{
+  transform:
+    rotate(var(--rot,0deg))
+    translate(var(--tx,0px),var(--ty,0px))
+    translateZ(-40px)
+    scale(0.93);
+  filter:brightness(0.45) saturate(0.6);
+}
+
+/* The hovered card pops forward in 3D */
+.gallery-deck.deck-active .gal-card.card-active{
+  transform:
+    rotate(0deg)
+    translate(0px,0px)
+    translateZ(160px)
+    scale(1.22) !important;
+  filter:brightness(1.05) saturate(1.25) !important;
+  box-shadow:
+    0 50px 100px rgba(0,0,0,0.85),
+    0 20px 40px rgba(0,0,0,0.6),
+    0 0 60px rgba(204,19,24,0.18);
+  z-index:50;
+}
+
 .gal-img{
-  width:100%;display:block;
-  filter:brightness(0.72) saturate(1.1);
-  transition:filter 0.5s,transform 0.6s;
-  transform:scale(1.05);
+  width:100%;
+  display:block;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);
 }
-.gal-item:hover .gal-img{filter:brightness(0.45) saturate(1.6);transform:scale(1.0)}
-.gal-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(8,6,4,0.88) 0%,rgba(8,6,4,0.1) 55%,transparent 100%);
-  opacity:0;transition:opacity 0.4s;
-  display:flex;align-items:flex-end;justify-content:space-between;padding:16px 18px;
-}
-.gal-item:hover .gal-overlay{opacity:1}
-.gal-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);font-weight:500}
-.gal-zoom{
-  width:28px;height:28px;border:1px solid rgba(255,255,255,0.5);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:16px;color:#fff;line-height:1;flex-shrink:0;
-  transition:background 0.3s,border-color 0.3s;
-}
-.gal-item:hover .gal-zoom{background:var(--red);border-color:var(--red)}
 
-/* LIGHTBOX */
+.gal-card.card-active .gal-img{
+  transform:scale(1.04);
+}
+
+/* Label overlay — fades in when card is active */
+.gal-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(8,6,4,0.88) 0%,rgba(8,6,4,0.05) 50%,transparent 100%);
+  opacity:0;
+  transition:opacity 0.35s ease;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  padding:16px 18px;
+  pointer-events:none;
+}
+.gal-card.card-active .gal-overlay{opacity:1}
+.gal-label{
+  font-size:10px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--white);
+  font-weight:500;
+}
+.gal-icon{
+  width:30px;height:30px;
+  border:1px solid rgba(255,255,255,0.5);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:#fff;line-height:1;flex-shrink:0;
+  background:var(--red);border-color:var(--red);
+}
+
+/* Red corner accent — subtle depth indicator */
+.gal-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(204,19,24,0.0);
+  border-radius:4px;
+  transition:border-color 0.35s;
+  pointer-events:none;
+  z-index:5;
+}
+.gal-card.card-active::before{
+  border-color:rgba(204,19,24,0.4);
+}
+
+/* ── LIGHTBOX ── */
 .lb-backdrop{
   position:fixed;inset:0;z-index:9000;
-  background:rgba(4,4,8,0.96);backdrop-filter:blur(12px);
+  background:rgba(4,4,8,0.97);backdrop-filter:blur(16px);
   display:flex;align-items:center;justify-content:center;
   opacity:0;pointer-events:none;
   transition:opacity 0.35s ease;
@@ -65,13 +177,13 @@ body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
 .lb-backdrop.open{opacity:1;pointer-events:all}
 .lb-img{
   max-width:88vw;max-height:80vh;object-fit:contain;
-  border-radius:2px;box-shadow:0 40px 100px rgba(0,0,0,0.8);
-  transition:opacity 0.25s ease,transform 0.25s ease;
+  border-radius:3px;box-shadow:0 40px 100px rgba(0,0,0,0.9);
+  transition:opacity 0.22s ease,transform 0.22s ease;
 }
-.lb-img.fade{opacity:0;transform:scale(0.97)}
+.lb-img.fade{opacity:0;transform:scale(0.96)}
 .lb-close{
   position:absolute;top:28px;right:36px;
-  background:none;border:1px solid rgba(255,255,255,0.25);
+  background:none;border:1px solid rgba(255,255,255,0.2);
   color:#fff;font-size:22px;width:42px;height:42px;border-radius:50%;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   transition:all 0.3s;line-height:1;
@@ -85,83 +197,145 @@ body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
   transition:all 0.3s;line-height:1;
 }
 .lb-nav:hover{background:var(--red);border-color:var(--red)}
-.lb-prev{left:28px}
-.lb-next{right:28px}
+.lb-prev{left:28px}.lb-next{right:28px}
 .lb-caption{
   position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
   font-size:10px;letter-spacing:0.28em;text-transform:uppercase;
-  color:rgba(255,255,255,0.6);white-space:nowrap;
+  color:rgba(255,255,255,0.55);white-space:nowrap;
 }
 .lb-dots{
   position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
   display:flex;gap:8px;
 }
-.lb-dot{
-  width:5px;height:5px;border-radius:50%;
-  background:rgba(255,255,255,0.25);cursor:pointer;
-  transition:background 0.3s,transform 0.3s;
-}
+.lb-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.22);cursor:pointer;transition:background 0.3s,transform 0.3s;}
 .lb-dot.active{background:var(--red);transform:scale(1.4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){.gallery-deck{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){
+  #gallery{padding:80px 20px 100px}
+  .gallery-deck{grid-template-columns:repeat(2,1fr);gap:12px}
+}
 </style>
 </head>
-<body>
+<body style="padding-top:37px">
+
+<!-- STAGING DEV BANNER -->
+<div id="dev-banner">
+  <span class="db-section">s09</span>
+  <span class="db-name">GALLERY — Stacked Cards · 3D Hover Pop</span>
+  <span class="db-hint">Hover cards to pop in 3D · Click to open lightbox</span>
+  <span class="db-status draft">● DRAFT</span>
+</div>
 
 <section id="gallery">
-  <div class="menu-header reveal">
+  <div class="menu-header">
     <div class="sec-tag">Visual Story</div>
     <h2>Behind the <em>Fire</em></h2>
     <p>A glimpse into the craft, the kitchen, and the passion that fuels every dish.</p>
   </div>
-  <div class="gallery-grid">
-    <div class="gal-item reveal delay-1" data-lb="0">
-      <img class="gal-img" src="../images/wooster_street_3583.jpeg" alt="Crafted by Hand"/>
-      <div class="gal-overlay"><div class="gal-label">Crafted by Hand</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="1">
-      <img class="gal-img" src="../images/wooster_street_3980.jpeg" alt="Sliced &amp; Served"/>
-      <div class="gal-overlay"><div class="gal-label">Sliced &amp; Served</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-1" data-lb="2">
-      <img class="gal-img" src="../images/wooster_street_3861.jpeg" alt="White Apizza"/>
-      <div class="gal-overlay"><div class="gal-label">White Apizza</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-3" data-lb="3">
-      <img class="gal-img" src="../images/wooster_street_3900.jpeg" alt="Buffalo Chicken Pie"/>
-      <div class="gal-overlay"><div class="gal-label">Buffalo Chicken Pie</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="4">
-      <img class="gal-img" src="../images/wooster_street_3968.jpeg" alt="Meat Lover's"/>
-      <div class="gal-overlay"><div class="gal-label">Meat Lover's</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-4" data-lb="5">
-      <img class="gal-img" src="../images/wooster_street_3644.jpeg" alt="Cobb Salad"/>
-      <div class="gal-overlay"><div class="gal-label">Cobb Salad</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-1" data-lb="6">
-      <img class="gal-img" src="../images/wooster_street_4046.jpeg" alt="Crispy Bites"/>
-      <div class="gal-overlay"><div class="gal-label">Crispy Bites</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-3" data-lb="7">
-      <img class="gal-img" src="../images/IMG_1896.jpeg" alt="Garden Veggie"/>
-      <div class="gal-overlay"><div class="gal-label">Garden Veggie</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="8">
-      <img class="gal-img" src="../images/IMG_0893.jpeg" alt="Fresh from the Oven"/>
-      <div class="gal-overlay"><div class="gal-label">Fresh from the Oven</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-1" data-lb="9">
-      <img class="gal-img" src="../images/wooster_street_3974.jpeg" alt="Sausage &amp; Pepperoni"/>
-      <div class="gal-overlay"><div class="gal-label">Sausage &amp; Pepperoni</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-4" data-lb="10">
-      <img class="gal-img" src="../images/FullSizeRender.jpeg" alt="Since 1990"/>
-      <div class="gal-overlay"><div class="gal-label">Since 1990</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-    <div class="gal-item reveal delay-2" data-lb="11">
-      <img class="gal-img" src="../images/wooster_street_3637.jpeg" alt="Built Fresh Daily"/>
-      <div class="gal-overlay"><div class="gal-label">Built Fresh Daily</div><div class="gal-zoom">&#43;</div></div>
-    </div>
-  </div>
+
+  <div class="gallery-stage">
+    <div class="gallery-deck" id="gallery-deck">
+
+      <div class="gal-card" data-index="0">
+        <img class="gal-img" src="../images/wooster_street_3583.jpeg" alt="Crafted by Hand"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Crafted by Hand</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="1">
+        <img class="gal-img" src="../images/wooster_street_3980.jpeg" alt="Sliced &amp; Served"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Sliced &amp; Served</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="2">
+        <img class="gal-img" src="../images/wooster_street_3861.jpeg" alt="White Apizza"/>
+        <div class="gal-overlay">
+          <div class="gal-label">White Apizza</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="3">
+        <img class="gal-img" src="../images/wooster_street_3900.jpeg" alt="Buffalo Chicken Pie"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Buffalo Chicken Pie</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="4">
+        <img class="gal-img" src="../images/wooster_street_3968.jpeg" alt="Meat Lover's"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Meat Lover's</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="5">
+        <img class="gal-img" src="../images/wooster_street_3644.jpeg" alt="Cobb Salad"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Cobb Salad</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="6">
+        <img class="gal-img" src="../images/wooster_street_4046.jpeg" alt="Crispy Bites"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Crispy Bites</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="7">
+        <img class="gal-img" src="../images/IMG_1896.jpeg" alt="Garden Veggie"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Garden Veggie</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="8">
+        <img class="gal-img" src="../images/IMG_0893.jpeg" alt="Fresh from the Oven"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Fresh from the Oven</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="9">
+        <img class="gal-img" src="../images/wooster_street_3974.jpeg" alt="Sausage &amp; Pepperoni"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Sausage &amp; Pepperoni</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="10">
+        <img class="gal-img" src="../images/FullSizeRender.jpeg" alt="Since 1990"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Since 1990</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+      <div class="gal-card" data-index="11">
+        <img class="gal-img" src="../images/wooster_street_3637.jpeg" alt="Built Fresh Daily"/>
+        <div class="gal-overlay">
+          <div class="gal-label">Built Fresh Daily</div>
+          <div class="gal-icon">&#43;</div>
+        </div>
+      </div>
+
+    </div><!-- /gallery-deck -->
+  </div><!-- /gallery-stage -->
 
   <!-- LIGHTBOX -->
   <div class="lb-backdrop" id="lb-backdrop">
@@ -174,51 +348,90 @@ body{font-family:'Inter',sans-serif;background:var(--char);color:var(--white)}
   </div>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
-/* ── LIGHTBOX ── */
-  (function(){
-    const items = document.querySelectorAll('.gal-item[data-lb]');
-    const backdrop = document.getElementById('lb-backdrop');
-    const img = document.getElementById('lb-img');
-    const caption = document.getElementById('lb-caption');
-    const dotsWrap = document.getElementById('lb-dots');
-    let current = 0;
-    const data = [];
-    items.forEach((el,i)=>{
-      const src = el.querySelector('.gal-img').src.replace(/w=\d+/,'w=1600');
-      const lbl = el.querySelector('.gal-label').textContent;
-      data.push({src,lbl});
-      el.addEventListener('click',()=>open(i));
-      // build dots
-      const d = document.createElement('div');
-      d.className='lb-dot'+(i===0?' active':'');
-      d.addEventListener('click',()=>go(i));
-      dotsWrap.appendChild(d);
+(function(){
+  /* ── STACK HOVER INTERACTION ── */
+  const deck   = document.getElementById('gallery-deck');
+  const cards  = deck.querySelectorAll('.gal-card');
+  let  activeCard = null;
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      if(activeCard === card) return;
+      activeCard = card;
+      deck.classList.add('deck-active');
+      cards.forEach(c => c.classList.remove('card-active'));
+      card.classList.add('card-active');
     });
-    function open(i){current=i;backdrop.classList.add('open');go(i,true);}
-    function close(){backdrop.classList.remove('open');}
-    function go(i,instant){
-      current=(i+data.length)%data.length;
-      if(!instant){img.classList.add('fade');}
-      setTimeout(()=>{
-        img.src=data[current].src;
-        img.alt=data[current].lbl;
-        caption.textContent=data[current].lbl;
-        document.querySelectorAll('.lb-dot').forEach((d,j)=>d.classList.toggle('active',j===current));
-        img.classList.remove('fade');
-      },instant?0:200);
-    }
-    document.getElementById('lb-close').addEventListener('click',close);
-    document.getElementById('lb-prev').addEventListener('click',()=>go(current-1));
-    document.getElementById('lb-next').addEventListener('click',()=>go(current+1));
-    backdrop.addEventListener('click',(e)=>{if(e.target===backdrop)close();});
-    document.addEventListener('keydown',(e)=>{
-      if(!backdrop.classList.contains('open'))return;
-      if(e.key==='Escape')close();
-      if(e.key==='ArrowLeft')go(current-1);
-      if(e.key==='ArrowRight')go(current+1);
-    });
-  })();
+  });
+
+  deck.addEventListener('mouseleave', () => {
+    deck.classList.remove('deck-active');
+    cards.forEach(c => c.classList.remove('card-active'));
+    activeCard = null;
+  });
+
+  /* ── LIGHTBOX ── */
+  const backdrop = document.getElementById('lb-backdrop');
+  const lbImg    = document.getElementById('lb-img');
+  const caption  = document.getElementById('lb-caption');
+  const dotsWrap = document.getElementById('lb-dots');
+  let current = 0;
+  const data  = [];
+
+  cards.forEach((card, i) => {
+    const src = card.querySelector('.gal-img').src;
+    const lbl = card.querySelector('.gal-label').textContent;
+    data.push({src, lbl});
+
+    const dot = document.createElement('div');
+    dot.className = 'lb-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => lbGo(i));
+    dotsWrap.appendChild(dot);
+
+    card.addEventListener('click', () => lbOpen(i));
+  });
+
+  function lbOpen(i){ current = i; backdrop.classList.add('open'); lbGo(i, true); }
+  function lbClose(){ backdrop.classList.remove('open'); }
+
+  function lbGo(i, instant){
+    current = (i + data.length) % data.length;
+    if(!instant){ lbImg.classList.add('fade'); }
+    setTimeout(() => {
+      lbImg.src     = data[current].src;
+      lbImg.alt     = data[current].lbl;
+      caption.textContent = data[current].lbl;
+      document.querySelectorAll('.lb-dot').forEach((d,j) => d.classList.toggle('active', j === current));
+      lbImg.classList.remove('fade');
+    }, instant ? 0 : 200);
+  }
+
+  document.getElementById('lb-close').addEventListener('click', lbClose);
+  document.getElementById('lb-prev').addEventListener('click', () => lbGo(current - 1));
+  document.getElementById('lb-next').addEventListener('click', () => lbGo(current + 1));
+  backdrop.addEventListener('click', e => { if(e.target === backdrop) lbClose(); });
+  document.addEventListener('keydown', e => {
+    if(!backdrop.classList.contains('open')) return;
+    if(e.key === 'Escape')     lbClose();
+    if(e.key === 'ArrowLeft')  lbGo(current - 1);
+    if(e.key === 'ArrowRight') lbGo(current + 1);
+  });
+
+  /* ── ENTRANCE ANIMATION ── */
+  gsap.from(cards, {
+    opacity: 0,
+    y: 40,
+    scale: 0.92,
+    stagger: 0.06,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: null,
+    delay: 0.2
+  });
+
+})();
 </script>
 </body>
 </html>
