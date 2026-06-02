@@ -39,9 +39,12 @@ footer{
 .footer-col ul li a:hover{color:var(--white)}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid rgba(204,19,24,0.07)}
 .footer-bottom p{font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em}
-.social-links{display:flex;gap:18px}
-.social-links a{width:34px;height:34px;border:1px solid rgba(204,19,24,0.18);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:all 0.3s;}
-.social-links a:hover{border-color:var(--red);color:var(--red);background:rgba(204,19,24,0.08)}
+.social-links{display:flex;gap:10px;align-items:center}
+.social-links a{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.45);text-decoration:none;transition:all 0.35s ease;position:relative;overflow:hidden;}
+.social-links a::before{content:'';position:absolute;inset:0;border-radius:50%;opacity:0;background:radial-gradient(circle at 30% 110%,#f9ce34,#ee2a7b 40%,#6228d7 80%);transition:opacity 0.35s ease;}
+.social-links a:hover{border-color:transparent;color:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(238,42,123,0.35)}
+.social-links a:hover::before{opacity:1}
+.social-links a svg{position:relative;z-index:1}
 
 @media(max-width:900px){
   .footer-top{grid-template-columns:1fr 1fr;gap:36px}
@@ -54,8 +57,8 @@ footer{
 <!-- STAGING DEV BANNER -->
 <div id="dev-banner">
   <span class="db-section">s11</span>
-  <span class="db-name">FOOTER — Phone orders only · DoorDash/Uber/Grubhub/Slice removed · v2.14</span>
-  <span class="db-hint">Order: 📞 860-649-1166 · Order by Phone · Catering Inquiry</span>
+  <span class="db-name">FOOTER — Instagram circle icon · gradient hover · v2.15</span>
+  <span class="db-hint">📞 860-649-1166 · Order by Phone · Catering Inquiry · @woosterfoodcatering</span>
   <span class="db-status" style="background:rgba(0,120,60,0.2);color:#4ddb8f;border:1px solid rgba(0,200,100,0.4)">● MERGED</span>
 </div>
 

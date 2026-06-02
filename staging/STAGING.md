@@ -21,7 +21,7 @@
 | 08b | `s08b-catering` | *(no file)* | `REMOVED` | 2026-05-29 | Was merged into final CTA section in v2.7 — standalone file was never saved |
 | 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `MERGED` | 2026-05-29 | 12 photos · stacked cards · scale-pop hover · GSAP entrance · lightbox · v2.4 deep fix |
 | 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `MERGED` | 2026-06-02 | Direct phone orders only · DoorDash/Uber/Grubhub removed · v2.14 |
-| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-06-02 | Phone order links only · DoorDash/Uber/Grubhub/Slice removed · v2.14 |
+| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-06-02 | Instagram circle icon + gradient hover · v2.15 |
 
 ---
 
@@ -78,6 +78,9 @@ Any new section or feature should follow this pattern:
 | v2.10 | 2026-05-29 | Mobile responsiveness · hamburger nav + overlay · 4-tier breakpoints (1024/768/480/375px) · iOS dvh fix · gallery lazy load + touch events · QA test plan (tests/test-plan.html) |
 | v2.11 | 2026-05-29 | Logo click fix — nav-logo div → anchor tag · scrolls to top on click |
 | v2.12 | 2026-06-02 | Remove Est. 2019 · Pizza cursor replaces circle · About scroll 500vh→250vh · Videos loop + play on scroll/touch |
+| v2.13 | 2026-06-02 | Phone order modal (js-order-modal) · Remove DoorDash/Uber/Grubhub/Slice · Direct phone orders only |
+| v2.14 | 2026-06-02 | Logo reverted to text headline · iOS video fallback + webkit-playsinline · All staging files synced |
+| v2.15 | 2026-06-02 | Footer: Instagram @woosterfoodcatering · circle icon with gradient hover |
 
 ---
 
