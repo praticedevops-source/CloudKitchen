@@ -10,18 +10,18 @@
 
 | # | Section ID | File | Status | Last Modified | Notes |
 |---|------------|------|--------|---------------|-------|
-| 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `MERGED` | 2026-05-29 | Nav links updated · Menu merged · Full Menu removed · Catering added · v2.8 |
-| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `MERGED` | 2026-05-29 | Video bg · logo · red/navy/white · Mixkit CDN carousel · buttons updated v2.8 |
+| 01 | `s01-nav` | [s01-nav.html](s01-nav.html) | `MERGED` | 2026-06-02 | Order Now → phone modal · nav-logo anchor tag · v2.14 |
+| 02 | `s02-hero` | [s02-hero.html](s02-hero.html) | `MERGED` | 2026-06-02 | Est.2019 removed · videos loop+poster · Order Now modal · iOS fallback · v2.14 |
 | 03 | `s03-marquee` | [s03-marquee.html](s03-marquee.html) | `CLEAN` | 2026-05-29 | Red ticker band · ★ separators · seamless loop · gold→red pass |
-| 04 | `s04-about` | [s04-about.html](s04-about.html) | `MERGED` | 2026-05-29 | Scroll-driven 3D story · 4 chapters · GSAP · parallax · magnetic cards · SVG icons · v2.0 |
+| 04 | `s04-about` | [s04-about.html](s04-about.html) | `MERGED` | 2026-06-02 | Scroll height 500vh→250vh · faster traversal · v2.14 |
 | 05 | `s05-menu-cards` | [s05-menu-cards.html](s05-menu-cards.html) | `MERGED` | 2026-05-29 | Combined with s07 into one Menu section (id="menu") · cards + bridge + tabs · v2.8 |
 | 06 | `s06-stats` | [s06-stats.html](s06-stats.html) | `REMOVED` | 2026-05-29 | Stats section removed from production in v2.5 · file kept as archive |
 | 07 | `s07-full-menu` | [s07-full-menu.html](s07-full-menu.html) | `MERGED` | 2026-05-29 | Merged into s05 — tabs flow below 3D cards in combined Menu section · v2.8 |
 | 08 | `s08-packages` | [s08-packages.html](s08-packages.html) | `REMOVED` | 2026-05-29 | Packages section removed from production in v2.6 · file kept as archive |
 | 08b | `s08b-catering` | *(no file)* | `REMOVED` | 2026-05-29 | Was merged into final CTA section in v2.7 — standalone file was never saved |
 | 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `MERGED` | 2026-05-29 | 12 photos · stacked cards · scale-pop hover · GSAP entrance · lightbox · v2.4 deep fix |
-| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `MERGED` | 2026-05-29 | Split-panel Order + Catering · Slice added to copy · 860-649-1166 · v2.9 |
-| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-05-29 | Slice added · IG/TK/FB/TW removed · Instagram+Facebook TBD · © 2026 · v2.9 |
+| 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `MERGED` | 2026-06-02 | Direct phone orders only · DoorDash/Uber/Grubhub removed · v2.14 |
+| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-06-02 | Phone order links only · DoorDash/Uber/Grubhub/Slice removed · v2.14 |
 
 ---
 
