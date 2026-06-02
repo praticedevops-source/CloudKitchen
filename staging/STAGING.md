@@ -77,6 +77,7 @@ Any new section or feature should follow this pattern:
 | v2.9 | 2026-05-29 | Footer: remove IG/TK/FB/TW · add Slice to Order list · fix © 2024 → 2026 · Instagram & Facebook TBD |
 | v2.10 | 2026-05-29 | Mobile responsiveness · hamburger nav + overlay · 4-tier breakpoints (1024/768/480/375px) · iOS dvh fix · gallery lazy load + touch events · QA test plan (tests/test-plan.html) |
 | v2.11 | 2026-05-29 | Logo click fix — nav-logo div → anchor tag · scrolls to top on click |
+| v2.12 | 2026-06-02 | Remove Est. 2019 · Pizza cursor replaces circle · About scroll 500vh→250vh · Videos loop + play on scroll/touch |
 
 ---
 
