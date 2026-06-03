@@ -81,6 +81,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no, date=no, email=no, address=no"/>
+<meta name="apple-pay-capable" content="no"/>
 <title>Wooster Street Food Company</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
@@ -1473,7 +1475,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* SCROLL REVEAL — restores opacity/transform on all .reveal elements */
+/* SCROLL REVEAL — IntersectionObserver + scroll fallback for fast-scroll / iOS Safari */
+function revealCheck() {
+  const vh = window.innerHeight;
+  document.querySelectorAll('.reveal:not(.visible),.reveal-l:not(.visible),.reveal-r:not(.visible)').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < vh * 0.96 && r.bottom > 0) { el.classList.add('visible'); }
+  });
+}
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(el => {
     if (el.isIntersecting) {
@@ -1481,8 +1490,10 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(el.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revealObserver.observe(el));
+window.addEventListener('scroll', revealCheck, { passive: true });
+revealCheck();
 
 /* MENU TABS */
 document.querySelectorAll('.mtab').forEach(tab => {
