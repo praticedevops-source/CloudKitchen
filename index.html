@@ -1855,16 +1855,16 @@ document.querySelectorAll('.pillar-card').forEach(card=>{
 })();
 
 // ── ORDER MODAL ──
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   var modal = document.getElementById('order-modal');
   if(!modal) return;
-  function open(e){ if(e) e.preventDefault(); modal.classList.add('open'); document.body.style.overflow='hidden'; }
-  function close(){ modal.classList.remove('open'); document.body.style.overflow=''; }
-  document.querySelectorAll('.js-order-modal').forEach(function(el){ el.addEventListener('click', open); });
-  document.getElementById('order-modal-close').addEventListener('click', close);
-  modal.addEventListener('click', function(e){ if(e.target===modal) close(); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
-})();
+  function openModal(e){ if(e) e.preventDefault(); modal.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  document.querySelectorAll('.js-order-modal').forEach(function(el){ el.addEventListener('click', openModal); });
+  document.getElementById('order-modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+});
 
 // ── HAMBURGER NAV ──
 (function(){
