@@ -127,17 +127,61 @@ nav.scrolled{background:rgba(8,9,15,0.94);backdrop-filter:blur(20px);padding:14p
 @keyframes heroLogoIn{from{opacity:0;transform:translateY(-28px) scale(0.92)}to{opacity:1;transform:translateY(0) scale(1)}}
 
 /* PHONE ORDER MODAL */
-.order-modal{position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:8000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(4px)}
+/* ── ORDER MODAL ── */
+.order-modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:8000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s;backdrop-filter:blur(6px);padding:20px}
 .order-modal.open{opacity:1;pointer-events:all}
-.order-modal-box{background:#0d0e18;border:1px solid rgba(204,19,24,0.3);border-radius:20px;padding:52px 44px;text-align:center;max-width:430px;width:90%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.6)}
-.order-modal-icon{font-size:52px;margin-bottom:16px;display:block}
-.order-modal-box h3{font-family:'Playfair Display',serif;font-size:28px;color:var(--white);margin-bottom:12px}
-.order-modal-box .order-modal-sub{color:rgba(255,255,255,0.55);font-size:14px;line-height:1.7;margin-bottom:24px}
-.order-modal-num{display:block;font-size:34px;font-weight:700;color:var(--red);letter-spacing:0.05em;text-decoration:none;margin:0 0 10px;transition:color 0.2s}
-.order-modal-num:hover{color:#ff2a30}
-.order-modal-hours{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-top:20px}
-.order-modal-close{position:absolute;top:18px;right:20px;background:none;border:none;color:rgba(255,255,255,0.35);font-size:22px;cursor:pointer;line-height:1;transition:color 0.2s}
+.order-modal-box{
+  background:var(--dark);border:1px solid rgba(204,19,24,0.2);
+  width:100%;max-width:860px;position:relative;
+  display:grid;grid-template-columns:1fr 1fr;
+  box-shadow:0 40px 120px rgba(0,0,0,0.8);
+  transform:translateY(24px);transition:transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  max-height:90vh;overflow-y:auto;
+}
+.order-modal.open .order-modal-box{transform:translateY(0)}
+.order-modal-close{position:absolute;top:16px;right:18px;background:none;border:none;color:rgba(255,255,255,0.3);font-size:20px;cursor:pointer;line-height:1;transition:color 0.2s;z-index:10}
 .order-modal-close:hover{color:var(--white)}
+
+/* Left panel */
+.oml{padding:52px 44px;background:var(--char);display:flex;flex-direction:column;gap:0;position:relative;overflow:hidden}
+.oml::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 0% 100%,rgba(204,19,24,0.1) 0%,transparent 60%);pointer-events:none}
+.oml-tag{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--red);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.oml-tag::before{content:'';width:20px;height:1px;background:var(--red)}
+.oml h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,38px);font-weight:900;color:var(--white);line-height:1.0;margin-bottom:8px}
+.oml h2 em{color:var(--red);font-style:italic}
+.oml-sub{font-size:13px;color:rgba(255,255,255,0.42);line-height:1.7;margin-bottom:36px;max-width:280px}
+.oml-phone-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px}
+.oml-phone{display:block;font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:900;color:var(--white);letter-spacing:0.04em;text-decoration:none;line-height:1;margin-bottom:20px;transition:color 0.2s}
+.oml-phone:hover{color:var(--red)}
+.oml-call-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--red);color:#fff;text-decoration:none;
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;
+  padding:16px 36px;width:fit-content;
+  transition:background 0.3s,transform 0.25s;margin-bottom:36px;
+}
+.oml-call-btn:hover{background:var(--red-dark);transform:translateY(-2px)}
+.oml-hours{border-top:1px solid rgba(204,19,24,0.1);padding-top:24px}
+.oml-hours-title{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.oml-hours-row{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:8px}
+.oml-hours-row span:last-child{color:rgba(255,255,255,0.65)}
+
+/* Right panel */
+.omr{padding:52px 40px;display:flex;flex-direction:column;gap:0}
+.omr-title{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--red);margin-bottom:24px}
+.omr-section{margin-bottom:28px}
+.omr-section h4{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(204,19,24,0.1)}
+.omr-item{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.omr-item-name{font-size:12px;color:rgba(255,255,255,0.7)}
+.omr-item-price{font-size:11px;color:var(--red);font-weight:600;white-space:nowrap;margin-left:12px}
+.omr-note{margin-top:auto;padding:16px;background:rgba(204,19,24,0.06);border:1px solid rgba(204,19,24,0.15);font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6}
+.omr-note strong{color:var(--white);display:block;margin-bottom:4px}
+
+@media(max-width:660px){
+  .order-modal-box{grid-template-columns:1fr}
+  .omr{display:none}
+  .oml{padding:44px 28px 40px}
+}
 
 /* VIDEO BACKGROUND */
 #hero{position:relative;width:100%;height:100vh;overflow:hidden}
@@ -1848,14 +1892,55 @@ document.querySelectorAll('.pillar-card').forEach(card=>{
 })();
 </script>
 <!-- PHONE ORDER MODAL -->
-<div class="order-modal" id="order-modal" role="dialog" aria-modal="true" aria-label="Order by phone">
+<div class="order-modal" id="order-modal" role="dialog" aria-modal="true" aria-label="Place your order">
   <div class="order-modal-box">
     <button class="order-modal-close" id="order-modal-close" aria-label="Close">✕</button>
-    <span class="order-modal-icon">📞</span>
-    <h3>Call to Order</h3>
-    <p class="order-modal-sub">We take direct orders by phone — fresh food, no middleman. Give us a call and we'll handle everything!</p>
-    <a href="tel:+18606491166" class="order-modal-num">860-649-1166</a>
-    <p class="order-modal-hours">Mon–Fri 11am–9pm &nbsp;·&nbsp; Sat 10am–10pm &nbsp;·&nbsp; Sun 11am–8pm</p>
+
+    <!-- Left: Phone + Hours -->
+    <div class="oml">
+      <div class="oml-tag">Wooster Street Food Company</div>
+      <h2>Place Your<br><em>Order</em></h2>
+      <p class="oml-sub">We take orders directly by phone — no apps, no fees, no wait. Just great food made to order.</p>
+      <div class="oml-phone-label">Call us directly</div>
+      <a href="tel:+18606491166" class="oml-phone">860-649-1166</a>
+      <a href="tel:+18606491166" class="oml-call-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+        Call to Order
+      </a>
+      <div class="oml-hours">
+        <div class="oml-hours-title">Hours</div>
+        <div class="oml-hours-row"><span>Mon – Fri</span><span>11am – 9pm</span></div>
+        <div class="oml-hours-row"><span>Saturday</span><span>10am – 10pm</span></div>
+        <div class="oml-hours-row"><span>Sunday</span><span>11am – 8pm</span></div>
+      </div>
+    </div>
+
+    <!-- Right: Menu highlights -->
+    <div class="omr">
+      <div class="omr-title">Popular Items</div>
+      <div class="omr-section">
+        <h4>🍕 Pizza</h4>
+        <div class="omr-item"><span class="omr-item-name">White Apizza</span><span class="omr-item-price">from $18</span></div>
+        <div class="omr-item"><span class="omr-item-name">Buffalo Chicken Pie</span><span class="omr-item-price">from $20</span></div>
+        <div class="omr-item"><span class="omr-item-name">Meat Lover's</span><span class="omr-item-price">from $21</span></div>
+      </div>
+      <div class="omr-section">
+        <h4>🍝 Pasta</h4>
+        <div class="omr-item"><span class="omr-item-name">Chicken Alfredo</span><span class="omr-item-price">from $19</span></div>
+        <div class="omr-item"><span class="omr-item-name">Baked Ziti</span><span class="omr-item-price">from $16</span></div>
+      </div>
+      <div class="omr-section">
+        <h4>🥗 Starters</h4>
+        <div class="omr-item"><span class="omr-item-name">Buffalo Wings</span><span class="omr-item-price">$14</span></div>
+        <div class="omr-item"><span class="omr-item-name">Garlic Knots</span><span class="omr-item-price">$7</span></div>
+        <div class="omr-item"><span class="omr-item-name">Fried Mozzarella</span><span class="omr-item-price">$10</span></div>
+      </div>
+      <div class="omr-note">
+        <strong>How to order</strong>
+        Call us, tell us what you'd like, and we'll give you a pickup or delivery time. Easy as that.
+      </div>
+    </div>
+
   </div>
 </div>
 </body>
