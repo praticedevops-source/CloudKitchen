@@ -21,7 +21,7 @@
 | 08b | `s08b-catering` | *(no file)* | `REMOVED` | 2026-05-29 | Was merged into final CTA section in v2.7 — standalone file was never saved |
 | 09 | `s09-gallery` | [s09-gallery.html](s09-gallery.html) | `MERGED` | 2026-05-29 | 12 photos · stacked cards · scale-pop hover · GSAP entrance · lightbox · v2.4 deep fix |
 | 10 | `s10-cta` | [s10-cta.html](s10-cta.html) | `MERGED` | 2026-06-02 | Direct phone orders only · DoorDash/Uber/Grubhub removed · v2.14 |
-| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-06-02 | Instagram circle icon + gradient hover · v2.15 |
+| 11 | `s11-footer` | [s11-footer.html](s11-footer.html) | `MERGED` | 2026-06-03 | Gmail + Instagram icons in contact block · no bottom bar social · v2.17 |
 
 ---
 
@@ -81,6 +81,8 @@ Any new section or feature should follow this pattern:
 | v2.13 | 2026-06-02 | Phone order modal (js-order-modal) · Remove DoorDash/Uber/Grubhub/Slice · Direct phone orders only |
 | v2.14 | 2026-06-02 | Logo reverted to text headline · iOS video fallback + webkit-playsinline · All staging files synced |
 | v2.15 | 2026-06-02 | Footer: Instagram @woosterfoodcatering · circle icon with gradient hover |
+| v2.16 | 2026-06-03 | Scroll reveal fix — scroll fallback + threshold 0.05 · iOS Apple Pay meta suppressed |
+| v2.17 | 2026-06-03 | Order Now → full order page modal (phone + menu highlights) · smooth scroll href=# fix · DOMContentLoaded modal init · Footer Gmail + Instagram contact icons |
 
 ---
 
