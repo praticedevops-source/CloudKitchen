@@ -986,12 +986,21 @@ a,button{touch-action:manipulation;}
   .cards-3d{grid-template-columns:1fr !important;max-width:100%;margin:0 auto}
   .card-inner{aspect-ratio:16/9 !important}
 
-  /* About section: hide chapter dots so they don't overflow */
+  /* About section: full mobile reflow */
   .chapter-dots{display:none !important}
-  .story-sticky{overflow:hidden;max-width:100vw}
-  .ch-num{font-size:64px !important;right:12px !important;opacity:0.15}
-  .ch-content{padding:0 20px !important}
-  .story-bg{max-width:100%;overflow:hidden}
+  .story-progress{display:none !important}
+  .scroll-cue{display:none !important}
+  .story-stage{height:auto !important}
+  .story-sticky{position:relative !important;height:auto !important;overflow:visible !important;transform:none !important}
+  .chapter{position:relative !important;opacity:1 !important;transform:none !important;display:block !important;height:auto !important;min-height:auto !important;padding:0 0 48px !important;border-bottom:1px solid rgba(204,19,24,0.1)}
+  .chapter:last-child{border-bottom:none}
+  .chapter-bg{height:220px !important;position:relative !important;margin:0 0 28px !important;background-attachment:scroll !important}
+  .ch-headline .line{overflow:visible !important}
+  .ch-headline .line span,.ch-body,.ch-eyebrow,.ch-year-tag,.ch-divider{opacity:1 !important;transform:none !important}
+  .ch3-stats,.pillar-grid,.pillar-card{opacity:1 !important;transform:none !important}
+  .ch-content{padding:0 20px !important;position:relative !important}
+  .ch-num{display:none !important}
+  .ch2-img-panel{display:none !important}
 
   /* Footer: single column */
   .footer-top{grid-template-columns:1fr !important}
@@ -1757,6 +1766,48 @@ document.querySelectorAll('.card-3d').forEach(card => {
 ══════════════════════════════════════ */
 (function(){
 'use strict';
+
+/* ── MOBILE: skip GSAP story, show static chapters ── */
+if(window.innerWidth <= 767){
+  var stage2 = document.getElementById('about');
+  if(stage2){
+    stage2.style.height = 'auto';
+    var sticky2 = document.getElementById('storySticky');
+    if(sticky2){ sticky2.style.position='relative'; sticky2.style.height='auto'; sticky2.style.overflow='visible'; }
+    var dots2 = document.getElementById('chapterDots');
+    if(dots2) dots2.style.display='none';
+    var prog2 = document.querySelector('.story-progress');
+    if(prog2) prog2.style.display='none';
+    var cue2 = document.getElementById('scrollCue');
+    if(cue2) cue2.style.display='none';
+    ['ch1','ch2','ch3','ch4'].forEach(function(id){
+      var ch = document.getElementById(id);
+      if(!ch) return;
+      ch.style.position='relative';
+      ch.style.opacity='1';
+      ch.style.transform='none';
+      ch.style.display='block';
+      ch.style.height='auto';
+      ch.style.minHeight='auto';
+      ch.classList.add('active');
+    });
+    /* show all animated text elements */
+    stage2.querySelectorAll('.ch-headline .line').forEach(function(l){ l.style.overflow='visible'; });
+    stage2.querySelectorAll('.ch-headline .line span,.ch-body,.ch-eyebrow,.ch-year-tag,.ch-divider,.ch3-stats,.pillar-grid,#pc0,#pc1,#pc2,#pc3').forEach(function(el){
+      el.style.opacity='1'; el.style.transform='none';
+    });
+    var ch3stats = document.getElementById('ch3-stats');
+    if(ch3stats){ ch3stats.style.opacity='1'; ch3stats.style.transform='none'; }
+    var pillarGrid = document.getElementById('pillarGrid');
+    if(pillarGrid){ pillarGrid.style.opacity='1'; pillarGrid.style.transform='none'; }
+    /* count-up for mobile */
+    [['cn1',2,0],['cn2',48,0],['cn3',4.9,1]].forEach(function(a){
+      var el=document.getElementById(a[0]); if(el) el.textContent=a[1].toFixed(a[2]);
+    });
+  }
+  return;
+}
+
 const CHAPTERS  = ['ch1','ch2','ch3','ch4'];
 let currentChap = 0;
 let animated    = new Set();
