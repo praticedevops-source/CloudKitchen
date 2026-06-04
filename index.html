@@ -966,11 +966,54 @@ a,button{touch-action:manipulation;}
   .ch3-stats{gap:40px;flex-wrap:wrap;justify-content:center}
   .chapter-dots{right:16px}
   .cards-3d{grid-template-columns:1fr 1fr}
+  .gallery-deck{grid-template-columns:1fr 1fr;gap:14px}
   .gallery-grid{columns:2}
   .footer-top{grid-template-columns:1fr 1fr;gap:36px}
   .menu-grid-2col{grid-template-columns:1fr}
   footer{padding:52px 24px 28px}
   #menu,#gallery{padding:80px 24px}
+}
+
+/* ── MOBILE OVERRIDE (must be last — fixes cascade conflicts) ── */
+@media(max-width:600px){
+  html,body{overflow-x:hidden;max-width:100vw}
+
+  /* Gallery: 2 columns, proper image sizing */
+  .gallery-deck{grid-template-columns:1fr 1fr !important;gap:8px !important}
+  .gal-img{aspect-ratio:1/1;width:100%;object-fit:cover}
+
+  /* Menu cards: single column, proper aspect ratio */
+  .cards-3d{grid-template-columns:1fr !important;max-width:480px;margin:0 auto}
+  .card-inner{aspect-ratio:16/9 !important}
+
+  /* About / story section: no overflow */
+  .story-sticky{overflow:hidden;max-width:100vw}
+  .story-bg{max-width:100%;overflow:hidden}
+  .ch-num{font-size:72px !important;right:12px !important}
+  .ch-content{padding:0 20px !important}
+
+  /* Footer: single column */
+  .footer-top{grid-template-columns:1fr !important}
+
+  /* CTA: centered, stacked */
+  .cta-split{grid-template-columns:1fr !important}
+  .cta-panel{padding:36px 0 !important;align-items:center !important;text-align:center !important}
+  .cta-panel:last-child{align-items:center !important;text-align:center !important}
+  .cta-panel p,.cta-panel:last-child p{margin:0 auto !important}
+  .cta-split-rule{height:1px;width:60%;margin:0 auto;background:linear-gradient(to right,transparent,rgba(204,19,24,0.22),transparent)}
+
+  /* Menu tabs: scrollable */
+  .menu-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mtab{white-space:nowrap;flex-shrink:0}
+
+  /* Order modal: single panel */
+  .order-modal-box{grid-template-columns:1fr !important}
+  .omr{display:none !important}
+  .oml{padding:36px 24px !important}
+
+  /* General image safety */
+  img{max-width:100%;height:auto}
+  section{overflow:hidden}
 }
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}

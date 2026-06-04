@@ -84,6 +84,7 @@ Any new section or feature should follow this pattern:
 | v2.16 | 2026-06-03 | Scroll reveal fix — scroll fallback + threshold 0.05 · iOS Apple Pay meta suppressed |
 | v2.17 | 2026-06-03 | Order Now → full order page modal (phone + menu highlights) · smooth scroll href=# fix · DOMContentLoaded modal init · Footer Gmail + Instagram contact icons |
 | v2.18 | 2026-06-04 | Remove pizza cursor → normal browser cursor · Remove announcement bar · SEO + OG meta tags kept |
+| v2.19 | 2026-06-04 | Mobile fix — gallery 2-col · menu cards 1-col · no horizontal overflow · CTA stacked · images constrained |
 
 ---
 
