@@ -975,22 +975,23 @@ a,button{touch-action:manipulation;}
 }
 
 /* ── MOBILE OVERRIDE (must be last — fixes cascade conflicts) ── */
-@media(max-width:600px){
+@media(max-width:767px){
   html,body{overflow-x:hidden;max-width:100vw}
 
-  /* Gallery: 2 columns, proper image sizing */
+  /* Gallery: 2 columns, square crop */
   .gallery-deck{grid-template-columns:1fr 1fr !important;gap:8px !important}
   .gal-img{aspect-ratio:1/1;width:100%;object-fit:cover}
 
-  /* Menu cards: single column, proper aspect ratio */
-  .cards-3d{grid-template-columns:1fr !important;max-width:480px;margin:0 auto}
+  /* Menu cards: single column */
+  .cards-3d{grid-template-columns:1fr !important;max-width:100%;margin:0 auto}
   .card-inner{aspect-ratio:16/9 !important}
 
-  /* About / story section: no overflow */
+  /* About section: hide chapter dots so they don't overflow */
+  .chapter-dots{display:none !important}
   .story-sticky{overflow:hidden;max-width:100vw}
-  .story-bg{max-width:100%;overflow:hidden}
-  .ch-num{font-size:72px !important;right:12px !important}
+  .ch-num{font-size:64px !important;right:12px !important;opacity:0.15}
   .ch-content{padding:0 20px !important}
+  .story-bg{max-width:100%;overflow:hidden}
 
   /* Footer: single column */
   .footer-top{grid-template-columns:1fr !important}
