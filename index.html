@@ -95,7 +95,9 @@
   ║        scroll-behavior conflict · nav offset on     ║
   ║        smooth scroll · instant reveal on nav click  ║
   ║        · reveal 0.8s→0.45s · modal no backdrop-blur ║
-  ║        · GSAP defer (non-blocking load)             ║
+  ║        · GSAP defer removed (crash fix)             ║
+  ║  v2.23 2026-06-11  About black screen fix — force   ║
+  ║        ch1 fully visible on #about nav click        ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -1594,6 +1596,16 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       target.querySelectorAll('.reveal:not(.visible),.reveal-l:not(.visible),.reveal-r:not(.visible)').forEach(el => el.classList.add('visible'));
       revealCheck();
     }, 200);
+    /* About section: force ch1 fully visible — GSAP timeline can be interrupted during nav scroll */
+    if(href === '#about' && typeof gsap !== 'undefined') {
+      setTimeout(() => {
+        gsap.set('#ch1-eyebrow',            { opacity:1, y:0 });
+        gsap.set('#ch1-headline .line span',{ y:'0%', opacity:1 });
+        gsap.set('#ch1-divider',            { width:130 });
+        gsap.set('#ch1-body',               { opacity:1, y:0 });
+        gsap.set('#ch1-tag',                { opacity:1, y:0 });
+      }, 300);
+    }
   });
 });
 
