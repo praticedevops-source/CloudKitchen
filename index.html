@@ -98,6 +98,8 @@
   ║        · GSAP defer removed (crash fix)             ║
   ║  v2.23 2026-06-11  About black screen fix — force   ║
   ║        ch1 fully visible on #about nav click        ║
+  ║  v2.24 2026-06-11  Real ratings — DoorDash 4.4★ ·  ║
+  ║        Yelp 1,129+ reviews · One Bite 8.0/10        ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -1222,16 +1224,16 @@ a,button{touch-action:manipulation;}
         <div class="ch-body" id="ch3-body">High heat. Precise timing. Every pie pulled at the exact right moment. The char you see isn't a mistake — it's the signature of a kitchen that knows exactly what it's doing.</div>
         <div class="ch3-stats" id="ch3-stats">
           <div class="ch3-stat">
-            <div class="ch3-stat-num"><span id="cn1">0</span><sup>K+</sup></div>
-            <div class="ch3-stat-label">Orders delivered</div>
+            <div class="ch3-stat-num"><span id="cn1">0.0</span><sup>★</sup></div>
+            <div class="ch3-stat-label">DoorDash Rating</div>
           </div>
           <div class="ch3-stat">
-            <div class="ch3-stat-num"><span id="cn2">0</span></div>
-            <div class="ch3-stat-label">Menu items</div>
+            <div class="ch3-stat-num"><span id="cn2">0</span><sup>+</sup></div>
+            <div class="ch3-stat-label">Yelp Reviews</div>
           </div>
           <div class="ch3-stat">
-            <div class="ch3-stat-num"><span id="cn3">0.0</span><sup>★</sup></div>
-            <div class="ch3-stat-label">Avg. rating</div>
+            <div class="ch3-stat-num"><span id="cn3">0.0</span><sup>/10</sup></div>
+            <div class="ch3-stat-label">One Bite Score</div>
           </div>
         </div>
       </div>
@@ -1862,7 +1864,7 @@ if(window.innerWidth <= 767){
     var pillarGrid = document.getElementById('pillarGrid');
     if(pillarGrid){ pillarGrid.style.opacity='1'; pillarGrid.style.transform='none'; }
     /* count-up for mobile */
-    [['cn1',2,0],['cn2',48,0],['cn3',4.9,1]].forEach(function(a){
+    [['cn1',4.4,1],['cn2',1129,0],['cn3',8.0,1]].forEach(function(a){
       var el=document.getElementById(a[0]); if(el) el.textContent=a[1].toFixed(a[2]);
     });
   }
@@ -1924,7 +1926,7 @@ function animateChapter(idx){
 
 /* ── count-up ── */
 function countUp(){
-  [['cn1',0,2,0],['cn2',0,48,0],['cn3',0,4.9,1]].forEach(([id,from,to,dec])=>{
+  [['cn1',0,4.4,1],['cn2',0,1129,0],['cn3',0,8.0,1]].forEach(([id,from,to,dec])=>{
     const node=document.getElementById(id);
     let t0=null; const dur=1400;
     function frame(ts){ if(!t0)t0=ts; const p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3); node.textContent=(from+(to-from)*e).toFixed(dec); if(p<1)requestAnimationFrame(frame); }

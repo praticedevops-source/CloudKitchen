@@ -89,6 +89,7 @@ Any new section or feature should follow this pattern:
 | v2.21 | 2026-06-10 | Footer: orders@woosterstreetcatering.com replaces hello@ email |
 | v2.22 | 2026-06-10 | Perf fixes — remove CSS/JS scroll conflict · nav offset on smooth scroll · instant reveal on nav click · reveal 0.8s→0.45s · modal no backdrop-blur · GSAP defer |
 | v2.23 | 2026-06-11 | OUR STORY nav fix — `navScrolling` flag + 550ms timeout forces ch1 visible (opacity + divider width) on nav click from any scroll position · no black screen · no ch2 flash · **Full QA passed** (desktop + mobile) |
+| v2.24 | 2026-06-11 | Real ratings in ch3 stats — DoorDash 4.4★ · Yelp 1,129+ reviews · One Bite 8.0/10 · replaced placeholder 4.9★ / 2K orders / 48 items |
 
 ---
 
