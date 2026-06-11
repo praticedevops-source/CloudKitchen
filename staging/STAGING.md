@@ -86,7 +86,8 @@ Any new section or feature should follow this pattern:
 | v2.18 | 2026-06-04 | Remove pizza cursor → normal browser cursor · Remove announcement bar · SEO + OG meta tags kept |
 | v2.19 | 2026-06-04 | Mobile fix — gallery 2-col · menu cards 1-col · no horizontal overflow · CTA stacked · images constrained |
 | v2.20 | 2026-06-04 | Mobile About section — skip GSAP, show 4 chapters stacked · no blank scroll areas · chapter dots hidden |
-| v2.21 | 2026-06-10 | Footer: add orders@woosterstreetcatering.com with Gmail icon below existing email · version log header caught up to v2.21 |
+| v2.21 | 2026-06-10 | Footer: orders@woosterstreetcatering.com replaces hello@ email |
+| v2.22 | 2026-06-10 | Perf fixes — remove CSS/JS scroll conflict · nav offset on smooth scroll · instant reveal on nav click · reveal 0.8s→0.45s · modal no backdrop-blur · GSAP defer |
 
 ---
 
