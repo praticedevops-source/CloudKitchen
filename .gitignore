@@ -1,30 +1,21 @@
-
-._*
+# macOS
 .DS_Store
 .DS_Store?
-.env
-.env.local
-.idea/
-.Spotlight-V100
+._*
+.Spotlight-V7
 .Trashes
-.vscode/
-*.log
-*.swo
-*.swp
-*~
-# Build artifacts (none yet, placeholder for future)
-# Editor
-# Local env
-# Logs
-# OS
-build/
-dist/
 ehthumbs.db
-npm-debug.log*
-push-to-github-ssh.sh
 Thumbs.db
-.ck_deploy_key
+
+# Dev scripts — never commit these
 *.command
-push-to-github-ssh.sh
-push-to-github.command
-cleanup.command
+*.sh
+
+# Staging / dev tools
+staging/
+tests/
+preview.html
+
+# Editor
+.vscode/
+.idea/
