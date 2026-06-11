@@ -88,6 +88,35 @@ Any new section or feature should follow this pattern:
 | v2.20 | 2026-06-04 | Mobile About section — skip GSAP, show 4 chapters stacked · no blank scroll areas · chapter dots hidden |
 | v2.21 | 2026-06-10 | Footer: orders@woosterstreetcatering.com replaces hello@ email |
 | v2.22 | 2026-06-10 | Perf fixes — remove CSS/JS scroll conflict · nav offset on smooth scroll · instant reveal on nav click · reveal 0.8s→0.45s · modal no backdrop-blur · GSAP defer |
+| v2.23 | 2026-06-11 | OUR STORY nav fix — `navScrolling` flag + 550ms timeout forces ch1 visible (opacity + divider width) on nav click from any scroll position · no black screen · no ch2 flash · **Full QA passed** (desktop + mobile) |
+
+---
+
+## v2.23 QA Test Results — 2026-06-11
+
+**All 9 tasks PASSED**
+
+### Desktop
+| # | Area | Result | Notes |
+|---|------|--------|-------|
+| 1 | Nav / Hero | ✅ PASS | All 4 nav links present · ORDER NOW opens modal · hero video loads · CTA buttons visible |
+| 2 | OUR STORY (v2.23 fix) | ✅ PASS | Nav click from any scroll position → ch1 "Born on Wooster Street." · full body text · EST. 1975 badge · no black screen · no ch2 |
+| 3 | Menu | ✅ PASS | 5 tabs (APPETIZERS, PIZZA, PASTA & BREADS, SALADS & PLATTERS, DESSERTS) · items with prices · 3D feature cards |
+| 4 | Gallery | ✅ PASS | "Behind the Fire" heading · 12 photos · 4-col grid · hover effects |
+| 5 | Catering CTA | ✅ PASS | "Every Table Deserves Extraordinary Food." · BOOK CATERING button |
+| 6 | ORDER NOW modal | ✅ PASS | Opens instantly · phone 860-649-1166 · hours displayed · popular items listed · X closes cleanly |
+| 7 | Footer | ✅ PASS | orders@woosterstreetcatering.com · 860-649-1166 · Manchester CT · @woosterfoodcatering |
+
+### Mobile (390px simulated)
+| # | Area | Result | Notes |
+|---|------|--------|-------|
+| 8a | Hamburger nav | ✅ PASS | Nav links hidden · hamburger icon visible · overlay opens |
+| 8b | Hero buttons | ✅ PASS | Stacked full-width buttons (ORDER NOW / BOOK CATERING) |
+| 8c | About ch1 | ✅ PASS | "Born on Wooster Street." visible · body text present |
+| 8d | Menu cards | ✅ PASS | 1-col stack layout |
+| 8e | Gallery | ✅ PASS | 2-col grid |
+| 8f | CTA | ✅ PASS | Stacked single-column layout |
+| 8g | Footer | ✅ PASS | 1-col stack · all contact info visible |
 
 ---
 
