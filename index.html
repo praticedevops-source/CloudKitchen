@@ -74,6 +74,23 @@
   ║                                                      ║
   ║  v2.15 2026-06-02  Instagram @woosterfoodcatering   ║
   ║        added to footer · social link styling updated ║
+  ║  v2.16 2026-06-03  Scroll reveal fix — threshold    ║
+  ║        0.05 + scroll fallback · iOS Apple Pay meta  ║
+  ║  v2.17 2026-06-03  Order Now → full modal (phone +  ║
+  ║        menu highlights) · smooth scroll # fix ·    ║
+  ║        DOMContentLoaded modal init · Gmail + IG     ║
+  ║        icons in footer contact block                ║
+  ║  v2.18 2026-06-04  Remove pizza cursor (cursor:     ║
+  ║        default) · Remove announcement bar ·         ║
+  ║        SEO + OG meta tags added                     ║
+  ║  v2.19 2026-06-04  Mobile fix — gallery 2-col ·    ║
+  ║        menu cards 1-col · no horizontal overflow ·  ║
+  ║        CTA stacked · images constrained             ║
+  ║  v2.20 2026-06-04  Mobile About — skip GSAP · show  ║
+  ║        4 chapters stacked · no blank scroll areas · ║
+  ║        chapter dots hidden                          ║
+  ║  v2.21 2026-06-10  Footer: add orders@ email with   ║
+  ║        Gmail icon · version log caught up           ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -1504,6 +1521,12 @@ a,button{touch-action:manipulation;}
           <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" fill="#EA4335"/><path d="M2 7l10 7 10-7" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
         hello@woosterstreetfoodco.com
+      </div>
+      <div class="footer-contact-item">
+        <span style="display:flex;align-items:center">
+          <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" fill="#EA4335"/><path d="M2 7l10 7 10-7" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <a href="mailto:orders@woosterstreetcatering.com" style="color:rgba(245,230,208,0.45);text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(245,230,208,0.45)'">orders@woosterstreetcatering.com</a>
       </div>
       <div class="footer-contact-item">
         <span style="display:flex;align-items:center">
