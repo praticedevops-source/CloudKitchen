@@ -1596,15 +1596,33 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       target.querySelectorAll('.reveal:not(.visible),.reveal-l:not(.visible),.reveal-r:not(.visible)').forEach(el => el.classList.add('visible'));
       revealCheck();
     }, 200);
-    /* About section: force ch1 fully visible — GSAP timeline can be interrupted during nav scroll */
+    /* About section: freeze chapter transitions during scroll, then force ch1 visible on arrival */
     if(href === '#about' && typeof gsap !== 'undefined') {
+      navScrolling = true;
       setTimeout(() => {
+        /* Reset to ch1 regardless of which chapter was active */
+        CHAPTERS.forEach((id, i) => {
+          const el = document.getElementById(id);
+          if(!el) return;
+          if(i === 0) {
+            el.classList.add('active');
+            gsap.set(el, { opacity:1, rotateX:0, scale:1 });
+          } else {
+            el.classList.remove('active');
+            gsap.set(el, { opacity:0 });
+          }
+        });
+        currentChap = 0;
+        /* Force ch1 inner content fully visible */
         gsap.set('#ch1-eyebrow',            { opacity:1, y:0 });
         gsap.set('#ch1-headline .line span',{ y:'0%', opacity:1 });
         gsap.set('#ch1-divider',            { width:130 });
         gsap.set('#ch1-body',               { opacity:1, y:0 });
         gsap.set('#ch1-tag',                { opacity:1, y:0 });
-      }, 300);
+        /* Update dots */
+        document.querySelectorAll('.chapter-dot').forEach((d, i) => d.classList.toggle('active', i === 0));
+        navScrolling = false;
+      }, 550);
     }
   });
 });
@@ -1855,6 +1873,7 @@ const CHAPTERS  = ['ch1','ch2','ch3','ch4'];
 let currentChap = 0;
 let animated    = new Set();
 let transitioning = false;
+let navScrolling = false; /* suppresses chapter transitions during nav-click scrolls */
 
 const stage    = document.getElementById('about');
 const sticky   = document.getElementById('storySticky');
@@ -1915,6 +1934,7 @@ function countUp(){
 
 /* ── transition ── */
 function goToChapter(idx){
+  if(navScrolling) return; /* blocked during nav-link scroll */
   if(idx===currentChap||transitioning) return;
   const dir=idx>currentChap?1:-1;
   const outEl=document.getElementById(CHAPTERS[currentChap]);
