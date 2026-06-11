@@ -1,0 +1,250 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Wooster Street Food Company — Decap CMS Configuration
+# Admin panel: woosterstreetcatering.com/admin
+# Content file: /content.json (root of repo)
+# ─────────────────────────────────────────────────────────────────────────────
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded images go
+media_folder: "images"
+public_folder: "/images"
+
+# Show editorial workflow (Draft → Review → Published)
+publish_mode: editorial_workflow
+
+# ─── COLLECTIONS ─────────────────────────────────────────────────────────────
+collections:
+
+  # ── 1. SITE SETTINGS (contact info, hours) ──────────────────────────────
+  - name: "settings"
+    label: "⚙️ Site Settings"
+    description: "Phone number, email, address, Instagram, and opening hours. Changes go live within 30 seconds after saving."
+    files:
+      - name: "contact"
+        label: "Contact & Hours"
+        file: "content.json"
+        fields:
+          - label: "Site Info"
+            name: "site"
+            widget: "object"
+            fields:
+              - { label: "Restaurant Name",   name: "name",             widget: "string" }
+              - { label: "Phone Number",       name: "phone",            widget: "string", hint: "Format: 860-649-1166" }
+              - { label: "Phone Link (tel:)",  name: "phone_link",       widget: "string", hint: "Format: +18606491166 (no dashes)" }
+              - { label: "Email Address",      name: "email",            widget: "string" }
+              - { label: "Address",            name: "address",          widget: "string" }
+              - { label: "Instagram Handle",   name: "instagram_handle", widget: "string", hint: "Include @ symbol, e.g. @woosterfoodcatering" }
+              - { label: "Instagram URL",      name: "instagram_url",    widget: "string" }
+              - { label: "Copyright Year",     name: "year",             widget: "string" }
+              - label: "Opening Hours"
+                name: "hours"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - { label: "Days",  name: "days", widget: "string", hint: "e.g. Mon – Fri" }
+                  - { label: "Hours", name: "time", widget: "string", hint: "e.g. 11am – 9pm" }
+
+  # ── 2. STATS (the 3 rating numbers in the Our Story section) ─────────────
+  - name: "ratings"
+    label: "⭐ Ratings & Stats"
+    description: "The three review ratings displayed in the Our Story section (DoorDash, Yelp, One Bite)."
+    files:
+      - name: "stats"
+        label: "Review Stats"
+        file: "content.json"
+        fields:
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            allow_add: false
+            min: 3
+            max: 3
+            fields:
+              - { label: "Value (number)",    name: "value",    widget: "number", value_type: "float" }
+              - { label: "Decimal places",    name: "decimals", widget: "number", value_type: "int", min: 0, max: 2, hint: "0 = whole number, 1 = one decimal" }
+              - { label: "Suffix (★ or + or /10)", name: "suffix", widget: "string" }
+              - { label: "Label",             name: "label",    widget: "string", hint: "e.g. DoorDash Rating" }
+
+  # ── 3. FEATURED CARDS (the 3 highlight cards above the menu tabs) ─────────
+  - name: "featured"
+    label: "🃏 Featured Cards"
+    description: "The three highlight cards that appear above the full menu (menu section). Change name, category, ingredients, and price."
+    files:
+      - name: "cards"
+        label: "Featured Menu Cards"
+        file: "content.json"
+        fields:
+          - label: "Featured Cards"
+            name: "featured_cards"
+            widget: "list"
+            allow_add: false
+            min: 3
+            max: 3
+            fields:
+              - { label: "Card Number (01/02/03)", name: "num",      widget: "string" }
+              - { label: "Category Label",          name: "category", widget: "string" }
+              - { label: "Dish Name",               name: "name",     widget: "string" }
+              - { label: "Ingredients / Description", name: "items",  widget: "string" }
+              - { label: "Price",                   name: "price",    widget: "string", hint: "e.g. from $18" }
+
+  # ── 4. MENU — APPETIZERS ──────────────────────────────────────────────────
+  - name: "menu_appetizers"
+    label: "🍟 Menu: Appetizers"
+    description: "Appetizers and Wings. Use type 'item' for dishes, type 'category' for section headers."
+    files:
+      - name: "appetizers"
+        label: "Appetizers"
+        file: "content.json"
+        fields:
+          - label: "Appetizers"
+            name: "menu"
+            widget: "object"
+            fields:
+              - label: "Appetizer Items"
+                name: "appetizers"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - label: "Type"
+                    name: "type"
+                    widget: "select"
+                    options: ["item", "category"]
+                    hint: "Choose 'category' to add a section header (like 'Wings — Choose Your Sauce'), 'item' for a dish."
+                  - { label: "Name",          name: "name",        widget: "string" }
+                  - { label: "Description",   name: "desc",        widget: "string", required: false, hint: "Leave blank for category headers" }
+                  - { label: "Price ($)",     name: "price",       widget: "string", required: false, hint: "Number only, e.g. 14. Leave blank for category headers or catering items." }
+                  - { label: "Price Label",   name: "price_label", widget: "string", required: false, hint: "Use for catering items: e.g. 'Catering' or 'Per Person'. Leave blank for regular items." }
+
+  # ── 5. MENU — PIZZA ───────────────────────────────────────────────────────
+  - name: "menu_pizza"
+    label: "🍕 Menu: Pizza"
+    description: "All pizza items. Use type 'category' for section headers like 'Classic Pies' or 'Specialty Pizzas'."
+    files:
+      - name: "pizza"
+        label: "Pizza"
+        file: "content.json"
+        fields:
+          - label: "Pizza"
+            name: "menu"
+            widget: "object"
+            fields:
+              - label: "Pizza Items"
+                name: "pizza"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - label: "Type"
+                    name: "type"
+                    widget: "select"
+                    options: ["item", "category"]
+                  - { label: "Name",        name: "name",        widget: "string" }
+                  - { label: "Description", name: "desc",        widget: "string", required: false }
+                  - { label: "Price ($)",   name: "price",       widget: "string", required: false, hint: "Number only, e.g. 22" }
+                  - { label: "Price Label", name: "price_label", widget: "string", required: false }
+
+  # ── 6. MENU — PASTA & BREADS ──────────────────────────────────────────────
+  - name: "menu_pasta"
+    label: "🍝 Menu: Pasta & Breads"
+    description: "Pasta dishes and stuffed breads."
+    files:
+      - name: "pasta"
+        label: "Pasta & Breads"
+        file: "content.json"
+        fields:
+          - label: "Pasta and Breads"
+            name: "menu"
+            widget: "object"
+            fields:
+              - label: "Pasta & Bread Items"
+                name: "pasta"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - label: "Type"
+                    name: "type"
+                    widget: "select"
+                    options: ["item", "category"]
+                  - { label: "Name",        name: "name",        widget: "string" }
+                  - { label: "Description", name: "desc",        widget: "string", required: false }
+                  - { label: "Price ($)",   name: "price",       widget: "string", required: false }
+                  - { label: "Price Label", name: "price_label", widget: "string", required: false }
+
+  # ── 7. MENU — SALADS & PLATTERS ───────────────────────────────────────────
+  - name: "menu_salads"
+    label: "🥗 Menu: Salads & Platters"
+    description: "Salads and catering cold platters."
+    files:
+      - name: "salads"
+        label: "Salads & Platters"
+        file: "content.json"
+        fields:
+          - label: "Salads and Platters"
+            name: "menu"
+            widget: "object"
+            fields:
+              - label: "Salad & Platter Items"
+                name: "salads"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - label: "Type"
+                    name: "type"
+                    widget: "select"
+                    options: ["item", "category"]
+                  - { label: "Name",        name: "name",        widget: "string" }
+                  - { label: "Description", name: "desc",        widget: "string", required: false }
+                  - { label: "Price ($)",   name: "price",       widget: "string", required: false }
+                  - { label: "Price Label", name: "price_label", widget: "string", required: false, hint: "'Catering' for platters" }
+
+  # ── 8. MENU — DESSERTS ────────────────────────────────────────────────────
+  - name: "menu_desserts"
+    label: "🍰 Menu: Desserts"
+    description: "Desserts and bar packages."
+    files:
+      - name: "desserts"
+        label: "Desserts"
+        file: "content.json"
+        fields:
+          - label: "Desserts"
+            name: "menu"
+            widget: "object"
+            fields:
+              - label: "Dessert Items"
+                name: "desserts"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - label: "Type"
+                    name: "type"
+                    widget: "select"
+                    options: ["item", "category"]
+                  - { label: "Name",        name: "name",        widget: "string" }
+                  - { label: "Description", name: "desc",        widget: "string", required: false }
+                  - { label: "Price ($)",   name: "price",       widget: "string", required: false }
+                  - { label: "Price Label", name: "price_label", widget: "string", required: false, hint: "'Per Person' for bar packages" }
+
+  # ── 9. ORDER MODAL — Popular Items ────────────────────────────────────────
+  - name: "modal"
+    label: "📋 Order Modal: Popular Items"
+    description: "The popular items shown in the 'Order Now' popup. Update names and prices here."
+    files:
+      - name: "popular"
+        label: "Popular Items"
+        file: "content.json"
+        fields:
+          - label: "Popular Item Groups"
+            name: "modal_popular"
+            widget: "list"
+            allow_add: true
+            fields:
+              - { label: "Category Label", name: "category", widget: "string", hint: "e.g. 🍕 Pizza" }
+              - label: "Items"
+                name: "items"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - { label: "Dish Name", name: "name",  widget: "string" }
+                  - { label: "Price",     name: "price", widget: "string", hint: "e.g. from $18" }

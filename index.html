@@ -100,6 +100,9 @@
   ║        ch1 fully visible on #about nav click        ║
   ║  v2.24 2026-06-11  Real ratings — DoorDash 4.4★ ·  ║
   ║        Yelp 1,129+ reviews · One Bite 8.0/10        ║
+  ║  v2.25 2026-06-11  CMS system — content.json +     ║
+  ║        Decap CMS admin + Netlify deploy. Menu,      ║
+  ║        hours, phone, prices all editable by admin   ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -1576,6 +1579,170 @@ a,button{touch-action:manipulation;}
 
 
 <script>
+/* ═══════════════════════════════════════════════════════════════════════
+   CONTENT LOADER v2.25
+   Fetches /content.json on every page load and updates all dynamic
+   content: menu items, prices, hours, phone, featured cards, stats.
+   If the fetch fails (offline / missing file), the hardcoded HTML
+   stays intact — no blank page, no broken animations.
+   ═══════════════════════════════════════════════════════════════════════ */
+(function(){
+  function _esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function buildMenuRow(item){
+    if(item.type==='category'){
+      return '<div class="menu-cat">'+_esc(item.name)+'</div>';
+    }
+    var priceHtml = item.price_label
+      ? '<div class="menu-row-price mkt">'+_esc(item.price_label)+'</div>'
+      : '<div class="menu-row-price"><span>$</span>'+_esc(item.price)+'</div>';
+    return '<div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">'+_esc(item.name)+'</div><div class="menu-row-desc">'+_esc(item.desc)+'</div></div>'+priceHtml+'</div>';
+  }
+
+  function applyContent(c){
+    var s = c.site || {};
+
+    /* ── Phone: all tel: links ── */
+    if(s.phone_link){
+      document.querySelectorAll('a[href^="tel:"]').forEach(function(el){
+        el.href='tel:'+s.phone_link;
+      });
+    }
+    /* ── Phone: display text (oml-phone) ── */
+    if(s.phone){
+      document.querySelectorAll('.oml-phone').forEach(function(el){ el.textContent=s.phone; });
+      /* Footer phone text links */
+      document.querySelectorAll('.footer-col a[href^="tel:"]').forEach(function(el){
+        if(el.textContent.match(/\d{3}/)) el.textContent='📞 '+s.phone;
+      });
+    }
+
+    /* ── Email ── */
+    if(s.email){
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function(el){
+        el.href='mailto:'+s.email;
+        if(el.textContent.indexOf('@')>-1) el.textContent=s.email;
+      });
+    }
+
+    /* ── Instagram ── */
+    if(s.instagram_url){
+      document.querySelectorAll('a[href*="instagram.com"]').forEach(function(el){
+        el.href=s.instagram_url;
+        if(s.instagram_handle && el.textContent.indexOf('@')>-1) el.textContent=s.instagram_handle;
+      });
+    }
+
+    /* ── Footer Hours column ── */
+    if(s.hours){
+      var fCols = document.querySelectorAll('.footer-col');
+      fCols.forEach(function(col){
+        var h5 = col.querySelector('h5');
+        if(h5 && h5.textContent.trim()==='Hours'){
+          var ul = col.querySelector('ul');
+          if(ul) ul.innerHTML = s.hours.map(function(h){
+            return '<li><a href="#">'+_esc(h.days)+': '+_esc(h.time)+'</a></li>';
+          }).join('');
+        }
+      });
+    }
+
+    /* ── Modal Hours ── */
+    if(s.hours){
+      var omlHours = document.querySelector('.oml-hours');
+      if(omlHours){
+        omlHours.innerHTML = '<div class="oml-hours-title">Hours</div>'+
+          s.hours.map(function(h){
+            return '<div class="oml-hours-row"><span>'+_esc(h.days)+'</span><span>'+_esc(h.time)+'</span></div>';
+          }).join('');
+      }
+    }
+
+    /* ── Stats: store for countUp ── */
+    if(c.stats && c.stats.length) window.__stats = c.stats;
+
+    /* ── Featured Cards ── */
+    if(c.featured_cards){
+      var cards = document.querySelectorAll('.card-3d');
+      c.featured_cards.forEach(function(fc,i){
+        var card = cards[i];
+        if(!card) return;
+        var numEl = card.querySelector('.card-num');
+        if(numEl) numEl.textContent = fc.num;
+        var body = card.querySelector('.card-body');
+        if(!body) return;
+        var catEl = body.querySelector('.card-cat');   if(catEl) catEl.textContent = fc.category;
+        var nameEl = body.querySelector('.card-name');  if(nameEl) nameEl.textContent = fc.name;
+        var itemsEl = body.querySelector('.card-items');if(itemsEl) itemsEl.textContent = fc.items;
+        var priceEl = body.querySelector('.card-price');
+        if(priceEl && fc.price){
+          var parts = fc.price.split('$');
+          priceEl.innerHTML = parts.length>1 ? '<span>'+_esc(parts[0].trim())+'</span> $'+_esc(parts[1]) : _esc(fc.price);
+        }
+      });
+    }
+
+    /* ── Menu Tabs ── */
+    var tabMap = {
+      appetizers: '#panel-appetizers .menu-grid-2col',
+      pizza:      '#panel-pizza .menu-grid-2col',
+      pasta:      '#panel-pasta .menu-grid-2col',
+      salads:     '#panel-salads .menu-grid-2col',
+      desserts:   '#panel-desserts .menu-grid-2col'
+    };
+    var phone = (s && s.phone) ? s.phone : '860-649-1166';
+    if(c.menu){
+      Object.keys(tabMap).forEach(function(tab){
+        var el = document.querySelector(tabMap[tab]);
+        if(!el || !c.menu[tab]) return;
+        var html = c.menu[tab].map(buildMenuRow).join('');
+        /* Tab-specific extras */
+        if(tab==='appetizers'){
+          html += '<div style="grid-column:1/-1;padding:14px 0 8px"><div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px">Available sauces</div><div class="sauce-list"><div class="sauce-chip">Mild Buffalo</div><div class="sauce-chip">Hot Buffalo</div><div class="sauce-chip">BBQ</div><div class="sauce-chip">Garlic Parmesan</div><div class="sauce-chip">Honey Hot</div></div></div>';
+        }
+        if(tab==='salads'){
+          html += '<div class="menu-note"><strong>Catering items</strong> are priced per person based on event size &amp; selections. Call us at <strong>'+_esc(phone)+'</strong> for a custom quote.</div>';
+        }
+        if(tab==='desserts'){
+          html += '<div class="menu-note"><strong>Bar packages</strong> are available for private events &amp; catering orders. Contact us at <strong>'+_esc(phone)+'</strong> to customize your event bar.</div>';
+        }
+        el.innerHTML = html;
+      });
+    }
+
+    /* ── Modal Popular Items ── */
+    if(c.modal_popular){
+      var omr = document.querySelector('.omr');
+      if(omr){
+        var sectHtml = c.modal_popular.map(function(group){
+          var items = group.items.map(function(it){
+            return '<div class="omr-item"><span class="omr-item-name">'+_esc(it.name)+'</span><span class="omr-item-price">'+_esc(it.price)+'</span></div>';
+          }).join('');
+          return '<div class="omr-section"><h4>'+_esc(group.category)+'</h4>'+items+'</div>';
+        }).join('');
+        omr.innerHTML = '<div class="omr-title">Popular Items</div>'+sectHtml+
+          '<div class="omr-note"><strong>How to order</strong> Call us, tell us what you\'d like, and we\'ll give you a pickup or delivery time. Easy as that.</div>';
+      }
+    }
+
+    /* ── Copyright year ── */
+    if(s.year && s.name){
+      document.querySelectorAll('.footer-bottom p').forEach(function(el){
+        el.textContent = '© '+s.year+' '+s.name+'. All rights reserved.';
+      });
+    }
+  }
+
+  /* Fetch and apply; silent fallback on any error */
+  fetch('/content.json')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(c){ if(c) applyContent(c); })
+    .catch(function(){});
+})();
+/* ═══════════════════════════════════════════════════════════════════════
+   END CONTENT LOADER
+   ═══════════════════════════════════════════════════════════════════════ */
+
 /* NAV SCROLL SHRINK */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -1863,9 +2030,12 @@ if(window.innerWidth <= 767){
     if(ch3stats){ ch3stats.style.opacity='1'; ch3stats.style.transform='none'; }
     var pillarGrid = document.getElementById('pillarGrid');
     if(pillarGrid){ pillarGrid.style.opacity='1'; pillarGrid.style.transform='none'; }
-    /* count-up for mobile */
-    [['cn1',4.4,1],['cn2',1129,0],['cn3',8.0,1]].forEach(function(a){
-      var el=document.getElementById(a[0]); if(el) el.textContent=a[1].toFixed(a[2]);
+    /* count-up for mobile — reads from content.json via window.__stats */
+    var mobileStats = window.__stats || [{value:4.4,decimals:1},{value:1129,decimals:0},{value:8.0,decimals:1}];
+    ['cn1','cn2','cn3'].forEach(function(id,i){
+      var el=document.getElementById(id);
+      var st=mobileStats[i];
+      if(el && st) el.textContent=parseFloat(st.value).toFixed(st.decimals);
     });
   }
   return;
@@ -1924,12 +2094,16 @@ function animateChapter(idx){
   }
 }
 
-/* ── count-up ── */
+/* ── count-up — reads from content.json via window.__stats ── */
 function countUp(){
-  [['cn1',0,4.4,1],['cn2',0,1129,0],['cn3',0,8.0,1]].forEach(([id,from,to,dec])=>{
-    const node=document.getElementById(id);
-    let t0=null; const dur=1400;
-    function frame(ts){ if(!t0)t0=ts; const p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3); node.textContent=(from+(to-from)*e).toFixed(dec); if(p<1)requestAnimationFrame(frame); }
+  var defaults=[{value:4.4,decimals:1},{value:1129,decimals:0},{value:8.0,decimals:1}];
+  var statsData = window.__stats || defaults;
+  ['cn1','cn2','cn3'].forEach(function(id,i){
+    var node=document.getElementById(id);
+    var st=statsData[i]||defaults[i];
+    var to=parseFloat(st.value), dec=st.decimals||0, dur=1400;
+    var t0=null;
+    function frame(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3); node.textContent=(to*e).toFixed(dec); if(p<1)requestAnimationFrame(frame); }
     requestAnimationFrame(frame);
   });
 }
