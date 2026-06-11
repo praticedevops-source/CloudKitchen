@@ -4,14 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wooster Street — Content Admin</title>
-  <!-- Decap CMS (formerly Netlify CMS) — open source, free -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <style>
     /* Override CMS header color to match brand */
     #header { background: #CC1318 !important; }
   </style>
 </head>
 <body>
-  <!-- Decap CMS mounts here automatically -->
+  <!-- Decap CMS mounts here — script MUST be at end of body so document.body exists -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
