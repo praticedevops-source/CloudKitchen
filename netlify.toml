@@ -10,15 +10,15 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options       = "DENY"
+    X-Frame-Options       = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy        = "strict-origin-when-cross-origin"
 
-# Allow the admin panel to load Decap CMS from CDN
+# Custom admin panel CSP
 [[headers]]
   for = "/admin/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://api.netlify.com https://auth.netlify.com https://*.netlify.app https://*.github.com https://github.com https://raw.githubusercontent.com; worker-src blob:; frame-src 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://api.netlify.com https://auth.netlify.com https://*.netlify.app https://*.github.com https://github.com https://raw.githubusercontent.com; worker-src blob:; frame-src 'self' https://woosterstreet.netlify.app https://woosterstreetcatering.com"
 
 # Cache static assets
 [[headers]]

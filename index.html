@@ -103,6 +103,14 @@
   ║  v2.25 2026-06-11  CMS system — content.json +     ║
   ║        Decap CMS admin + Netlify deploy. Menu,      ║
   ║        hours, phone, prices all editable by admin   ║
+  ║  v2.27 2026-06-11  Enterprise CMS — expanded       ║
+  ║        content.json · announcement banner ·         ║
+  ║        gallery from JSON · postMessage preview ·    ║
+  ║        events/testimonials/specials dynamic         ║
+  ║  v2.28 2026-06-11  Custom admin panel — full       ║
+  ║        enterprise CMS replaces Decap CMS ·         ║
+  ║        15 sections · live preview iframe ·          ║
+  ║        86'd items · X-Frame SAMEORIGIN fix         ║
   ╚══════════════════════════════════════════════════════╝
 -->
 <!DOCTYPE html>
@@ -131,6 +139,51 @@ html{scroll-behavior:auto}
 body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;cursor:default}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:var(--red)}
+
+/* ANNOUNCEMENT BAR */
+#cms-announcement{display:none;position:relative;z-index:1100;padding:11px 24px;text-align:center;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.01em;line-height:1.4}
+#cms-announcement.ann-red{background:var(--red);color:#fff}
+#cms-announcement.ann-navy{background:var(--navy);color:#fff}
+#cms-announcement.ann-dark{background:#1a1a1a;color:#fff}
+#cms-announcement a.ann-link{color:rgba(255,255,255,0.9);text-decoration:underline;margin-left:12px;font-size:12px}
+#cms-announcement a.ann-link:hover{color:#fff}
+#cms-announcement .ann-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;font-size:16px;line-height:1;padding:4px}
+#cms-announcement .ann-close:hover{color:#fff}
+
+/* DYNAMIC SECTIONS (events, testimonials, specials) */
+.dyn-section{padding:100px 56px;max-width:1400px;margin:0 auto}
+.dyn-section-header{text-align:center;margin-bottom:60px}
+.dyn-section-header .sec-tag{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.dyn-section-header h2{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1}
+.dyn-section-header p{color:rgba(255,255,255,0.5);font-size:16px;margin-top:12px}
+/* Events grid */
+.events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px}
+.event-card{background:var(--char);border:1px solid rgba(255,255,255,0.07);padding:32px;position:relative;overflow:hidden;transition:border-color 0.3s}
+.event-card:hover{border-color:rgba(204,19,24,0.4)}
+.event-card .ev-date{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.event-card .ev-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:10px}
+.event-card .ev-time{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:14px}
+.event-card .ev-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6}
+.event-card .ev-link{display:inline-block;margin-top:20px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(204,19,24,0.4);padding-bottom:2px}
+.event-card .ev-badge{position:absolute;top:20px;right:20px;background:var(--red);color:#fff;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:4px 10px}
+/* Testimonials */
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px}
+.testi-card{background:var(--char);border:1px solid rgba(255,255,255,0.07);padding:36px;position:relative}
+.testi-card .testi-stars{color:var(--red);font-size:14px;margin-bottom:18px;letter-spacing:2px}
+.testi-card .testi-quote{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;font-style:italic;line-height:1.6;color:rgba(255,255,255,0.88);margin-bottom:24px}
+.testi-card .testi-name{font-size:13px;font-weight:600;color:#fff}
+.testi-card .testi-meta{font-size:12px;color:rgba(255,255,255,0.35);margin-top:3px}
+.testi-card .testi-src{position:absolute;top:20px;right:20px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.2)}
+/* Specials */
+.specials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.special-card{background:var(--char);border:1px solid rgba(255,255,255,0.07);padding:28px;position:relative;transition:border-color 0.3s}
+.special-card:hover{border-color:rgba(204,19,24,0.4)}
+.special-card .sp-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.special-card .sp-desc{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:16px}
+.special-card .sp-price{font-size:22px;font-weight:600;color:var(--red)}
+.special-card .sp-badge{position:absolute;top:18px;right:18px;background:var(--red);color:#fff;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;padding:4px 9px}
+.special-card.sp-unavail{opacity:0.45}
+.special-card.sp-unavail::after{content:'86\'d';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:var(--red);background:rgba(8,9,15,0.7);letter-spacing:0.1em}
 
 /* NAV */
 nav{
@@ -1067,6 +1120,9 @@ a,button{touch-action:manipulation;}
 
 
 
+<!-- ANNOUNCEMENT BAR — populated by content loader when enabled -->
+<div id="cms-announcement" role="alert"></div>
+
 <!-- NAV -->
 <nav id="nav">
   <a class="nav-logo" href="#" aria-label="Back to top" style="text-decoration:none;cursor:pointer;">
@@ -1485,6 +1541,9 @@ a,button{touch-action:manipulation;}
   </div>
 </section>
 
+<!-- DYNAMIC SECTIONS — Specials, Events, Testimonials (populated by content loader when enabled) -->
+<div id="dynamic-sections"></div>
+
 <!-- ORDER & CATERING — FINAL CTA -->
 <section id="cta">
   <div class="cta-top reveal">
@@ -1582,43 +1641,77 @@ a,button{touch-action:manipulation;}
 
 <script>
 /* ═══════════════════════════════════════════════════════════════════════
-   CONTENT LOADER v2.25
-   Fetches /content.json on every page load and updates all dynamic
-   content: menu items, prices, hours, phone, featured cards, stats.
-   If the fetch fails (offline / missing file), the hardcoded HTML
-   stays intact — no blank page, no broken animations.
+   CONTENT LOADER v2.27
+   Fetches /content.json and populates all dynamic content.
+   In ?cms_preview=1 mode, listens for postMessage from admin panel
+   instead, enabling real-time live preview as you type in the CMS.
    ═══════════════════════════════════════════════════════════════════════ */
 (function(){
-  function _esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function _esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
   function buildMenuRow(item){
+    if(!item) return '';
     if(item.type==='category'){
       return '<div class="menu-cat">'+_esc(item.name)+'</div>';
     }
+    if(item.available===false){
+      return '<div class="menu-row" style="opacity:0.38"><div class="menu-row-left"><div class="menu-row-name">'+_esc(item.name)+' <span style="font-size:10px;letter-spacing:0.15em;color:var(--red);text-transform:uppercase;margin-left:6px">86\'d</span></div><div class="menu-row-desc">'+_esc(item.desc)+'</div></div><div class="menu-row-price" style="opacity:0.4"><span>$</span>'+_esc(item.price)+'</div></div>';
+    }
+    var tags = (item.tags||[]).map(function(t){
+      var labels = {vegetarian:'🌿 Vegetarian', vegan:'🌱 Vegan', gf:'GF', spicy:'🌶 Spicy'};
+      return labels[t] ? '<span style="font-size:9px;letter-spacing:0.12em;background:rgba(255,255,255,0.08);padding:2px 6px;margin-left:5px;border-radius:2px">'+labels[t]+'</span>' : '';
+    }).join('');
     var priceHtml = item.price_label
       ? '<div class="menu-row-price mkt">'+_esc(item.price_label)+'</div>'
       : '<div class="menu-row-price"><span>$</span>'+_esc(item.price)+'</div>';
-    return '<div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">'+_esc(item.name)+'</div><div class="menu-row-desc">'+_esc(item.desc)+'</div></div>'+priceHtml+'</div>';
+    return '<div class="menu-row"><div class="menu-row-left"><div class="menu-row-name">'+_esc(item.name)+tags+'</div><div class="menu-row-desc">'+_esc(item.desc)+'</div></div>'+priceHtml+'</div>';
+  }
+
+  function stars(n){
+    var s=''; for(var i=0;i<5;i++) s+=(i<n)?'★':'☆'; return s;
   }
 
   function applyContent(c){
     var s = c.site || {};
 
+    /* ── SEO meta tags ── */
+    if(c.seo){
+      if(c.seo.title){ document.title = c.seo.title; var el=document.querySelector('meta[property="og:title"]'); if(el) el.content=c.seo.title; }
+      if(c.seo.description){ var d=document.querySelector('meta[name="description"]'); if(d) d.content=c.seo.description; var od=document.querySelector('meta[property="og:description"]'); if(od) od.content=c.seo.description; }
+      if(c.seo.og_image){ var oi=document.querySelector('meta[property="og:image"]'); if(oi) oi.content=c.seo.og_image; }
+    }
+
+    /* ── Announcement Banner ── */
+    var annBar = document.getElementById('cms-announcement');
+    if(annBar){
+      if(c.announcement && c.announcement.enabled && c.announcement.text){
+        var ann = c.announcement;
+        /* Date gating */
+        var now = Date.now();
+        var startOk = !ann.start_date || now >= new Date(ann.start_date).getTime();
+        var endOk   = !ann.end_date   || now <= new Date(ann.end_date).getTime();
+        if(startOk && endOk && !sessionStorage.getItem('ann_dismissed')){
+          var linkHtml = ann.link ? '<a href="'+_esc(ann.link)+'" class="ann-link">'+_esc(ann.link_text||'Learn More')+'</a>' : '';
+          annBar.innerHTML = _esc(ann.text)+linkHtml+'<button class="ann-close" onclick="this.parentNode.style.display=\'none\';sessionStorage.setItem(\'ann_dismissed\',\'1\')" aria-label="Close">×</button>';
+          annBar.className = 'ann-'+(ann.style||'red');
+          annBar.style.display = 'block';
+        }
+      } else {
+        annBar.style.display = 'none';
+      }
+    }
+
     /* ── Phone: all tel: links ── */
     if(s.phone_link){
-      document.querySelectorAll('a[href^="tel:"]').forEach(function(el){
-        el.href='tel:'+s.phone_link;
-      });
+      document.querySelectorAll('a[href^="tel:"]').forEach(function(el){ el.href='tel:'+s.phone_link; });
     }
-    /* ── Phone: display text (oml-phone) ── */
+    /* ── Phone: display text ── */
     if(s.phone){
       document.querySelectorAll('.oml-phone').forEach(function(el){ el.textContent=s.phone; });
-      /* Footer phone text links */
       document.querySelectorAll('.footer-col a[href^="tel:"]').forEach(function(el){
         if(el.textContent.match(/\d{3}/)) el.textContent='📞 '+s.phone;
       });
     }
-
     /* ── Email ── */
     if(s.email){
       document.querySelectorAll('a[href^="mailto:"]').forEach(function(el){
@@ -1626,7 +1719,6 @@ a,button{touch-action:manipulation;}
         if(el.textContent.indexOf('@')>-1) el.textContent=s.email;
       });
     }
-
     /* ── Instagram ── */
     if(s.instagram_url){
       document.querySelectorAll('a[href*="instagram.com"]').forEach(function(el){
@@ -1634,115 +1726,205 @@ a,button{touch-action:manipulation;}
         if(s.instagram_handle && el.textContent.indexOf('@')>-1) el.textContent=s.instagram_handle;
       });
     }
-
-    /* ── Footer Hours column ── */
+    /* ── Footer Hours ── */
     if(s.hours){
-      var fCols = document.querySelectorAll('.footer-col');
-      fCols.forEach(function(col){
-        var h5 = col.querySelector('h5');
+      document.querySelectorAll('.footer-col').forEach(function(col){
+        var h5=col.querySelector('h5');
         if(h5 && h5.textContent.trim()==='Hours'){
-          var ul = col.querySelector('ul');
-          if(ul) ul.innerHTML = s.hours.map(function(h){
-            return '<li><a href="#">'+_esc(h.days)+': '+_esc(h.time)+'</a></li>';
-          }).join('');
+          var ul=col.querySelector('ul');
+          if(ul) ul.innerHTML=s.hours.map(function(h){ return '<li><a href="#">'+_esc(h.days)+': '+_esc(h.time)+'</a></li>'; }).join('');
         }
       });
     }
-
     /* ── Modal Hours ── */
     if(s.hours){
-      var omlHours = document.querySelector('.oml-hours');
-      if(omlHours){
-        omlHours.innerHTML = '<div class="oml-hours-title">Hours</div>'+
-          s.hours.map(function(h){
-            return '<div class="oml-hours-row"><span>'+_esc(h.days)+'</span><span>'+_esc(h.time)+'</span></div>';
-          }).join('');
-      }
+      var omlHours=document.querySelector('.oml-hours');
+      if(omlHours) omlHours.innerHTML='<div class="oml-hours-title">Hours</div>'+
+        s.hours.map(function(h){ return '<div class="oml-hours-row"><span>'+_esc(h.days)+'</span><span>'+_esc(h.time)+'</span></div>'; }).join('');
     }
 
-    /* ── Stats: store for countUp ── */
+    /* ── Stats ── */
     if(c.stats && c.stats.length) window.__stats = c.stats;
+
+    /* ── About chapter text (eyebrow + body only — headlines have GSAP .line span structure) ── */
+    if(c.about){
+      var ab = c.about;
+      /* Eyebrows */
+      [1,2,3,4].forEach(function(n){
+        var ew=document.getElementById('ch'+n+'-eyebrow'); if(ew && ab['ch'+n+'_eyebrow']) ew.textContent=ab['ch'+n+'_eyebrow'];
+      });
+      /* Body text (plain text nodes — safe to update) */
+      var bodyMap = {1:'ch1-body', 2:'ch2-body', 3:'ch3-body', 4:'ch4-body'};
+      [1,2,3,4].forEach(function(n){
+        var bd=document.getElementById(bodyMap[n]); if(bd && ab['ch'+n+'_body']) bd.textContent=ab['ch'+n+'_body'];
+      });
+    }
 
     /* ── Featured Cards ── */
     if(c.featured_cards){
-      var cards = document.querySelectorAll('.card-3d');
+      var cards=document.querySelectorAll('.card-3d');
       c.featured_cards.forEach(function(fc,i){
-        var card = cards[i];
-        if(!card) return;
-        var numEl = card.querySelector('.card-num');
-        if(numEl) numEl.textContent = fc.num;
-        var body = card.querySelector('.card-body');
-        if(!body) return;
-        var catEl = body.querySelector('.card-cat');   if(catEl) catEl.textContent = fc.category;
-        var nameEl = body.querySelector('.card-name');  if(nameEl) nameEl.textContent = fc.name;
-        var itemsEl = body.querySelector('.card-items');if(itemsEl) itemsEl.textContent = fc.items;
-        var priceEl = body.querySelector('.card-price');
+        var card=cards[i]; if(!card) return;
+        var numEl=card.querySelector('.card-num'); if(numEl) numEl.textContent=fc.num;
+        var body=card.querySelector('.card-body'); if(!body) return;
+        var catEl=body.querySelector('.card-cat'); if(catEl) catEl.textContent=fc.category;
+        var nameEl=body.querySelector('.card-name'); if(nameEl) nameEl.textContent=fc.name;
+        var itemsEl=body.querySelector('.card-items'); if(itemsEl) itemsEl.textContent=fc.items;
+        var priceEl=body.querySelector('.card-price');
         if(priceEl && fc.price){
-          var parts = fc.price.split('$');
-          priceEl.innerHTML = parts.length>1 ? '<span>'+_esc(parts[0].trim())+'</span> $'+_esc(parts[1]) : _esc(fc.price);
+          var parts=fc.price.split('$');
+          priceEl.innerHTML=parts.length>1?'<span>'+_esc(parts[0].trim())+'</span> $'+_esc(parts[1]):_esc(fc.price);
         }
       });
     }
 
+    /* ── Gallery from JSON ── */
+    if(c.gallery && c.gallery.length){
+      var deck=document.getElementById('gallery-deck');
+      if(deck){
+        deck.innerHTML=c.gallery.map(function(g,i){
+          return '<div class="gal-card" data-index="'+i+'"><img class="gal-img" loading="lazy" src="'+_esc(g.src)+'" alt="'+_esc(g.caption)+'"/><div class="gal-overlay"><div class="gal-label">'+_esc(g.caption)+'</div><div class="gal-icon">&#43;</div></div></div>';
+        }).join('');
+      }
+    }
+
     /* ── Menu Tabs ── */
-    var tabMap = {
-      appetizers: '#panel-appetizers .menu-grid-2col',
-      pizza:      '#panel-pizza .menu-grid-2col',
-      pasta:      '#panel-pasta .menu-grid-2col',
-      salads:     '#panel-salads .menu-grid-2col',
-      desserts:   '#panel-desserts .menu-grid-2col'
-    };
-    var phone = (s && s.phone) ? s.phone : '860-649-1166';
+    var tabMap={appetizers:'#panel-appetizers .menu-grid-2col',pizza:'#panel-pizza .menu-grid-2col',pasta:'#panel-pasta .menu-grid-2col',salads:'#panel-salads .menu-grid-2col',desserts:'#panel-desserts .menu-grid-2col'};
+    var phone=(s&&s.phone)?s.phone:'860-649-1166';
     if(c.menu){
       Object.keys(tabMap).forEach(function(tab){
-        var el = document.querySelector(tabMap[tab]);
-        if(!el || !c.menu[tab]) return;
-        var html = c.menu[tab].map(buildMenuRow).join('');
-        /* Tab-specific extras */
-        if(tab==='appetizers'){
-          html += '<div style="grid-column:1/-1;padding:14px 0 8px"><div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px">Available sauces</div><div class="sauce-list"><div class="sauce-chip">Mild Buffalo</div><div class="sauce-chip">Hot Buffalo</div><div class="sauce-chip">BBQ</div><div class="sauce-chip">Garlic Parmesan</div><div class="sauce-chip">Honey Hot</div></div></div>';
-        }
-        if(tab==='salads'){
-          html += '<div class="menu-note"><strong>Catering items</strong> are priced per person based on event size &amp; selections. Call us at <strong>'+_esc(phone)+'</strong> for a custom quote.</div>';
-        }
-        if(tab==='desserts'){
-          html += '<div class="menu-note"><strong>Bar packages</strong> are available for private events &amp; catering orders. Contact us at <strong>'+_esc(phone)+'</strong> to customize your event bar.</div>';
-        }
-        el.innerHTML = html;
+        var el=document.querySelector(tabMap[tab]);
+        if(!el||!c.menu[tab]) return;
+        var html=c.menu[tab].map(buildMenuRow).join('');
+        if(tab==='appetizers') html+='<div style="grid-column:1/-1;padding:14px 0 8px"><div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px">Available sauces</div><div class="sauce-list"><div class="sauce-chip">Mild Buffalo</div><div class="sauce-chip">Hot Buffalo</div><div class="sauce-chip">BBQ</div><div class="sauce-chip">Garlic Parmesan</div><div class="sauce-chip">Honey Hot</div></div></div>';
+        if(tab==='salads') html+='<div class="menu-note"><strong>Catering items</strong> are priced per person based on event size &amp; selections. Call us at <strong>'+_esc(phone)+'</strong> for a custom quote.</div>';
+        if(tab==='desserts') html+='<div class="menu-note"><strong>Bar packages</strong> are available for private events &amp; catering orders. Contact us at <strong>'+_esc(phone)+'</strong> to customize your event bar.</div>';
+        el.innerHTML=html;
       });
     }
 
     /* ── Modal Popular Items ── */
     if(c.modal_popular){
-      var omr = document.querySelector('.omr');
+      var omr=document.querySelector('.omr');
       if(omr){
-        var sectHtml = c.modal_popular.map(function(group){
-          var items = group.items.map(function(it){
-            return '<div class="omr-item"><span class="omr-item-name">'+_esc(it.name)+'</span><span class="omr-item-price">'+_esc(it.price)+'</span></div>';
-          }).join('');
+        var sectHtml=c.modal_popular.map(function(group){
+          var items=group.items.map(function(it){ return '<div class="omr-item"><span class="omr-item-name">'+_esc(it.name)+'</span><span class="omr-item-price">'+_esc(it.price)+'</span></div>'; }).join('');
           return '<div class="omr-section"><h4>'+_esc(group.category)+'</h4>'+items+'</div>';
         }).join('');
-        omr.innerHTML = '<div class="omr-title">Popular Items</div>'+sectHtml+
-          '<div class="omr-note"><strong>How to order</strong> Call us, tell us what you\'d like, and we\'ll give you a pickup or delivery time. Easy as that.</div>';
+        omr.innerHTML='<div class="omr-title">Popular Items</div>'+sectHtml+'<div class="omr-note"><strong>How to order</strong> Call us, tell us what you\'d like, and we\'ll give you a pickup or delivery time. Easy as that.</div>';
       }
     }
 
-    /* ── Copyright year ── */
+    /* ── Copyright ── */
     if(s.year && s.name){
-      document.querySelectorAll('.footer-bottom p').forEach(function(el){
-        el.textContent = '© '+s.year+' '+s.name+'. All rights reserved.';
-      });
+      document.querySelectorAll('.footer-bottom p').forEach(function(el){ el.textContent='© '+s.year+' '+s.name+'. All rights reserved.'; });
+    }
+
+    /* ── Dynamic Sections ── */
+    var dynContainer = document.getElementById('dynamic-sections');
+    if(dynContainer){
+      var dynHtml = '';
+
+      /* Chef's Specials */
+      if(c.specials && c.specials.enabled && c.specials.items && c.specials.items.length){
+        var sp = c.specials;
+        var spItems = sp.items.filter(function(it){ return it.name; });
+        if(spItems.length){
+          dynHtml += '<section style="padding:80px 56px;background:var(--char)" id="specials"><div class="dyn-section-header reveal"><div class="sec-tag">Today\'s Kitchen</div><h2>'+_esc(sp.headline||'Chef\'s Specials')+'</h2>'+
+            (sp.subtext?'<p>'+_esc(sp.subtext)+'</p>':'')+
+            '</div><div class="specials-grid reveal" style="max-width:1200px;margin:0 auto">'+
+            spItems.map(function(it){
+              return '<div class="special-card'+(it.available===false?' sp-unavail':'')+'">'+
+                (it.badge?'<div class="sp-badge">'+_esc(it.badge)+'</div>':'')+
+                '<div class="sp-name">'+_esc(it.name)+'</div>'+
+                '<div class="sp-desc">'+_esc(it.description||'')+'</div>'+
+                (it.price?'<div class="sp-price">'+_esc(it.price)+'</div>':'')+
+                '</div>';
+            }).join('')+
+            '</div></section>';
+        }
+      }
+
+      /* Events */
+      if(c.events && c.events.enabled && c.events.items && c.events.items.length){
+        var ev = c.events;
+        var evItems = ev.items.filter(function(it){ return it.title; });
+        if(evItems.length){
+          dynHtml += '<section style="padding:80px 56px" id="events"><div class="dyn-section-header reveal"><div class="sec-tag">What\'s On</div><h2>'+_esc(ev.headline||'Upcoming Events')+'</h2>'+
+            (ev.subtext?'<p>'+_esc(ev.subtext)+'</p>':'')+
+            '</div><div class="events-grid reveal" style="max-width:1200px;margin:0 auto">'+
+            evItems.map(function(it){
+              return '<div class="event-card">'+
+                (it.badge?'<div class="ev-badge">'+_esc(it.badge)+'</div>':'')+
+                '<div class="ev-date">'+_esc(it.date||'')+'</div>'+
+                '<div class="ev-title">'+_esc(it.title)+'</div>'+
+                (it.time?'<div class="ev-time">⏰ '+_esc(it.time)+'</div>':'')+
+                (it.description?'<div class="ev-desc">'+_esc(it.description)+'</div>':'')+
+                (it.link?'<a href="'+_esc(it.link)+'" class="ev-link">Get Tickets →</a>':'')+
+                '</div>';
+            }).join('')+
+            '</div></section>';
+        }
+      }
+
+      /* Testimonials */
+      if(c.testimonials && c.testimonials.enabled && c.testimonials.items && c.testimonials.items.length){
+        var ts = c.testimonials;
+        var tsItems = ts.items.filter(function(it){ return it.quote; });
+        if(tsItems.length){
+          dynHtml += '<section style="padding:80px 56px;background:var(--char)" id="reviews"><div class="dyn-section-header reveal"><div class="sec-tag">Guest Reviews</div><h2>'+_esc(ts.headline||'What Our Customers Say')+'</h2>'+
+            (ts.subtext?'<p>'+_esc(ts.subtext)+'</p>':'')+
+            '</div><div class="testimonials-grid reveal" style="max-width:1200px;margin:0 auto">'+
+            tsItems.map(function(it){
+              return '<div class="testi-card">'+
+                '<div class="testi-src">'+_esc(it.source||'')+'</div>'+
+                '<div class="testi-stars">'+stars(it.rating||5)+'</div>'+
+                '<div class="testi-quote">"'+_esc(it.quote)+'"</div>'+
+                '<div class="testi-name">'+_esc(it.name||'')+'</div>'+
+                '<div class="testi-meta">'+_esc(it.location||'')+(it.date?' · '+_esc(it.date):'')+'</div>'+
+                '</div>';
+            }).join('')+
+            '</div></section>';
+        }
+      }
+
+      dynContainer.innerHTML = dynHtml;
+
+      /* Re-trigger reveal on new elements */
+      if(dynHtml && window._revealObserver){
+        dynContainer.querySelectorAll('.reveal').forEach(function(el){ window._revealObserver.observe(el); });
+      }
     }
   }
 
-  /* Fetch and apply; silent fallback on any error */
-  fetch('/content.json')
-    .then(function(r){ return r.ok ? r.json() : null; })
-    .then(function(c){ if(c) applyContent(c); })
-    .catch(function(){});
+  /* ── CMS Preview Mode (postMessage) ── */
+  var isPreview = window.location.search.indexOf('cms_preview') > -1;
+  if(isPreview){
+    document.documentElement.style.setProperty('--preview-mode','1');
+    window.addEventListener('message', function(e){
+      try {
+        if(e.data && e.data.type === 'cms_preview_update' && e.data.content){
+          applyContent(e.data.content);
+        }
+      } catch(err){}
+    });
+    /* Tell parent we're ready */
+    setTimeout(function(){ window.parent.postMessage({type:'cms_preview_ready'}, '*'); }, 400);
+  }
+
+  /* ── Normal mode: fetch content.json ── */
+  if(!isPreview){
+    fetch('/content.json?v='+Date.now())
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(c){ if(c) applyContent(c); })
+      .catch(function(){});
+  }
+
+  /* ── Expose applyContent for preview mode ── */
+  window._applyContent = applyContent;
 })();
 /* ═══════════════════════════════════════════════════════════════════════
-   END CONTENT LOADER
+   END CONTENT LOADER v2.27
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* NAV SCROLL SHRINK */
