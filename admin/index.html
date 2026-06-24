@@ -10,329 +10,175 @@
 /* ── RESET & BASE ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --brand:#CC1318; --brand-dark:#9e0f13;
-  --bg:#0d0e18; --surface:#13141f; --surface2:#1b1c2a;
-  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
-  --text:#f0f0f5; --text2:rgba(255,255,255,0.55); --text3:rgba(255,255,255,0.28);
-  --red:#CC1318; --green:#22c55e; --orange:#f59e0b;
-  --sidebar-w:240px; --topbar-h:54px;
-  --radius:8px; --radius-sm:5px;
+  --brand:#CC1318;--brand-dark:#9e0f13;
+  --bg:#0d0e18;--surface:#13141f;--surface2:#1b1c2a;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --text:#f0f0f5;--text2:rgba(255,255,255,0.55);--text3:rgba(255,255,255,0.28);
+  --green:#22c55e;--orange:#f59e0b;
+  --sidebar-w:240px;--topbar-h:54px;
+  --radius:8px;--radius-sm:5px;
 }
 html,body{height:100%;font-family:'Inter',sans-serif;font-size:14px;background:var(--bg);color:var(--text);overflow:hidden}
 input,textarea,select,button{font-family:inherit;font-size:13px}
 a{color:inherit;text-decoration:none}
-/* Scrollbar */
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.22)}
 
-/* ── LOGIN SCREEN ── */
-#login-screen{
-  display:flex;align-items:center;justify-content:center;
-  height:100vh;background:var(--bg);
-}
-.login-box{
-  text-align:center;max-width:340px;width:100%;padding:0 24px;
-}
-.login-logo{
-  font-size:11px;letter-spacing:0.35em;text-transform:uppercase;
-  color:var(--brand);margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:10px;
-}
+/* ── LOGIN ── */
+#login-screen{display:flex;align-items:center;justify-content:center;height:100vh}
+.login-box{text-align:center;max-width:340px;width:100%;padding:0 24px}
+.login-logo{font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--brand);margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:10px}
 .login-logo::before,.login-logo::after{content:'';flex:1;height:1px;background:var(--border2)}
 .login-title{font-size:28px;font-weight:700;margin-bottom:8px}
 .login-sub{font-size:13px;color:var(--text2);margin-bottom:40px}
-.login-btn{
-  width:100%;padding:14px;background:var(--brand);color:#fff;border:none;
-  border-radius:var(--radius);font-weight:600;font-size:14px;cursor:pointer;
-  transition:background 0.2s,transform 0.15s;letter-spacing:0.02em;
-}
+.login-btn{width:100%;padding:14px;background:var(--brand);color:#fff;border:none;border-radius:var(--radius);font-weight:600;font-size:14px;cursor:pointer;transition:background 0.2s,transform 0.15s}
 .login-btn:hover{background:var(--brand-dark);transform:translateY(-1px)}
-.login-btn:active{transform:translateY(0)}
 
-/* ── APP SHELL ── */
+/* ── APP ── */
 #app{display:none;height:100vh;flex-direction:column}
 #app.visible{display:flex}
 
-/* ── TOP BAR ── */
-#topbar{
-  height:var(--topbar-h);flex-shrink:0;
-  display:flex;align-items:center;gap:0;
-  background:var(--surface);border-bottom:1px solid var(--border);
-  padding:0 20px;z-index:100;
-}
-.topbar-logo{
-  display:flex;align-items:center;gap:8px;
-  font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);
-  margin-right:auto;
-}
+/* ── TOPBAR ── */
+#topbar{height:var(--topbar-h);flex-shrink:0;display:flex;align-items:center;gap:0;background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;z-index:100}
+.topbar-logo{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-right:auto}
 .topbar-logo .logo-dot{width:8px;height:8px;background:var(--brand);border-radius:50%}
 .topbar-section-name{font-size:12px;color:var(--text2);margin-right:auto;padding-left:16px;border-left:1px solid var(--border);margin-left:16px}
 .topbar-actions{display:flex;align-items:center;gap:10px}
-.tb-btn{
-  display:flex;align-items:center;gap:6px;
-  padding:7px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;
-  border:1px solid var(--border2);background:transparent;color:var(--text2);transition:all 0.2s;
-}
-.tb-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface2)}
+.tb-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--text2);transition:all 0.2s}
+.tb-btn:hover{color:var(--text);background:var(--surface2)}
 .tb-btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
-.tb-btn.primary:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.tb-btn.primary:hover{background:var(--brand-dark)}
 .tb-btn.primary:disabled{opacity:0.5;cursor:not-allowed}
 .tb-save-status{font-size:11px;color:var(--text3)}
-.tb-unsaved{color:var(--orange) !important}
-.tb-saved{color:var(--green) !important}
-.preview-toggle{
-  display:flex;align-items:center;gap:6px;
-  padding:5px 12px;border-radius:var(--radius-sm);
-  border:1px solid var(--border2);background:transparent;color:var(--text2);
-  cursor:pointer;font-size:12px;font-weight:500;transition:all 0.2s;
-}
-.preview-toggle:hover{color:var(--text);border-color:var(--border2);background:var(--surface2)}
+.tb-unsaved{color:var(--orange)!important}
+.tb-saved{color:var(--green)!important}
+.preview-toggle{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;font-size:12px;font-weight:500;transition:all 0.2s}
+.preview-toggle:hover{color:var(--text);background:var(--surface2)}
 .preview-toggle.active{color:var(--brand);border-color:rgba(204,19,24,0.4);background:rgba(204,19,24,0.08)}
 
-/* ── MAIN LAYOUT ── */
+/* ── LAYOUT ── */
 #main-layout{flex:1;display:flex;overflow:hidden;min-height:0}
 
 /* ── SIDEBAR ── */
-#sidebar{
-  width:var(--sidebar-w);flex-shrink:0;
-  background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;overflow-y:auto;
-}
+#sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto}
 .sidebar-group{margin-bottom:4px}
-.sidebar-group-label{
-  font-size:9px;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--text3);padding:16px 16px 6px;
-}
-.sidebar-item{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 16px;cursor:pointer;border-radius:0;
-  color:var(--text2);font-size:13px;font-weight:400;
-  transition:background 0.15s,color 0.15s;position:relative;
-  border-left:3px solid transparent;
-}
+.sidebar-group-label{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);padding:16px 16px 6px}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--text2);font-size:13px;transition:background 0.15s,color 0.15s;border-left:3px solid transparent}
 .sidebar-item:hover{background:var(--surface2);color:var(--text)}
-.sidebar-item.active{
-  background:rgba(204,19,24,0.1);color:var(--text);
-  border-left-color:var(--brand);font-weight:500;
-}
+.sidebar-item.active{background:rgba(204,19,24,0.1);color:var(--text);border-left-color:var(--brand);font-weight:500}
 .sidebar-item .si-icon{font-size:15px;flex-shrink:0;width:18px;text-align:center}
 .sidebar-item .si-label{flex:1}
-.sidebar-item .si-badge{
-  background:var(--brand);color:#fff;
-  font-size:9px;font-weight:700;letter-spacing:0.05em;
-  padding:2px 5px;border-radius:10px;min-width:16px;text-align:center;
-}
-.sidebar-item .si-dot{
-  width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;
-}
+.sidebar-item .si-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
 .sidebar-item .si-dot.off{background:rgba(255,255,255,0.2)}
 
-/* ── EDITOR PANEL ── */
-#editor-panel{
-  flex:1;overflow-y:auto;background:var(--bg);
-  min-width:0;
-}
+/* ── EDITOR ── */
+#editor-panel{flex:1;overflow-y:auto;background:var(--bg);min-width:0}
 .editor-inner{max-width:760px;margin:0 auto;padding:32px 36px 80px}
 .editor-header{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
 .editor-header h1{font-size:20px;font-weight:700;margin-bottom:4px}
 .editor-header p{font-size:13px;color:var(--text2)}
 
-/* FORM ELEMENTS */
+/* FORMS */
 .field-group{margin-bottom:22px}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
 label.field-label{display:block;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:6px}
 .field-hint{font-size:11px;color:var(--text3);margin-top:4px}
-input[type="text"],input[type="url"],input[type="email"],input[type="number"],input[type="date"],textarea,select{
-  width:100%;padding:9px 12px;background:var(--surface);border:1px solid var(--border2);
-  border-radius:var(--radius-sm);color:var(--text);outline:none;transition:border-color 0.2s;
-  -webkit-appearance:none;
-}
-input[type="text"]:focus,input[type="url"]:focus,input[type="email"]:focus,input[type="number"]:focus,input[type="date"]:focus,textarea:focus,select:focus{border-color:rgba(204,19,24,0.5);box-shadow:0 0 0 2px rgba(204,19,24,0.12)}
+input[type="text"],input[type="url"],input[type="email"],input[type="number"],input[type="date"],textarea,select{width:100%;padding:9px 12px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);outline:none;transition:border-color 0.2s;-webkit-appearance:none}
+input:focus,textarea:focus,select:focus{border-color:rgba(204,19,24,0.5);box-shadow:0 0 0 2px rgba(204,19,24,0.12)}
 textarea{resize:vertical;min-height:80px;line-height:1.5}
 select option{background:var(--surface2)}
+.field-section{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);padding:18px 0 10px;border-top:1px solid var(--border);margin-top:8px}
+.field-section:first-child{border-top:none;padding-top:0}
 
-/* TOGGLE SWITCH */
+/* ── IMAGE FIELD ── */
+.img-field-wrap{position:relative}
+.img-field-row{display:flex;gap:8px;align-items:stretch}
+.img-field-row input{flex:1}
+.img-browse-btn{flex-shrink:0;padding:8px 14px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text2);cursor:pointer;font-size:12px;font-weight:500;white-space:nowrap;transition:all 0.2s;display:flex;align-items:center;gap:5px}
+.img-browse-btn:hover{background:var(--surface2);color:var(--text);border-color:rgba(204,19,24,0.4)}
+.img-preview-strip{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.img-preview-thumb{width:72px;height:52px;object-fit:cover;border-radius:4px;border:1px solid var(--border2);cursor:pointer;opacity:0.85;transition:opacity 0.15s}
+.img-preview-thumb:hover{opacity:1;border-color:var(--brand)}
+
+/* ── IMAGE PICKER MODAL ── */
+#img-picker-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px}
+#img-picker-overlay.open{display:flex}
+#img-picker-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);width:100%;max-width:860px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+.ipm-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ipm-title{font-size:14px;font-weight:700;flex:1}
+.ipm-search{padding:7px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);width:220px;font-size:12px;outline:none}
+.ipm-search:focus{border-color:rgba(204,19,24,0.5)}
+.ipm-close{background:none;border:1px solid var(--border2);border-radius:4px;color:var(--text2);cursor:pointer;padding:5px 10px;font-size:12px;transition:all 0.15s}
+.ipm-close:hover{background:var(--surface2);color:var(--text)}
+.ipm-toolbar{padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;font-size:12px;color:var(--text2)}
+.ipm-count{flex:1}
+.ipm-upload-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;background:var(--brand);border:none;border-radius:var(--radius-sm);color:#fff;cursor:pointer;font-size:12px;font-weight:600;transition:background 0.2s}
+.ipm-upload-btn:hover{background:var(--brand-dark)}
+.ipm-grid{flex:1;overflow-y:auto;padding:16px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.ipm-img-card{background:var(--surface2);border:2px solid transparent;border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color 0.15s,transform 0.15s;position:relative}
+.ipm-img-card:hover{border-color:rgba(204,19,24,0.5);transform:translateY(-2px)}
+.ipm-img-card.selected{border-color:var(--brand)}
+.ipm-img-card img{width:100%;height:100px;object-fit:cover;display:block}
+.ipm-img-card .ipm-img-name{padding:6px 8px;font-size:10px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ipm-img-card .ipm-img-del{position:absolute;top:4px;right:4px;background:rgba(204,19,24,0.85);border:none;border-radius:3px;color:#fff;cursor:pointer;padding:2px 5px;font-size:10px;opacity:0;transition:opacity 0.15s}
+.ipm-img-card:hover .ipm-img-del{opacity:1}
+.ipm-img-card .ipm-select-badge{position:absolute;top:4px;left:4px;background:var(--brand);color:#fff;border-radius:3px;font-size:9px;font-weight:700;padding:2px 5px;display:none}
+.ipm-img-card.selected .ipm-select-badge{display:block}
+.ipm-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-shrink:0}
+.ipm-select-btn{padding:8px 20px;background:var(--brand);border:none;border-radius:var(--radius-sm);color:#fff;font-weight:600;font-size:13px;cursor:pointer;transition:background 0.2s}
+.ipm-select-btn:hover{background:var(--brand-dark)}
+.ipm-loading{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text3)}
+.ipm-empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text3);font-size:13px}
+.ipm-empty span{display:block;font-size:32px;margin-bottom:10px}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all 0.2s;color:var(--text2);font-size:13px;background:transparent}
+.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(204,19,24,0.5);background:rgba(204,19,24,0.04);color:var(--text)}
+.upload-zone .uz-icon{font-size:28px;margin-bottom:8px;display:block}
+.upload-zone .uz-sub{font-size:11px;color:var(--text3);margin-top:4px}
+.upload-zone input[type="file"]{display:none}
+.upload-progress{margin-top:12px;display:none}
+.upload-progress-bar{height:3px;background:var(--border2);border-radius:3px;overflow:hidden;margin-top:6px}
+.upload-progress-fill{height:100%;background:var(--brand);transition:width 0.3s;width:0}
+
+/* ── TOGGLE ── */
 .toggle-row{display:flex;align-items:center;gap:12px;padding:12px 0}
 .toggle-label{flex:1;font-size:13px;font-weight:500}
 .toggle-sublabel{font-size:12px;color:var(--text2);margin-top:1px}
 .toggle-switch{position:relative;width:40px;height:22px;flex-shrink:0}
 .toggle-switch input{opacity:0;width:0;height:0}
-.toggle-track{
-  position:absolute;inset:0;background:rgba(255,255,255,0.12);
-  border-radius:22px;cursor:pointer;transition:background 0.2s;
-}
-.toggle-track::after{
-  content:'';position:absolute;top:3px;left:3px;
-  width:16px;height:16px;background:#fff;border-radius:50%;
-  transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.4);
-}
-.toggle-switch input:checked + .toggle-track{background:var(--brand)}
-.toggle-switch input:checked + .toggle-track::after{transform:translateX(18px)}
+.toggle-track{position:absolute;inset:0;background:rgba(255,255,255,0.12);border-radius:22px;cursor:pointer;transition:background 0.2s}
+.toggle-track::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.4)}
+.toggle-switch input:checked+.toggle-track{background:var(--brand)}
+.toggle-switch input:checked+.toggle-track::after{transform:translateX(18px)}
 
-/* SECTION DIVIDER */
-.field-section{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);padding:18px 0 10px;border-top:1px solid var(--border);margin-top:8px}
-.field-section:first-child{border-top:none;padding-top:0}
-
-/* LIST MANAGER */
+/* ── LIST MANAGER ── */
 .list-manager{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.list-item{
-  display:flex;align-items:flex-start;gap:10px;
-  padding:12px 14px;border-bottom:1px solid var(--border);
-  background:var(--surface);position:relative;
-}
+.list-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);background:var(--surface);position:relative}
 .list-item:last-child{border-bottom:none}
 .list-item:hover{background:var(--surface2)}
-.list-item-handle{
-  font-size:14px;color:var(--text3);cursor:grab;margin-top:4px;flex-shrink:0;padding:2px;
-  user-select:none;
-}
+.list-item-handle{font-size:14px;color:var(--text3);cursor:grab;margin-top:4px;flex-shrink:0;user-select:none}
 .list-item-content{flex:1;min-width:0}
-.list-item-title{font-size:13px;font-weight:500;margin-bottom:2px;truncate}
+.list-item-title{font-size:13px;font-weight:500;margin-bottom:2px}
 .list-item-sub{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .list-item-actions{display:flex;gap:4px;align-items:flex-start;margin-top:2px;flex-shrink:0}
 .list-item-btn{background:none;border:none;color:var(--text3);cursor:pointer;padding:3px 5px;border-radius:3px;font-size:12px;transition:all 0.15s}
 .list-item-btn:hover{background:rgba(255,255,255,0.06);color:var(--text)}
 .list-item-btn.del:hover{background:rgba(204,19,24,0.12);color:var(--brand)}
-.list-add-btn{
-  width:100%;padding:11px;background:transparent;border:none;border-top:1px solid var(--border);
-  color:var(--text2);cursor:pointer;font-size:12px;font-weight:500;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  transition:all 0.15s;
-}
+.list-add-btn{width:100%;padding:11px;background:transparent;border:none;border-top:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s}
 .list-add-btn:hover{background:var(--surface2);color:var(--text)}
 .list-empty{padding:24px;text-align:center;color:var(--text3);font-size:13px}
-.list-empty span{display:block;font-size:22px;margin-bottom:8px}
 
-/* MENU ITEM ROW */
-.menu-row-item{
-  display:grid;grid-template-columns:80px 1fr 1fr 80px 100px 28px;gap:8px;
-  align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--surface);
-}
+/* MENU ROWS */
+.menu-row-header{display:grid;grid-template-columns:80px 1fr 1fr 80px 100px 68px 28px;gap:8px;padding:8px 12px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);background:var(--surface2);border-bottom:1px solid var(--border)}
+.menu-row-item{display:grid;grid-template-columns:80px 1fr 1fr 80px 100px 68px 28px;gap:8px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--surface)}
 .menu-row-item:last-child{border-bottom:none}
 .menu-row-item.cat-row{background:rgba(204,19,24,0.06);grid-template-columns:80px 1fr 28px}
 .menu-row-item input{padding:6px 8px;font-size:12px}
-.menu-row-item .mi-type{padding:5px 8px;font-size:11px}
-.menu-row-item .mi-del{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;font-size:14px;border-radius:3px;transition:all 0.15s}
-.menu-row-item .mi-del:hover{background:rgba(204,19,24,0.12);color:var(--brand)}
-.menu-row-header{
-  display:grid;grid-template-columns:80px 1fr 1fr 80px 100px 28px;gap:8px;
-  padding:8px 12px;font-size:10px;font-weight:600;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--text3);background:var(--surface2);
-  border-bottom:1px solid var(--border);
-}
 
-/* TAG CHIPS (dietary) */
-.tag-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.tag-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;background:var(--surface2);border:1px solid var(--border2);font-size:11px;cursor:pointer;transition:all 0.15s;user-select:none}
-.tag-chip:hover{border-color:var(--border2);background:rgba(255,255,255,0.07)}
-.tag-chip.on{background:rgba(204,19,24,0.15);border-color:rgba(204,19,24,0.4);color:var(--brand)}
-
-/* CARD PREVIEW */
-.content-preview{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:16px;margin-bottom:22px;
-}
-.content-preview-label{font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
-
-/* STATUS BADGE */
-.status-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:3px 8px;border-radius:4px;font-size:11px;font-weight:500;
-}
-.status-badge.on{background:rgba(34,197,94,0.15);color:#22c55e}
-.status-badge.off{background:rgba(255,255,255,0.06);color:var(--text3)}
-
-/* INLINE ITEM EDITOR */
-.item-editor{
-  background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);
-  padding:16px;margin-top:10px;display:none;
-}
-.item-editor.open{display:block}
-.item-editor-title{font-size:12px;font-weight:600;margin-bottom:12px;color:var(--text2)}
-
-/* ── PREVIEW PANEL ── */
-#preview-panel{
-  width:420px;flex-shrink:0;
-  background:var(--surface);border-left:1px solid var(--border);
-  display:flex;flex-direction:column;transition:width 0.3s cubic-bezier(0.4,0,0.2,1);
-  overflow:hidden;
-}
-#preview-panel.collapsed{width:0;border-left:none}
-.preview-header{
-  padding:10px 14px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:8px;flex-shrink:0;
-}
-.preview-header-title{font-size:12px;font-weight:600;flex:1}
-.preview-device-btns{display:flex;gap:4px}
-.pdb{background:none;border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-size:11px;color:var(--text2);cursor:pointer;transition:all 0.15s}
-.pdb:hover{border-color:var(--border2);color:var(--text)}
-.pdb.active{background:rgba(204,19,24,0.12);border-color:rgba(204,19,24,0.4);color:var(--brand)}
-.preview-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulse-dot 2s infinite}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
-.preview-frame-wrap{
-  flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;
-  background:#000;position:relative;padding:8px;
-}
-#preview-iframe{
-  width:100%;height:100%;border:none;background:#000;border-radius:3px;
-  transition:width 0.3s,transform 0.3s;
-  transform-origin:top center;
-}
-.preview-msg{
-  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  color:var(--text3);font-size:12px;gap:8px;text-align:center;padding:20px;
-}
-.preview-msg .pm-icon{font-size:28px;margin-bottom:4px}
-.preview-loading{
-  position:absolute;inset:0;background:var(--surface);display:flex;align-items:center;justify-content:center;
-  font-size:12px;color:var(--text2);gap:8px;
-}
-.spinner{
-  width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--brand);
-  border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.preview-footer{
-  padding:8px 14px;border-top:1px solid var(--border);
-  font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px;flex-shrink:0;
-}
-
-/* ── TOAST ── */
-#toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.toast{
-  display:flex;align-items:center;gap:10px;
-  padding:11px 16px;border-radius:var(--radius);
-  background:var(--surface2);border:1px solid var(--border2);
-  font-size:13px;color:var(--text);min-width:220px;
-  box-shadow:0 8px 32px rgba(0,0,0,0.5);
-  animation:toast-in 0.25s ease;pointer-events:all;
-  transition:opacity 0.3s,transform 0.3s;
-}
-.toast.out{opacity:0;transform:translateY(8px)}
-.toast-icon{font-size:16px;flex-shrink:0}
-.toast.success .toast-icon{color:var(--green)}
-.toast.error .toast-icon{color:var(--brand)}
-.toast.info .toast-icon{color:#60a5fa}
-@keyframes toast-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:8000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.2s}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);width:100%;max-width:500px;max-height:80vh;overflow-y:auto;padding:28px;transform:translateY(16px);transition:transform 0.25s}
-.modal-overlay.open .modal-box{transform:translateY(0)}
-.modal-title{font-size:16px;font-weight:700;margin-bottom:16px}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
-
-/* ── SECTION EDITORS ── */
-.section-empty{padding:60px 0;text-align:center;color:var(--text3)}
-.section-empty .se-icon{font-size:36px;margin-bottom:12px}
-.section-empty h3{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
-.section-empty p{font-size:13px;max-width:300px;margin:0 auto}
-.notice-box{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:rgba(245,158,11,0.9);margin-bottom:20px;line-height:1.5}
-.info-box{background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:rgba(96,165,250,0.9);margin-bottom:20px;line-height:1.5}
-
-/* ── DASHBOARD ── */
+/* DASHBOARD */
 .dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
 .dash-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .dash-card-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
@@ -347,13 +193,61 @@ select option{background:var(--surface2)}
 .dsl-item:hover{background:var(--surface2)}
 .dsl-item .dsl-icon{font-size:14px;width:20px;text-align:center}
 .dsl-item .dsl-label{flex:1;font-size:13px}
-.dsl-item .dsl-arrow{color:var(--text3);font-size:12px}
 .dsl-item .dsl-status{font-size:11px;padding:2px 7px;border-radius:10px}
 .dsl-item .dsl-status.on{background:rgba(34,197,94,0.12);color:var(--green)}
 .dsl-item .dsl-status.off{background:rgba(255,255,255,0.05);color:var(--text3)}
 
-/* Responsive preview */
-@media(max-width:1200px){#preview-panel{width:360px}}
+/* MEDIA LIBRARY PAGE */
+.media-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.media-search{flex:1;min-width:200px;padding:8px 12px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);outline:none;font-size:13px}
+.media-search:focus{border-color:rgba(204,19,24,0.5)}
+.media-count{font-size:12px;color:var(--text2);flex-shrink:0}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.media-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:relative;cursor:pointer;transition:border-color 0.15s,transform 0.15s;group}
+.media-card:hover{border-color:var(--brand);transform:translateY(-2px)}
+.media-card img{width:100%;height:120px;object-fit:cover;display:block;background:var(--surface2)}
+.media-card-info{padding:8px 10px;border-top:1px solid var(--border)}
+.media-card-name{font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.media-card-size{font-size:10px;color:var(--text3);margin-top:2px}
+.media-card-actions{position:absolute;top:6px;right:6px;display:flex;gap:4px;opacity:0;transition:opacity 0.15s}
+.media-card:hover .media-card-actions{opacity:1}
+.media-action-btn{background:rgba(13,14,24,0.85);border:none;border-radius:3px;color:#fff;cursor:pointer;padding:3px 7px;font-size:11px;transition:background 0.15s;backdrop-filter:blur(4px)}
+.media-action-btn:hover{background:var(--brand)}
+.media-action-btn.del:hover{background:#991b1b}
+.media-path{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:6px 10px;font-size:11px;color:var(--brand);font-family:monospace;margin-top:6px;cursor:pointer;transition:background 0.15s;word-break:break-all}
+.media-path:hover{background:var(--surface2)}
+.media-empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text3)}
+.media-empty span{display:block;font-size:40px;margin-bottom:12px}
+
+/* ── PREVIEW PANEL ── */
+#preview-panel{width:420px;flex-shrink:0;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;transition:width 0.3s cubic-bezier(0.4,0,0.2,1);overflow:hidden}
+#preview-panel.collapsed{width:0;border-left:none}
+.preview-header{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.preview-header-title{font-size:12px;font-weight:600;flex:1}
+.preview-device-btns{display:flex;gap:4px}
+.pdb{background:none;border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-size:11px;color:var(--text2);cursor:pointer;transition:all 0.15s}
+.pdb:hover{border-color:var(--border2);color:var(--text)}
+.pdb.active{background:rgba(204,19,24,0.12);border-color:rgba(204,19,24,0.4);color:var(--brand)}
+.preview-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
+.preview-frame-wrap{flex:1;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;background:#000;position:relative;padding:8px}
+#preview-iframe{width:100%;height:100%;border:none;background:#000;border-radius:3px;transition:width 0.3s,transform 0.3s;transform-origin:top center}
+.preview-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text3);font-size:12px;gap:8px;text-align:center;padding:20px}
+.preview-footer{padding:8px 14px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px;flex-shrink:0}
+
+/* ── TOAST ── */
+#toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:var(--radius);background:var(--surface2);border:1px solid var(--border2);font-size:13px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.5);animation:toast-in 0.25s ease;pointer-events:all;transition:opacity 0.3s,transform 0.3s}
+.toast.out{opacity:0;transform:translateY(8px)}
+.toast-icon{font-size:16px;flex-shrink:0}
+.toast.success .toast-icon{color:var(--green)}
+.toast.error .toast-icon{color:var(--brand)}
+@keyframes toast-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.info-box{background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:rgba(96,165,250,0.9);margin-bottom:20px;line-height:1.5}
+.notice-box{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:rgba(245,158,11,0.9);margin-bottom:20px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -368,28 +262,44 @@ select option{background:var(--surface2)}
   </div>
 </div>
 
+<!-- IMAGE PICKER MODAL -->
+<div id="img-picker-overlay">
+  <div id="img-picker-box">
+    <div class="ipm-header">
+      <div class="ipm-title">📸 Choose Image</div>
+      <input class="ipm-search" id="ipm-search" type="text" placeholder="Search images…" oninput="filterPickerImages(this.value)"/>
+      <button class="ipm-close" onclick="closeImagePicker()">✕ Cancel</button>
+    </div>
+    <div class="ipm-toolbar">
+      <span class="ipm-count" id="ipm-count">Loading…</span>
+      <label class="ipm-upload-btn">
+        <span>⬆ Upload New Photo</span>
+        <input type="file" id="ipm-file-input" accept="image/*" multiple onchange="uploadPickerImages(this.files)" style="display:none">
+      </label>
+    </div>
+    <div class="ipm-grid" id="ipm-grid">
+      <div class="ipm-loading"><div class="spinner" style="margin:0 auto"></div><br>Loading your photos…</div>
+    </div>
+    <div class="ipm-footer">
+      <span id="ipm-selected-name" style="font-size:12px;color:var(--text2)">No image selected</span>
+      <button class="ipm-select-btn" id="ipm-select-btn" onclick="confirmImageSelection()" disabled>Use This Image</button>
+    </div>
+  </div>
+</div>
+
 <!-- APP -->
 <div id="app">
 
-  <!-- TOP BAR -->
+  <!-- TOPBAR -->
   <div id="topbar">
-    <div class="topbar-logo">
-      <div class="logo-dot"></div>
-      Wooster Street Admin
-    </div>
+    <div class="topbar-logo"><div class="logo-dot"></div>Wooster Street Admin</div>
     <div class="topbar-section-name" id="topbar-section-name">Dashboard</div>
     <div class="topbar-actions">
       <span class="tb-save-status" id="save-status"></span>
-      <button class="preview-toggle" id="preview-toggle-btn" onclick="togglePreview()">
-        <span>👁</span> Preview
-      </button>
-      <a href="https://woosterstreet.netlify.app" target="_blank" class="tb-btn">
-        <span>↗</span> Live Site
-      </a>
-      <button class="tb-btn primary" id="save-btn" onclick="saveContent()">
-        <span>💾</span> Publish Changes
-      </button>
-      <button class="tb-btn" onclick="netlifyIdentity.logout()" title="Sign out">Sign Out</button>
+      <button class="preview-toggle active" id="preview-toggle-btn" onclick="togglePreview()">👁 Preview</button>
+      <a href="https://woosterstreet.netlify.app" target="_blank" class="tb-btn">↗ Live Site</a>
+      <button class="tb-btn primary" id="save-btn" onclick="saveContent()">💾 Publish Changes</button>
+      <button class="tb-btn" onclick="netlifyIdentity.logout()">Sign Out</button>
     </div>
   </div>
 
@@ -400,142 +310,89 @@ select option{background:var(--surface2)}
     <div id="sidebar">
       <div class="sidebar-group">
         <div class="sidebar-group-label">Overview</div>
-        <div class="sidebar-item active" data-section="dashboard" onclick="showSection(this)">
-          <span class="si-icon">🏠</span><span class="si-label">Dashboard</span>
-        </div>
+        <div class="sidebar-item active" data-section="dashboard" onclick="showSection(this)"><span class="si-icon">🏠</span><span class="si-label">Dashboard</span></div>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-label">Media</div>
+        <div class="sidebar-item" data-section="media" onclick="showSection(this)"><span class="si-icon">🖼</span><span class="si-label">Photo Library</span></div>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label">Content</div>
-        <div class="sidebar-item" data-section="hero" onclick="showSection(this)">
-          <span class="si-icon">🎬</span><span class="si-label">Hero & Brand</span>
-        </div>
-        <div class="sidebar-item" data-section="about" onclick="showSection(this)">
-          <span class="si-icon">📖</span><span class="si-label">Our Story</span>
-        </div>
-        <div class="sidebar-item" data-section="gallery" onclick="showSection(this)">
-          <span class="si-icon">📸</span><span class="si-label">Gallery</span>
-        </div>
-        <div class="sidebar-item" data-section="featured" onclick="showSection(this)">
-          <span class="si-icon">🃏</span><span class="si-label">Featured Cards</span>
-        </div>
-        <div class="sidebar-item" data-section="catering" onclick="showSection(this)">
-          <span class="si-icon">🤝</span><span class="si-label">Catering Section</span>
-        </div>
+        <div class="sidebar-item" data-section="hero" onclick="showSection(this)"><span class="si-icon">🎬</span><span class="si-label">Hero & Brand</span></div>
+        <div class="sidebar-item" data-section="about" onclick="showSection(this)"><span class="si-icon">📖</span><span class="si-label">Our Story</span></div>
+        <div class="sidebar-item" data-section="gallery" onclick="showSection(this)"><span class="si-icon">📸</span><span class="si-label">Gallery</span></div>
+        <div class="sidebar-item" data-section="featured" onclick="showSection(this)"><span class="si-icon">🃏</span><span class="si-label">Featured Cards</span></div>
+        <div class="sidebar-item" data-section="catering" onclick="showSection(this)"><span class="si-icon">🤝</span><span class="si-label">Catering Section</span></div>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label">Menu</div>
-        <div class="sidebar-item" data-section="menu-appetizers" onclick="showSection(this)">
-          <span class="si-icon">🍟</span><span class="si-label">Appetizers</span>
-        </div>
-        <div class="sidebar-item" data-section="menu-pizza" onclick="showSection(this)">
-          <span class="si-icon">🍕</span><span class="si-label">Pizza</span>
-        </div>
-        <div class="sidebar-item" data-section="menu-pasta" onclick="showSection(this)">
-          <span class="si-icon">🍝</span><span class="si-label">Pasta & Breads</span>
-        </div>
-        <div class="sidebar-item" data-section="menu-salads" onclick="showSection(this)">
-          <span class="si-icon">🥗</span><span class="si-label">Salads & Platters</span>
-        </div>
-        <div class="sidebar-item" data-section="menu-desserts" onclick="showSection(this)">
-          <span class="si-icon">🍰</span><span class="si-label">Desserts & Bar</span>
-        </div>
-        <div class="sidebar-item" data-section="modal" onclick="showSection(this)">
-          <span class="si-icon">📋</span><span class="si-label">Order Modal</span>
-        </div>
+        <div class="sidebar-item" data-section="menu-appetizers" onclick="showSection(this)"><span class="si-icon">🍟</span><span class="si-label">Appetizers</span></div>
+        <div class="sidebar-item" data-section="menu-pizza" onclick="showSection(this)"><span class="si-icon">🍕</span><span class="si-label">Pizza</span></div>
+        <div class="sidebar-item" data-section="menu-pasta" onclick="showSection(this)"><span class="si-icon">🍝</span><span class="si-label">Pasta & Breads</span></div>
+        <div class="sidebar-item" data-section="menu-salads" onclick="showSection(this)"><span class="si-icon">🥗</span><span class="si-label">Salads & Platters</span></div>
+        <div class="sidebar-item" data-section="menu-desserts" onclick="showSection(this)"><span class="si-icon">🍰</span><span class="si-label">Desserts & Bar</span></div>
+        <div class="sidebar-item" data-section="modal" onclick="showSection(this)"><span class="si-icon">📋</span><span class="si-label">Order Modal</span></div>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label">Marketing</div>
-        <div class="sidebar-item" data-section="announcement" onclick="showSection(this)">
-          <span class="si-icon">📢</span><span class="si-label">Announcement</span>
-          <span class="si-dot off" id="ann-dot"></span>
-        </div>
-        <div class="sidebar-item" data-section="specials" onclick="showSection(this)">
-          <span class="si-icon">⭐</span><span class="si-label">Chef's Specials</span>
-          <span class="si-dot off" id="specials-dot"></span>
-        </div>
-        <div class="sidebar-item" data-section="events" onclick="showSection(this)">
-          <span class="si-icon">📅</span><span class="si-label">Events</span>
-          <span class="si-dot off" id="events-dot"></span>
-        </div>
-        <div class="sidebar-item" data-section="testimonials" onclick="showSection(this)">
-          <span class="si-icon">💬</span><span class="si-label">Testimonials</span>
-          <span class="si-dot off" id="testi-dot"></span>
-        </div>
-        <div class="sidebar-item" data-section="ordering" onclick="showSection(this)">
-          <span class="si-icon">📱</span><span class="si-label">Ordering Links</span>
-        </div>
-        <div class="sidebar-item" data-section="popup" onclick="showSection(this)">
-          <span class="si-icon">🪟</span><span class="si-label">Popup</span>
-          <span class="si-dot off" id="popup-dot"></span>
-        </div>
+        <div class="sidebar-item" data-section="announcement" onclick="showSection(this)"><span class="si-icon">📢</span><span class="si-label">Announcement</span><span class="si-dot off" id="ann-dot"></span></div>
+        <div class="sidebar-item" data-section="specials" onclick="showSection(this)"><span class="si-icon">⭐</span><span class="si-label">Chef's Specials</span><span class="si-dot off" id="specials-dot"></span></div>
+        <div class="sidebar-item" data-section="events" onclick="showSection(this)"><span class="si-icon">📅</span><span class="si-label">Events</span><span class="si-dot off" id="events-dot"></span></div>
+        <div class="sidebar-item" data-section="testimonials" onclick="showSection(this)"><span class="si-icon">💬</span><span class="si-label">Testimonials</span><span class="si-dot off" id="testi-dot"></span></div>
+        <div class="sidebar-item" data-section="ordering" onclick="showSection(this)"><span class="si-icon">📱</span><span class="si-label">Ordering Links</span></div>
+        <div class="sidebar-item" data-section="popup" onclick="showSection(this)"><span class="si-icon">🪟</span><span class="si-label">Popup</span><span class="si-dot off" id="popup-dot"></span></div>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label">Business</div>
-        <div class="sidebar-item" data-section="contact" onclick="showSection(this)">
-          <span class="si-icon">🕐</span><span class="si-label">Hours & Contact</span>
-        </div>
-        <div class="sidebar-item" data-section="stats" onclick="showSection(this)">
-          <span class="si-icon">📊</span><span class="si-label">Ratings & Stats</span>
-        </div>
-        <div class="sidebar-item" data-section="seo" onclick="showSection(this)">
-          <span class="si-icon">🔍</span><span class="si-label">SEO & Social</span>
-        </div>
-        <div class="sidebar-item" data-section="team" onclick="showSection(this)">
-          <span class="si-icon">👥</span><span class="si-label">Team</span>
-          <span class="si-dot off" id="team-dot"></span>
-        </div>
-        <div class="sidebar-item" data-section="press" onclick="showSection(this)">
-          <span class="si-icon">🗞</span><span class="si-label">Press & Media</span>
-          <span class="si-dot off" id="press-dot"></span>
-        </div>
+        <div class="sidebar-item" data-section="contact" onclick="showSection(this)"><span class="si-icon">🕐</span><span class="si-label">Hours & Contact</span></div>
+        <div class="sidebar-item" data-section="stats" onclick="showSection(this)"><span class="si-icon">📊</span><span class="si-label">Ratings & Stats</span></div>
+        <div class="sidebar-item" data-section="seo" onclick="showSection(this)"><span class="si-icon">🔍</span><span class="si-label">SEO & Social</span></div>
+        <div class="sidebar-item" data-section="team" onclick="showSection(this)"><span class="si-icon">👥</span><span class="si-label">Team</span><span class="si-dot off" id="team-dot"></span></div>
+        <div class="sidebar-item" data-section="press" onclick="showSection(this)"><span class="si-icon">🗞</span><span class="si-label">Press & Media</span><span class="si-dot off" id="press-dot"></span></div>
       </div>
     </div>
 
     <!-- EDITOR -->
     <div id="editor-panel">
       <div class="editor-inner" id="editor-content">
-        <div class="preview-loading" id="editor-loading" style="position:relative;inset:auto;padding:60px 0;background:transparent">
-          <div class="spinner"></div> Loading content…
-        </div>
+        <div style="padding:60px 0;text-align:center;color:var(--text2)"><div class="spinner" style="margin:0 auto 12px"></div>Loading content…</div>
       </div>
     </div>
 
-    <!-- PREVIEW PANEL -->
+    <!-- PREVIEW -->
     <div id="preview-panel">
       <div class="preview-header">
         <div class="preview-live-dot"></div>
         <div class="preview-header-title">Live Preview</div>
         <div class="preview-device-btns">
-          <button class="pdb active" onclick="setDevice('desktop')" id="dev-desktop" title="Desktop">🖥</button>
-          <button class="pdb" onclick="setDevice('tablet')" id="dev-tablet" title="Tablet">📱</button>
-          <button class="pdb" onclick="setDevice('mobile')" id="dev-mobile" title="Mobile">📲</button>
+          <button class="pdb active" onclick="setDevice('desktop')" id="dev-desktop">🖥</button>
+          <button class="pdb" onclick="setDevice('tablet')" id="dev-tablet">📱</button>
+          <button class="pdb" onclick="setDevice('mobile')" id="dev-mobile">📲</button>
         </div>
       </div>
       <div class="preview-frame-wrap" id="preview-frame-wrap">
         <div class="preview-msg" id="preview-msg">
-          <div class="pm-icon">👁</div>
+          <div style="font-size:28px;margin-bottom:8px">👁</div>
           <div>Loading preview…</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:4px">Changes update in real-time as you edit</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px">Updates as you edit</div>
         </div>
         <iframe id="preview-iframe" src="" style="display:none" onload="onPreviewLoad()"></iframe>
       </div>
       <div class="preview-footer">
-        <div class="spinner" style="width:10px;height:10px;border-width:1.5px" id="preview-spinner" style="display:none"></div>
         <span id="preview-status">Updates in real-time as you type</span>
       </div>
     </div>
 
-  </div><!-- /main-layout -->
-</div><!-- /app -->
+  </div>
+</div>
 
-<!-- TOAST CONTAINER -->
 <div id="toast-container"></div>
 
 <script>
-/* ════════════════════════════════════════════════════════════════════════
-   WOOSTER STREET — ENTERPRISE ADMIN PANEL
-   Custom CMS with real-time live preview via postMessage
-   ════════════════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════
+   WOOSTER STREET — ENTERPRISE ADMIN v2
+   Full image management + live preview
+   ════════════════════════════════════════════════════════════ */
 
 var content = {};
 var fileSha = null;
@@ -547,115 +404,110 @@ var previewDevice = 'desktop';
 var previewSendTimer = null;
 const SITE_URL = 'https://woosterstreet.netlify.app';
 
+/* Image state */
+var allImages = [];         // [{name, path, url, sha, size}]
+var pickerCallback = null;  // function(path) called on select
+var pickerSelected = null;  // currently highlighted in picker
+
 /* ── AUTH ── */
-netlifyIdentity.on('init', function(user) {
-  if (user) { initAdmin(user); }
-});
-netlifyIdentity.on('login', function(user) {
-  netlifyIdentity.close();
-  initAdmin(user);
-});
-netlifyIdentity.on('logout', function() {
+netlifyIdentity.on('init', function(u){ if(u) initAdmin(u); });
+netlifyIdentity.on('login', function(u){ netlifyIdentity.close(); initAdmin(u); });
+netlifyIdentity.on('logout', function(){
   document.getElementById('app').classList.remove('visible');
   document.getElementById('login-screen').style.display='flex';
-  content = {}; fileSha = null; previewReady = false;
+  content={}; fileSha=null; previewReady=false;
 });
 netlifyIdentity.init();
 
-/* ── INIT ADMIN ── */
 async function initAdmin(user) {
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').classList.add('visible');
-  await loadContent(user);
+  await Promise.all([loadContent(user), loadImages(user)]);
   initPreview();
   showSection(document.querySelector('[data-section="dashboard"]'));
 }
 
-/* ── LOAD CONTENT via Git Gateway ── */
+/* ── LOAD CONTENT ── */
 async function loadContent(user) {
   try {
     user = user || netlifyIdentity.currentUser();
-    if(!user) return;
     const token = await user.jwt();
-    const resp = await fetch('/.netlify/git/github/contents/content.json', {
-      headers:{'Authorization':'Bearer '+token}
-    });
-    if(!resp.ok) throw new Error('Failed to load: '+resp.status);
+    const resp = await fetch('/.netlify/git/github/contents/content.json', {headers:{'Authorization':'Bearer '+token}});
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
     const data = await resp.json();
     fileSha = data.sha;
-    const decoded = decodeBase64(data.content);
-    content = JSON.parse(decoded);
-    document.getElementById('editor-loading').style.display='none';
+    content = JSON.parse(decodeBase64(data.content));
     updateSidebarDots();
-    showSection(document.querySelector('[data-section="dashboard"]'));
     toast('Content loaded','success');
   } catch(e) {
     console.error(e);
-    document.getElementById('editor-loading').innerHTML = '<span style="color:var(--brand)">⚠ Failed to load content. Check Netlify Identity + Git Gateway setup.</span>';
-    toast('Failed to load content. '+e.message,'error');
+    document.getElementById('editor-content').innerHTML = '<div style="padding:60px 0;text-align:center;color:var(--brand)">⚠ Failed to load content. Check Netlify Identity + Git Gateway.<br><small style="color:var(--text3)">'+e.message+'</small></div>';
+    toast('Failed to load content','error');
   }
 }
 
-function decodeBase64(str) {
-  str = str.replace(/\s/g,'');
-  return decodeURIComponent(escape(atob(str)));
+/* ── LOAD IMAGES from Git Gateway ── */
+async function loadImages(user) {
+  try {
+    user = user || netlifyIdentity.currentUser();
+    const token = await user.jwt();
+    const resp = await fetch('/.netlify/git/github/contents/images', {headers:{'Authorization':'Bearer '+token}});
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    const files = await resp.json();
+    allImages = files
+      .filter(function(f){ return /\.(jpe?g|png|gif|webp|svg)$/i.test(f.name); })
+      .map(function(f){ return {name:f.name, path:'/images/'+f.name, url:f.download_url, sha:f.sha, size:f.size}; });
+    allImages.sort(function(a,b){ return a.name.localeCompare(b.name); });
+  } catch(e) {
+    console.warn('Could not load images:', e.message);
+    allImages = [];
+  }
 }
 
-/* ── SAVE CONTENT via Git Gateway ── */
+function decodeBase64(str){ return decodeURIComponent(escape(atob(str.replace(/\s/g,'')))); }
+
+/* ── SAVE CONTENT ── */
 async function saveContent() {
   var btn = document.getElementById('save-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<div class="spinner"></div> Saving…';
+  btn.disabled=true; btn.innerHTML='<div class="spinner" style="width:12px;height:12px;border-width:1.5px"></div> Saving…';
   setSaveStatus('Saving…');
   try {
     var user = netlifyIdentity.currentUser();
-    if(!user) throw new Error('Not logged in');
     const token = await user.jwt();
-    const body = JSON.stringify({
-      message: 'Admin update via Wooster CMS — '+new Date().toISOString().split('T')[0],
-      content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
-      sha: fileSha
-    });
     const resp = await fetch('/.netlify/git/github/contents/content.json', {
       method:'PUT',
       headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
-      body: body
+      body: JSON.stringify({
+        message: 'Admin update — '+new Date().toISOString().split('T')[0],
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),
+        sha: fileSha
+      })
     });
-    if(!resp.ok) throw new Error('Save failed: '+resp.status);
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
     const data = await resp.json();
     fileSha = data.content.sha;
-    unsavedChanges = false;
-    setSaveStatus('saved');
-    toast('Changes published! Live in ~30 seconds.','success');
+    unsavedChanges=false; setSaveStatus('saved');
+    toast('Published! Live in ~30 seconds.','success');
   } catch(e) {
-    console.error(e);
-    toast('Failed to save: '+e.message,'error');
-    setSaveStatus('error');
+    toast('Save failed: '+e.message,'error'); setSaveStatus('error');
   }
-  btn.disabled = false;
-  btn.innerHTML = '<span>💾</span> Publish Changes';
+  btn.disabled=false; btn.innerHTML='💾 Publish Changes';
 }
 
-/* ── MARK UNSAVED ── */
-function markUnsaved() {
-  unsavedChanges = true;
-  setSaveStatus('unsaved');
-  scheduleSendPreview();
+function markUnsaved(){ unsavedChanges=true; setSaveStatus('unsaved'); scheduleSendPreview(); }
+function setSaveStatus(s){
+  var el=document.getElementById('save-status');
+  if(s==='saved')   {el.textContent='✓ Saved';el.className='tb-save-status tb-saved';}
+  else if(s==='unsaved'){el.textContent='● Unsaved';el.className='tb-save-status tb-unsaved';}
+  else if(s==='error') {el.textContent='⚠ Failed';el.className='tb-save-status tb-unsaved';}
+  else if(s==='Saving…'){el.textContent='Saving…';el.className='tb-save-status';}
+  else {el.textContent='';}
 }
 
-function setSaveStatus(state) {
-  var el = document.getElementById('save-status');
-  if(state==='saved')   { el.textContent='✓ Saved'; el.className='tb-save-status tb-saved'; }
-  else if(state==='unsaved') { el.textContent='● Unsaved changes'; el.className='tb-save-status tb-unsaved'; }
-  else if(state==='error') { el.textContent='⚠ Save failed'; el.className='tb-save-status tb-unsaved'; }
-  else if(state==='Saving…') { el.textContent='Saving…'; el.className='tb-save-status'; }
-  else { el.textContent=''; }
-}
-
-/* ── SIDEBAR NAVIGATION ── */
-function showSection(el) {
+/* ── NAVIGATION ── */
+function showSection(el){
   if(!el) return;
-  document.querySelectorAll('.sidebar-item').forEach(function(i){ i.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-item').forEach(function(i){i.classList.remove('active');});
   el.classList.add('active');
   currentSection = el.dataset.section;
   document.getElementById('topbar-section-name').textContent = el.querySelector('.si-label').textContent;
@@ -664,252 +516,386 @@ function showSection(el) {
 }
 
 /* ── PREVIEW ── */
-function initPreview() {
-  var iframe = document.getElementById('preview-iframe');
-  iframe.src = SITE_URL+'/?cms_preview=1';
-}
-
-function onPreviewLoad() {
+function initPreview(){ document.getElementById('preview-iframe').src = SITE_URL+'/?cms_preview=1'; }
+function onPreviewLoad(){
   setTimeout(function(){
     document.getElementById('preview-msg').style.display='none';
     document.getElementById('preview-iframe').style.display='block';
-    previewReady = true;
-    sendPreview();
-  }, 800);
+    previewReady=true; sendPreview();
+  },800);
 }
-
-function scheduleSendPreview() {
-  clearTimeout(previewSendTimer);
-  previewSendTimer = setTimeout(sendPreview, 300);
+function scheduleSendPreview(){ clearTimeout(previewSendTimer); previewSendTimer=setTimeout(sendPreview,300); }
+function sendPreview(){
+  var iframe=document.getElementById('preview-iframe');
+  if(!iframe||!iframe.contentWindow||!previewReady) return;
+  try{ iframe.contentWindow.postMessage({type:'cms_preview_update',content:content},SITE_URL); }catch(e){}
 }
-
-function sendPreview() {
-  var iframe = document.getElementById('preview-iframe');
-  if(!iframe || !iframe.contentWindow || !previewReady) return;
-  try {
-    iframe.contentWindow.postMessage({type:'cms_preview_update', content:content}, SITE_URL);
-  } catch(e) {}
+function togglePreview(){
+  var panel=document.getElementById('preview-panel'),btn=document.getElementById('preview-toggle-btn');
+  previewVisible=!previewVisible;
+  panel.classList.toggle('collapsed',!previewVisible);
+  btn.classList.toggle('active',previewVisible);
 }
-
-function togglePreview() {
-  var panel = document.getElementById('preview-panel');
-  var btn = document.getElementById('preview-toggle-btn');
-  previewVisible = !previewVisible;
-  if(previewVisible) {
-    panel.classList.remove('collapsed');
-    btn.classList.add('active');
-  } else {
-    panel.classList.add('collapsed');
-    btn.classList.remove('active');
-  }
-}
-
-function setDevice(d) {
-  previewDevice = d;
-  document.querySelectorAll('.pdb').forEach(function(b){ b.classList.remove('active'); });
+function setDevice(d){
+  previewDevice=d;
+  document.querySelectorAll('.pdb').forEach(function(b){b.classList.remove('active');});
   document.getElementById('dev-'+d).classList.add('active');
-  var iframe = document.getElementById('preview-iframe');
-  var wrap = document.getElementById('preview-frame-wrap');
-  if(d === 'desktop') {
-    iframe.style.width='100%'; iframe.style.transform='none';
-  } else if(d === 'tablet') {
-    iframe.style.width='768px';
-    var scale = Math.min(1,(wrap.offsetWidth-16)/768);
-    iframe.style.transform='scale('+scale+') translateX(-'+(768/2 - (768*scale)/2)+'px)';
-  } else if(d === 'mobile') {
-    iframe.style.width='390px';
-    var scale2 = Math.min(1,(wrap.offsetWidth-16)/390);
-    iframe.style.transform='scale('+scale2+') translateX(-'+(390/2-(390*scale2)/2)+'px)';
-  }
+  var iframe=document.getElementById('preview-iframe'),wrap=document.getElementById('preview-frame-wrap');
+  var w=wrap.offsetWidth-16;
+  if(d==='desktop'){iframe.style.width='100%';iframe.style.transform='none';}
+  else if(d==='tablet'){iframe.style.width='768px';var s=Math.min(1,w/768);iframe.style.transform='scale('+s+')';}
+  else{iframe.style.width='390px';var s2=Math.min(1,w/390);iframe.style.transform='scale('+s2+')';}
 }
 
-/* ── SIDEBAR DOTS (enabled/disabled indicators) ── */
-function updateSidebarDots() {
-  var dotMap = {
-    'ann-dot': content.announcement && content.announcement.enabled,
-    'specials-dot': content.specials && content.specials.enabled,
-    'events-dot': content.events && content.events.enabled,
-    'testi-dot': content.testimonials && content.testimonials.enabled,
-    'popup-dot': content.popup && content.popup.enabled,
-    'team-dot': content.team && content.team.enabled,
-    'press-dot': content.press && content.press.enabled
-  };
-  Object.keys(dotMap).forEach(function(id){
-    var el = document.getElementById(id);
-    if(el) el.className = 'si-dot' + (dotMap[id]?' ':' off');
+function updateSidebarDots(){
+  var m={'ann-dot':content.announcement&&content.announcement.enabled,'specials-dot':content.specials&&content.specials.enabled,'events-dot':content.events&&content.events.enabled,'testi-dot':content.testimonials&&content.testimonials.enabled,'popup-dot':content.popup&&content.popup.enabled,'team-dot':content.team&&content.team.enabled,'press-dot':content.press&&content.press.enabled};
+  Object.keys(m).forEach(function(id){var el=document.getElementById(id);if(el)el.className='si-dot'+(m[id]?'':' off');});
+}
+
+/* ════════════════════════════════════════════════════════════
+   IMAGE MANAGEMENT
+   ════════════════════════════════════════════════════════════ */
+
+/* Open picker — cb(path) called when user selects */
+function openImagePicker(cb){
+  pickerCallback=cb; pickerSelected=null;
+  document.getElementById('img-picker-overlay').classList.add('open');
+  document.getElementById('ipm-search').value='';
+  document.getElementById('ipm-select-btn').disabled=true;
+  document.getElementById('ipm-selected-name').textContent='No image selected';
+  renderPickerGrid(allImages);
+}
+
+function closeImagePicker(){
+  document.getElementById('img-picker-overlay').classList.remove('open');
+  pickerCallback=null; pickerSelected=null;
+}
+
+function renderPickerGrid(imgs){
+  var grid=document.getElementById('ipm-grid');
+  document.getElementById('ipm-count').textContent=imgs.length+' photo'+(imgs.length!==1?'s':'');
+  if(!imgs.length){
+    grid.innerHTML='<div class="ipm-empty"><span>📷</span>No photos found.<br>Upload some to get started.</div>';
+    return;
+  }
+  grid.innerHTML=imgs.map(function(img){
+    var isSelected=pickerSelected&&pickerSelected.path===img.path;
+    return '<div class="ipm-img-card'+(isSelected?' selected':'')+'" onclick="selectPickerImage(\''+escJs(img.path)+'\',\''+escJs(img.name)+'\',\''+escJs(img.url||'')+'\')">'+
+      '<div class="ipm-select-badge">✓ Selected</div>'+
+      '<img src="'+(img.url||img.path)+'" loading="lazy" onerror="this.src=\'data:image/svg+xml,<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" width=\\\"140\\\" height=\\\"100\\\"><rect fill=\\\"%231b1c2a\\\" width=\\\"140\\\" height=\\\"100\\\"/><text fill=\\\"%23555\\\" font-size=\\\"12\\\" x=\\\"50%\\\" y=\\\"50%\\\" text-anchor=\\\"middle\\\" dy=\\\".3em\\\">no preview</text></svg>\'" />'+
+      '<div class="ipm-img-name" title="'+escAttr(img.name)+'">'+escHtml(img.name)+'</div>'+
+      '<button class="ipm-img-del" onclick="event.stopPropagation();deleteImageFromPicker(\''+escJs(img.name)+'\',\''+escJs(img.sha||'')+'\')">✕</button>'+
+    '</div>';
+  }).join('');
+}
+
+function filterPickerImages(q){
+  q=q.toLowerCase();
+  renderPickerGrid(q?allImages.filter(function(i){return i.name.toLowerCase().includes(q);}):allImages);
+}
+
+function selectPickerImage(path,name,url){
+  pickerSelected={path:path,name:name,url:url};
+  document.getElementById('ipm-select-btn').disabled=false;
+  document.getElementById('ipm-selected-name').textContent=name;
+  document.querySelectorAll('.ipm-img-card').forEach(function(c){
+    c.classList.remove('selected');
+    c.querySelector('.ipm-select-badge').style.display='none';
+  });
+  event.currentTarget.classList.add('selected');
+  event.currentTarget.querySelector('.ipm-select-badge').style.display='block';
+}
+
+function confirmImageSelection(){
+  if(!pickerSelected||!pickerCallback) return;
+  pickerCallback(pickerSelected.path);
+  closeImagePicker();
+  /* Refresh the current section so image preview strips update */
+  renderSection(currentSection);
+  markUnsaved();
+}
+
+/* Upload images from picker */
+async function uploadPickerImages(files){
+  if(!files||!files.length) return;
+  document.getElementById('ipm-count').textContent='Uploading…';
+  for(var i=0;i<files.length;i++){
+    await uploadImageFile(files[i]);
+  }
+  /* Reload image list */
+  var user=netlifyIdentity.currentUser();
+  await loadImages(user);
+  renderPickerGrid(allImages);
+  if(currentSection==='media') renderSection('media');
+  toast('Upload complete!','success');
+}
+
+async function uploadImageFile(file){
+  return new Promise(function(resolve){
+    var reader=new FileReader();
+    reader.onload=async function(e){
+      try{
+        var base64=e.target.result.split(',')[1];
+        var user=netlifyIdentity.currentUser();
+        var token=await user.jwt();
+        var name=file.name.replace(/\s+/g,'_');
+        /* Check if file exists first (to get sha for update) */
+        var existing=allImages.find(function(i){return i.name===name;});
+        var body={message:'Upload image: '+name,content:base64};
+        if(existing) body.sha=existing.sha;
+        var resp=await fetch('/.netlify/git/github/contents/images/'+encodeURIComponent(name),{
+          method:'PUT',
+          headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
+          body:JSON.stringify(body)
+        });
+        if(!resp.ok) throw new Error('HTTP '+resp.status);
+      }catch(e2){ toast('Upload failed: '+file.name+' — '+e2.message,'error'); }
+      resolve();
+    };
+    reader.readAsDataURL(file);
   });
 }
 
-/* ════════════════════════════════════════════════════════════════════════
-   SECTION RENDERERS
-   ════════════════════════════════════════════════════════════════════════ */
-function renderSection(section) {
-  var el = document.getElementById('editor-content');
-  switch(section) {
-    case 'dashboard':   el.innerHTML = renderDashboard(); break;
-    case 'contact':     el.innerHTML = renderContact(); break;
-    case 'hero':        el.innerHTML = renderHero(); break;
-    case 'about':       el.innerHTML = renderAbout(); break;
-    case 'stats':       el.innerHTML = renderStats(); break;
-    case 'featured':    el.innerHTML = renderFeatured(); break;
-    case 'gallery':     el.innerHTML = renderGallery(); break;
-    case 'announcement': el.innerHTML = renderAnnouncement(); break;
-    case 'specials':    el.innerHTML = renderSpecials(); break;
-    case 'events':      el.innerHTML = renderEvents(); break;
-    case 'testimonials':el.innerHTML = renderTestimonials(); break;
-    case 'ordering':    el.innerHTML = renderOrdering(); break;
-    case 'catering':    el.innerHTML = renderCatering(); break;
-    case 'modal':       el.innerHTML = renderModal(); break;
-    case 'seo':         el.innerHTML = renderSEO(); break;
-    case 'team':        el.innerHTML = renderTeam(); break;
-    case 'press':       el.innerHTML = renderPress(); break;
-    case 'popup':       el.innerHTML = renderPopup(); break;
-    case 'menu-appetizers': el.innerHTML = renderMenuTab('appetizers','Appetizers'); break;
-    case 'menu-pizza':      el.innerHTML = renderMenuTab('pizza','Pizza'); break;
-    case 'menu-pasta':      el.innerHTML = renderMenuTab('pasta','Pasta & Breads'); break;
-    case 'menu-salads':     el.innerHTML = renderMenuTab('salads','Salads & Platters'); break;
-    case 'menu-desserts':   el.innerHTML = renderMenuTab('desserts','Desserts & Bar'); break;
-    default: el.innerHTML = '<div class="editor-inner"><p>Section coming soon.</p></div>';
-  }
+async function deleteImageFromPicker(name,sha){
+  if(!confirm('Delete '+name+'? This cannot be undone.')) return;
+  try{
+    var user=netlifyIdentity.currentUser();
+    var token=await user.jwt();
+    /* Get latest sha if not provided */
+    if(!sha){
+      var existing=allImages.find(function(i){return i.name===name;});
+      sha=existing?existing.sha:'';
+    }
+    if(!sha){toast('Cannot delete: SHA not found','error');return;}
+    var resp=await fetch('/.netlify/git/github/contents/images/'+encodeURIComponent(name),{
+      method:'DELETE',
+      headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
+      body:JSON.stringify({message:'Delete image: '+name,sha:sha})
+    });
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    await loadImages(user);
+    renderPickerGrid(allImages);
+    if(currentSection==='media') renderSection('media');
+    toast('Deleted '+name,'success');
+  }catch(e){toast('Delete failed: '+e.message,'error');}
 }
 
-/* ── HELPERS ── */
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+/* ── imgField helper — image input with Browse button ── */
+function imgField(label, path, hint, indexedSetter){
+  var val = indexedSetter ? (indexedSetter.val||'') : (deepGet(content,path)||'');
+  var uid = 'imgf_'+Math.random().toString(36).slice(2,8);
+  var previewHtml = val ? '<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(val)+'" title="'+escAttr(val)+'" onclick="openImagePicker(function(p){setImgField(\''+uid+'\',p,'+(indexedSetter?'true':'false')+');\''+escJs(path)+'\';'+(indexedSetter?'indexedSetter':'null')+'})" /></div>' : '';
+  var setterAttr = indexedSetter ? 'data-setter="'+escAttr(JSON.stringify(indexedSetter))+'"' : '';
+  return '<div class="field-group"><label class="field-label">'+label+'</label>'+
+    '<div class="img-field-row">'+
+      '<input type="text" id="'+uid+'" value="'+escAttr(val)+'" placeholder="/images/filename.jpeg" oninput="onImgFieldInput(\''+uid+'\',\''+escJs(path)+'\','+!!indexedSetter+')" '+setterAttr+' />'+
+      '<button class="img-browse-btn" onclick="pickForField(\''+uid+'\',\''+escJs(path)+'\')'+(indexedSetter?',event.preventDefault()':'')+'" type="button">📷 Browse</button>'+
+    '</div>'+
+    '<div id="'+uid+'_preview">'+previewHtml+'</div>'+
+    (hint?'<div class="field-hint">'+hint+'</div>':'')+
+  '</div>';
+}
+
+function pickForField(uid, path){
+  openImagePicker(function(p){
+    document.getElementById(uid).value=p;
+    deepSet(content,path,p);
+    var prev=document.getElementById(uid+'_preview');
+    if(prev) prev.innerHTML='<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(p)+'" /></div>';
+    markUnsaved();
+    renderSection(currentSection);
+  });
+}
+
+function onImgFieldInput(uid,path,isIndexed){
+  var val=document.getElementById(uid).value;
+  if(!isIndexed) deepSet(content,path,val);
+  markUnsaved();
+  var prev=document.getElementById(uid+'_preview');
+  if(prev) prev.innerHTML=val?'<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(val)+'" /></div>':'';
+}
+
+/* ════════════════════════════════════════════════════════════
+   SECTION RENDERERS
+   ════════════════════════════════════════════════════════════ */
+function renderSection(section){
+  var el=document.getElementById('editor-content');
+  var map={
+    dashboard:renderDashboard, media:renderMedia, contact:renderContact, hero:renderHero,
+    about:renderAbout, stats:renderStats, featured:renderFeatured, gallery:renderGallery,
+    announcement:renderAnnouncement, specials:renderSpecials, events:renderEvents,
+    testimonials:renderTestimonials, ordering:renderOrdering, catering:renderCatering,
+    modal:renderModal, seo:renderSEO, team:renderTeam, press:renderPress, popup:renderPopup,
+    'menu-appetizers':function(){return renderMenuTab('appetizers','Appetizers');},
+    'menu-pizza':function(){return renderMenuTab('pizza','Pizza');},
+    'menu-pasta':function(){return renderMenuTab('pasta','Pasta & Breads');},
+    'menu-salads':function(){return renderMenuTab('salads','Salads & Platters');},
+    'menu-desserts':function(){return renderMenuTab('desserts','Desserts & Bar');}
+  };
+  if(map[section]) el.innerHTML=map[section]();
+  else el.innerHTML='<div class="editor-inner"><p>Coming soon.</p></div>';
+}
+
+/* HELPERS */
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escAttr(s){return String(s||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function escJs(s){return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"');}
+function deepGet(obj,path){return path.split('.').reduce(function(o,k){return o&&o[k]!==undefined?o[k]:null;},obj);}
+function deepSet(obj,path,val){var keys=path.split('.');var o=obj;for(var i=0;i<keys.length-1;i++){if(!o[keys[i]])o[keys[i]]={};o=o[keys[i]];}o[keys[keys.length-1]]=val;}
 function field(label,key,path,hint,type){
-  type = type||'text';
-  var val = deepGet(content,path)||'';
-  var hintHtml = hint?'<div class="field-hint">'+hint+'</div>':'';
-  if(type==='textarea'){
-    return '<div class="field-group"><label class="field-label">'+label+'</label><textarea oninput="deepSet(content,\''+path+'\',this.value);markUnsaved()">'+esc(val)+'</textarea>'+hintHtml+'</div>';
-  }
-  return '<div class="field-group"><label class="field-label">'+label+'</label><input type="'+type+'" value="'+esc(val)+'" oninput="deepSet(content,\''+path+'\',this.value);markUnsaved()" />'+hintHtml+'</div>';
+  type=type||'text';var val=deepGet(content,path)||'';var hintHtml=hint?'<div class="field-hint">'+hint+'</div>':'';
+  if(type==='textarea') return '<div class="field-group"><label class="field-label">'+label+'</label><textarea oninput="deepSet(content,\''+escJs(path)+'\',this.value);markUnsaved()">'+esc(val)+'</textarea>'+hintHtml+'</div>';
+  return '<div class="field-group"><label class="field-label">'+label+'</label><input type="'+type+'" value="'+esc(val)+'" oninput="deepSet(content,\''+escJs(path)+'\',this.value);markUnsaved()" />'+hintHtml+'</div>';
 }
 function toggle(label,sub,path){
-  var val = deepGet(content,path)||false;
-  var id = 'tog_'+path.replace(/[.\[\]]/g,'_');
-  return '<div class="toggle-row"><div><div class="toggle-label">'+label+'</div>'+(sub?'<div class="toggle-sublabel">'+sub+'</div>':'')+'</div><label class="toggle-switch"><input type="checkbox" id="'+id+'" '+(val?'checked':'')+'onchange="deepSet(content,\''+path+'\',this.checked);markUnsaved();updateSidebarDots()"/><span class="toggle-track"></span></label></div>';
-}
-function deepGet(obj,path){
-  return path.split('.').reduce(function(o,k){ return o&&o[k]!==undefined?o[k]:null; },obj);
-}
-function deepSet(obj,path,val){
-  var keys = path.split('.');
-  var o = obj;
-  for(var i=0;i<keys.length-1;i++){ if(!o[keys[i]]) o[keys[i]]={};  o=o[keys[i]]; }
-  o[keys[keys.length-1]] = val;
+  var val=deepGet(content,path)||false;
+  var id='tog_'+path.replace(/[.\[\]]/g,'_');
+  return '<div class="toggle-row"><div><div class="toggle-label">'+label+'</div>'+(sub?'<div class="toggle-sublabel">'+sub+'</div>':'')+'</div><label class="toggle-switch"><input type="checkbox" id="'+id+'" '+(val?'checked':'')+' onchange="deepSet(content,\''+escJs(path)+'\',this.checked);markUnsaved();updateSidebarDots()"/><span class="toggle-track"></span></label></div>';
 }
 
 /* ── DASHBOARD ── */
 function renderDashboard(){
-  var sections = [
-    {section:'announcement',icon:'📢',label:'Announcement Banner', status: content.announcement&&content.announcement.enabled},
-    {section:'specials',icon:'⭐',label:'Chef\'s Specials', status: content.specials&&content.specials.enabled},
-    {section:'events',icon:'📅',label:'Events', status: content.events&&content.events.enabled},
-    {section:'testimonials',icon:'💬',label:'Testimonials', status: content.testimonials&&content.testimonials.enabled},
-    {section:'popup',icon:'🪟',label:'Popup', status: content.popup&&content.popup.enabled},
+  var sections=[
+    {section:'announcement',icon:'📢',label:'Announcement Banner',status:content.announcement&&content.announcement.enabled},
+    {section:'specials',icon:'⭐',label:"Chef's Specials",status:content.specials&&content.specials.enabled},
+    {section:'events',icon:'📅',label:'Events',status:content.events&&content.events.enabled},
+    {section:'testimonials',icon:'💬',label:'Testimonials',status:content.testimonials&&content.testimonials.enabled},
+    {section:'popup',icon:'🪟',label:'Popup',status:content.popup&&content.popup.enabled},
   ];
-  var siteName = deepGet(content,'site.name')||'Wooster Street Food Company';
-  var phone = deepGet(content,'site.phone')||'—';
-  var menuItems = 0;
-  if(content.menu){ Object.keys(content.menu).forEach(function(k){ menuItems+=(content.menu[k]||[]).filter(function(i){return i.type==='item'}).length; }); }
-  var galItems = (content.gallery||[]).length;
+  var siteName=deepGet(content,'site.name')||'Wooster Street Food Company';
+  var phone=deepGet(content,'site.phone')||'—';
+  var menuItems=0;
+  if(content.menu) Object.keys(content.menu).forEach(function(k){menuItems+=(content.menu[k]||[]).filter(function(i){return i.type==='item';}).length;});
+  var galItems=(content.gallery||[]).length;
   return '<div class="editor-inner"><div class="editor-header"><h1>Dashboard</h1><p>Welcome back. Your site is live at <a href="'+SITE_URL+'" target="_blank" style="color:var(--brand)">'+SITE_URL+'</a></p></div>'+
     '<div class="dashboard-grid">'+
     '<div class="dash-card red"><div class="dash-card-label">Restaurant</div><div class="dash-card-value" style="font-size:18px">'+esc(siteName)+'</div><div class="dash-card-sub">'+esc(phone)+'</div></div>'+
     '<div class="dash-card"><div class="dash-card-label">Menu Items</div><div class="dash-card-value">'+menuItems+'</div><div class="dash-card-sub">Across all categories</div></div>'+
-    '<div class="dash-card"><div class="dash-card-label">Gallery Photos</div><div class="dash-card-value">'+galItems+'</div><div class="dash-card-sub">Managed photos</div></div>'+
+    '<div class="dash-card"><div class="dash-card-label">Gallery Photos</div><div class="dash-card-value">'+galItems+'</div><div class="dash-card-sub">'+allImages.length+' total in library</div></div>'+
     '</div>'+
     '<div class="dash-section-list"><div class="dsl-header">Marketing Toggles</div>'+
     sections.map(function(s){
       return '<div class="dsl-item" onclick="showSection(document.querySelector(\'[data-section=\\\"'+s.section+'\\\"]\'))">'+
-        '<span class="dsl-icon">'+s.icon+'</span>'+
-        '<span class="dsl-label">'+s.label+'</span>'+
-        '<span class="dsl-status '+(s.status?'on':'off')+'">'+(s.status?'Live':'Off')+'</span>'+
-        '<span class="dsl-arrow">›</span>'+
-        '</div>';
-    }).join('')+
-    '</div></div>';
+        '<span class="dsl-icon">'+s.icon+'</span><span class="dsl-label">'+s.label+'</span>'+
+        '<span class="dsl-status '+(s.status?'on':'off')+'">'+(s.status?'Live':'Off')+'</span><span style="color:var(--text3)">›</span></div>';
+    }).join('')+'</div></div>';
 }
 
-/* ── CONTACT & HOURS ── */
-function renderContact(){
-  var hoursHtml = '';
-  var hours = deepGet(content,'site.hours')||[];
-  hours.forEach(function(h,i){
-    hoursHtml+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'+
-      '<input type="text" value="'+esc(h.days||'')+'" placeholder="e.g. Mon – Fri" oninput="content.site.hours['+i+'].days=this.value;markUnsaved()" />'+
-      '<input type="text" value="'+esc(h.time||'')+'" placeholder="e.g. 11am – 9pm" oninput="content.site.hours['+i+'].time=this.value;markUnsaved()" />'+
-      '</div>';
-  });
-  return '<div class="editor-inner"><div class="editor-header"><h1>Hours & Contact</h1><p>Phone, email, address, Instagram, and opening hours.</p></div>'+
-    '<div class="field-section">Contact Information</div>'+
-    '<div class="field-row">'+
-    field('Phone Display','phone','site.phone','Shown on website, e.g. 860-649-1166')+
-    field('Phone Link (tel:)','phone_link','site.phone_link','Format: +18606491166 (no dashes)')+
+/* ── MEDIA LIBRARY ── */
+function renderMedia(){
+  var imgs=allImages;
+  var grid=imgs.length ? imgs.map(function(img){
+    return '<div class="media-card">'+
+      '<img src="'+escAttr(img.url||img.path)+'" loading="lazy" onerror="this.style.background=\'#1b1c2a\'"/>'+
+      '<div class="media-card-actions">'+
+        '<button class="media-action-btn" onclick="copyPath(\''+escJs(img.path)+'\')" title="Copy path">Copy</button>'+
+        '<button class="media-action-btn del" onclick="deleteImageFromPicker(\''+escJs(img.name)+'\',\''+escJs(img.sha||'')+'\')" title="Delete">✕</button>'+
+      '</div>'+
+      '<div class="media-card-info">'+
+        '<div class="media-card-name" title="'+escAttr(img.name)+'">'+escHtml(img.name)+'</div>'+
+        '<div class="media-card-size">'+(img.size?(Math.round(img.size/1024)+'KB'):'')+'</div>'+
+      '</div>'+
+      '<div class="media-path" onclick="copyPath(\''+escJs(img.path)+'\')" title="Click to copy path">'+escHtml(img.path)+'</div>'+
+    '</div>';
+  }).join('') : '<div class="media-empty"><span>📷</span>No images yet. Upload your first photo below.</div>';
+
+  return '<div class="editor-inner"><div class="editor-header"><h1>📷 Photo Library</h1><p>'+allImages.length+' photos in your <code>/images/</code> folder. Click any path to copy it. Use Browse buttons in Gallery and other sections to pick images visually.</p></div>'+
+    '<div class="media-toolbar">'+
+      '<input class="media-search" type="text" placeholder="🔍 Search photos…" oninput="filterMedia(this.value,document.getElementById(\'media-grid-wrap\'))" />'+
+      '<span class="media-count">'+allImages.length+' photos</span>'+
     '</div>'+
-    '<div class="field-row">'+
-    field('Email','email','site.email')+
-    field('Address','address','site.address')+
-    '</div>'+
-    '<div class="field-row">'+
-    field('Instagram Handle','instagram_handle','site.instagram_handle','Include @, e.g. @woosterfoodcatering')+
-    field('Instagram URL','instagram_url','site.instagram_url')+
-    '</div>'+
-    '<div class="field-row">'+
-    field('Facebook URL','facebook_url','site.facebook_url')+
-    field('Google Maps URL','google_url','site.google_url')+
-    '</div>'+
-    field('Restaurant Name','name','site.name')+
-    field('Copyright Year','year','site.year')+
-    '<div class="field-section">Opening Hours</div>'+
-    '<div style="margin-bottom:6px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px"><label class="field-label">Days</label><label class="field-label">Hours</label></div>'+
-    hoursHtml+
-    '<button class="list-add-btn" style="border:1px solid var(--border);border-radius:var(--radius-sm);border-top:none;margin-top:0" onclick="addHoursRow()">+ Add Hours Row</button></div>'+
+    '<label class="upload-zone" id="media-upload-zone" ondragover="event.preventDefault();this.classList.add(\'drag-over\')" ondragleave="this.classList.remove(\'drag-over\')" ondrop="handleMediaDrop(event)">'+
+      '<input type="file" accept="image/*" multiple onchange="uploadMediaFiles(this.files)"/>'+
+      '<span class="uz-icon">⬆</span>'+
+      '<strong>Drop photos here or click to upload</strong>'+
+      '<span class="uz-sub">Supports JPG, PNG, WebP — uploads directly to your /images/ folder on GitHub</span>'+
+    '</label>'+
+    '<div id="media-upload-progress" class="upload-progress"><span id="media-upload-msg" style="font-size:12px;color:var(--text2)"></span><div class="upload-progress-bar"><div class="upload-progress-fill" id="media-progress-fill"></div></div></div>'+
+    '<div class="field-section">Your Photos</div>'+
+    '<div class="media-grid" id="media-grid-wrap">'+grid+'</div>'+
     '</div>';
 }
 
-function addHoursRow(){
-  if(!content.site) content.site={};
-  if(!content.site.hours) content.site.hours=[];
-  content.site.hours.push({days:'',time:''});
-  markUnsaved();
-  renderSection('contact');
+function filterMedia(q, container){
+  if(!container) return;
+  q=q.toLowerCase();
+  var imgs=q?allImages.filter(function(i){return i.name.toLowerCase().includes(q);}):allImages;
+  container.innerHTML=imgs.length?imgs.map(function(img){
+    return '<div class="media-card">'+
+      '<img src="'+escAttr(img.url||img.path)+'" loading="lazy" onerror="this.style.background=\'#1b1c2a\'" />'+
+      '<div class="media-card-actions">'+
+        '<button class="media-action-btn" onclick="copyPath(\''+escJs(img.path)+'\')" title="Copy path">Copy</button>'+
+        '<button class="media-action-btn del" onclick="deleteImageFromPicker(\''+escJs(img.name)+'\',\''+escJs(img.sha||'')+'\')" title="Delete">✕</button>'+
+      '</div>'+
+      '<div class="media-card-info"><div class="media-card-name">'+escHtml(img.name)+'</div><div class="media-card-size">'+(img.size?Math.round(img.size/1024)+'KB':'')+'</div></div>'+
+      '<div class="media-path" onclick="copyPath(\''+escJs(img.path)+'\')">'+escHtml(img.path)+'</div>'+
+    '</div>';
+  }).join('') : '<div class="media-empty"><span>🔍</span>No photos match "'+escHtml(q)+'"</div>';
+}
+
+function copyPath(p){
+  navigator.clipboard.writeText(p).then(function(){toast('Copied: '+p,'success');}).catch(function(){toast('Path: '+p,'info');});
+}
+
+async function uploadMediaFiles(files){
+  if(!files||!files.length) return;
+  var prog=document.getElementById('media-upload-progress');
+  var msg=document.getElementById('media-upload-msg');
+  var fill=document.getElementById('media-progress-fill');
+  prog.style.display='block'; fill.style.width='0';
+  for(var i=0;i<files.length;i++){
+    msg.textContent='Uploading '+files[i].name+' ('+(i+1)+'/'+files.length+')…';
+    fill.style.width=Math.round(((i+1)/files.length)*100)+'%';
+    await uploadImageFile(files[i]);
+  }
+  var user=netlifyIdentity.currentUser();
+  await loadImages(user);
+  prog.style.display='none';
+  renderSection('media');
+  toast('Uploaded '+files.length+' photo'+(files.length!==1?'s':''),'success');
+}
+
+function handleMediaDrop(e){
+  e.preventDefault();
+  document.getElementById('media-upload-zone').classList.remove('drag-over');
+  uploadMediaFiles(e.dataTransfer.files);
 }
 
 /* ── HERO ── */
 function renderHero(){
-  return '<div class="editor-inner"><div class="editor-header"><h1>Hero & Brand</h1><p>The first thing visitors see. Headline text, subtext, and call-to-action buttons.</p></div>'+
-    '<div class="info-box">ℹ The hero headline on your site has a complex animated split-word animation. To update the headline text, edit it here and re-deploy. The subtext updates in real-time in the preview.</div>'+
-    field('Headline — Line 1','headline_line1','hero.headline_line1','e.g. "Crafted With Fire,"')+
-    field('Headline — Line 2','headline_line2','hero.headline_line2','e.g. "Served With Soul."')+
-    field('Subtext / Tagline','subtext','hero.subtext','')+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Hero & Brand</h1><p>The first thing visitors see.</p></div>'+
+    '<div class="info-box">ℹ The split-word animation in the hero headline uses the text below. Update and Publish for it to go live.</div>'+
+    field('Headline — Line 1','','hero.headline_line1','e.g. "Crafted With Fire,"')+
+    field('Headline — Line 2','','hero.headline_line2','e.g. "Served With Soul."')+
+    field('Subtext / Tagline','','hero.subtext')+
     '<div class="field-row">'+
-    field('Primary CTA Button','cta_primary','hero.cta_primary','e.g. Order Now')+
-    field('Secondary CTA Button','cta_secondary','hero.cta_secondary','e.g. Book Catering')+
+    field('Primary CTA Button','','hero.cta_primary','e.g. Order Now')+
+    field('Secondary CTA Button','','hero.cta_secondary','e.g. Book Catering')+
     '</div></div>';
 }
 
 /* ── ABOUT ── */
 function renderAbout(){
-  return '<div class="editor-inner"><div class="editor-header"><h1>Our Story</h1><p>The 4 scroll-driven story chapters. Eyebrow labels and body text update in real-time.</p></div>'+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Our Story</h1><p>4 scroll-driven chapters. Eyebrow labels and body text update in real-time preview.</p></div>'+
     '<div class="field-section">Chapter 1 — The Beginning</div>'+
-    field('Eyebrow Label','ch1_eyebrow','about.ch1_eyebrow','Short tag above headline, e.g. "THE BEGINNING"')+
-    field('Body Text','ch1_body','about.ch1_body','','textarea')+
+    field('Eyebrow Label','','about.ch1_eyebrow','Short tag above headline, e.g. "THE BEGINNING"')+
+    field('Body Text','','about.ch1_body','','textarea')+
     '<div class="field-section">Chapter 2 — The Craft</div>'+
-    field('Eyebrow Label','ch2_eyebrow','about.ch2_eyebrow')+
-    field('Body Text','ch2_body','about.ch2_body','','textarea')+
-    '<div class="field-section">Chapter 3 — The Fire (Stats chapter)</div>'+
-    field('Eyebrow Label','ch3_eyebrow','about.ch3_eyebrow')+
-    field('Body Text','ch3_body','about.ch3_body','','textarea')+
-    '<div class="field-section">Chapter 4 — The Philosophy</div>'+
-    field('Eyebrow Label','ch4_eyebrow','about.ch4_eyebrow')+
+    field('Eyebrow Label','','about.ch2_eyebrow')+
+    field('Body Text','','about.ch2_body','','textarea')+
+    '<div class="field-section">Chapter 3 — The Numbers</div>'+
+    field('Eyebrow Label','','about.ch3_eyebrow')+
+    field('Body Text','','about.ch3_body','','textarea')+
+    '<div class="field-section">Chapter 4 — The Future</div>'+
+    field('Eyebrow Label','','about.ch4_eyebrow')+
     '</div>';
 }
 
 /* ── STATS ── */
 function renderStats(){
-  var stats = content.stats||[];
-  var html = '<div class="editor-inner"><div class="editor-header"><h1>Ratings & Stats</h1><p>The three count-up numbers in the Our Story section. Update after you get new reviews.</p></div>';
+  var stats=content.stats||[];
+  var html='<div class="editor-inner"><div class="editor-header"><h1>Ratings & Stats</h1><p>The count-up numbers in Our Story. Update after you get new reviews.</p></div>';
   stats.forEach(function(st,i){
     html+='<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px">'+
       '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:12px">Stat '+(i+1)+': '+esc(st.label||'')+'</div>'+
@@ -917,7 +903,7 @@ function renderStats(){
         '<div class="field-group"><label class="field-label">Label</label><input type="text" value="'+esc(st.label||'')+'" oninput="content.stats['+i+'].label=this.value;markUnsaved()" /></div>'+
         '<div class="field-group"><label class="field-label">Value</label><input type="number" step="0.1" value="'+esc(st.value||'')+'" oninput="content.stats['+i+'].value=parseFloat(this.value);markUnsaved()" /></div>'+
         '<div class="field-group"><label class="field-label">Decimals (0–2)</label><input type="number" min="0" max="2" value="'+esc(st.decimals||0)+'" oninput="content.stats['+i+'].decimals=parseInt(this.value);markUnsaved()" /></div>'+
-        '<div class="field-group"><label class="field-label">Suffix (★/+//10)</label><input type="text" value="'+esc(st.suffix||'')+'" oninput="content.stats['+i+'].suffix=this.value;markUnsaved()" /></div>'+
+        '<div class="field-group"><label class="field-label">Suffix (★ / + / /10)</label><input type="text" value="'+esc(st.suffix||'')+'" oninput="content.stats['+i+'].suffix=this.value;markUnsaved()" /></div>'+
       '</div></div>';
   });
   return html+'</div>';
@@ -925,8 +911,8 @@ function renderStats(){
 
 /* ── FEATURED CARDS ── */
 function renderFeatured(){
-  var cards = content.featured_cards||[];
-  var html = '<div class="editor-inner"><div class="editor-header"><h1>Featured Cards</h1><p>The three highlight cards above the menu tabs.</p></div>';
+  var cards=content.featured_cards||[];
+  var html='<div class="editor-inner"><div class="editor-header"><h1>Featured Cards</h1><p>The three highlight cards above the menu tabs.</p></div>';
   cards.forEach(function(c,i){
     html+='<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px">'+
       '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:12px">Card '+(i+1)+'</div>'+
@@ -935,346 +921,328 @@ function renderFeatured(){
         '<div class="field-group"><label class="field-label">Dish Name</label><input type="text" value="'+esc(c.name||'')+'" oninput="content.featured_cards['+i+'].name=this.value;markUnsaved()" /></div>'+
       '</div>'+
       '<div class="field-group"><label class="field-label">Ingredients / Description</label><input type="text" value="'+esc(c.items||'')+'" oninput="content.featured_cards['+i+'].items=this.value;markUnsaved()" /></div>'+
-      '<div class="field-group" style="max-width:160px"><label class="field-label">Price</label><input type="text" value="'+esc(c.price||'')+'" placeholder="from $18" oninput="content.featured_cards['+i+'].price=this.value;markUnsaved()" /></div>'+
-      '</div>';
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">'+
+        '<div class="field-group" style="margin-bottom:0"><label class="field-label">Price</label><input type="text" value="'+esc(c.price||'')+'" placeholder="from $18" oninput="content.featured_cards['+i+'].price=this.value;markUnsaved()" /></div>'+
+      '</div></div>';
   });
   return html+'</div>';
 }
 
 /* ── GALLERY ── */
 function renderGallery(){
-  var items = content.gallery||[];
-  var itemHtml = items.length ? items.map(function(item,i){
-    return '<div class="list-item">'+
-      '<span class="list-item-handle">⠿</span>'+
-      '<div class="list-item-content">'+
-        '<input type="text" value="'+esc(item.caption||'')+'" placeholder="Caption" oninput="content.gallery['+i+'].caption=this.value;markUnsaved()" style="margin-bottom:7px" />'+
-        '<input type="text" value="'+esc(item.src||'')+'" placeholder="/images/filename.jpeg" oninput="content.gallery['+i+'].src=this.value;markUnsaved()" style="font-size:11px;color:var(--text2)" />'+
-        '<div style="margin-top:6px"><label class="field-label" style="display:inline;margin-right:6px">Category:</label>'+
-        '<select onchange="content.gallery['+i+'].category=this.value;markUnsaved()" style="width:auto;display:inline-block;padding:3px 8px;font-size:11px">'+
-          ['food','pizza','catering','kitchen','drink','event'].map(function(c){ return '<option value="'+c+'"'+(item.category===c?' selected':'')+'>'+c+'</option>'; }).join('')+
-        '</select></div>'+
-      '</div>'+
-      '<div class="list-item-actions">'+
-        '<button class="list-item-btn del" onclick="removeGalleryItem('+i+')">✕</button>'+
+  var items=content.gallery||[];
+  var itemHtml=items.length?items.map(function(item,i){
+    var uid='gal_'+i;
+    var previewHtml=item.src?'<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(item.src)+'" /></div>':'';
+    return '<div class="list-item" style="flex-direction:column;align-items:stretch;gap:10px">'+
+      '<div style="display:flex;gap:10px;align-items:flex-start">'+
+        '<div style="flex:1">'+
+          '<label class="field-label">Caption</label>'+
+          '<input type="text" value="'+esc(item.caption||'')+'" placeholder="Caption" oninput="content.gallery['+i+'].caption=this.value;markUnsaved()" style="margin-bottom:8px" />'+
+          '<label class="field-label">Image</label>'+
+          '<div class="img-field-row">'+
+            '<input type="text" id="gal_src_'+i+'" value="'+esc(item.src||'')+'" placeholder="/images/wooster_street_3980.jpeg" oninput="content.gallery['+i+'].src=this.value;markUnsaved();updatePreviewStrip(\'gal_src_'+i+'_prev\',this.value)" />'+
+            '<button class="img-browse-btn" onclick="pickGalleryImg('+i+')" type="button">📷 Browse</button>'+
+          '</div>'+
+          '<div id="gal_src_'+i+'_prev">'+previewHtml+'</div>'+
+        '</div>'+
+        '<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;min-width:100px">'+
+          '<label class="field-label">Category</label>'+
+          '<select onchange="content.gallery['+i+'].category=this.value;markUnsaved()" style="width:100%">'+
+            ['food','pizza','catering','kitchen','drink','event'].map(function(cat){return '<option value="'+cat+'"'+(item.category===cat?' selected':'')+'>'+cat+'</option>';}).join('')+
+          '</select>'+
+          '<button onclick="removeGalleryItem('+i+')" style="background:none;border:1px solid var(--border);border-radius:4px;padding:4px 10px;color:var(--text2);cursor:pointer;font-size:11px;margin-top:auto;transition:all 0.15s" onmouseover="this.style.borderColor=\'var(--brand)\';this.style.color=\'var(--brand)\'" onmouseout="this.style.borderColor=\'\';this.style.color=\'\'">Remove ✕</button>'+
+        '</div>'+
       '</div>'+
     '</div>';
-  }).join('') : '<div class="list-empty"><span>📸</span>No gallery photos. Add some below.</div>';
+  }).join(''):'<div class="list-empty">No gallery photos. Add some below.</div>';
 
-  return '<div class="editor-inner"><div class="editor-header"><h1>Gallery</h1><p>The photo grid on your website. Update captions or reorder.</p></div>'+
-    '<div class="info-box">ℹ To change a photo, update the image path. Photos must already be uploaded to your <code>/images/</code> folder in GitHub.</div>'+
-    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addGalleryItem()">+ Add Photo</button></div>'+
-    '</div>';
+  return '<div class="editor-inner"><div class="editor-header"><h1>Gallery</h1><p>Click 📷 Browse to pick from your '+allImages.length+' existing photos. Changes reflect instantly in the live preview on the right.</p></div>'+
+    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addGalleryItem()">+ Add Photo</button></div></div>';
 }
 
-function removeGalleryItem(i){
-  if(!confirm('Remove this photo?')) return;
-  content.gallery.splice(i,1);
-  markUnsaved();
-  renderSection('gallery');
+function pickGalleryImg(i){
+  openImagePicker(function(p){
+    content.gallery[i].src=p;
+    var input=document.getElementById('gal_src_'+i);
+    if(input) input.value=p;
+    var prev=document.getElementById('gal_src_'+i+'_prev');
+    if(prev) prev.innerHTML='<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(p)+'" /></div>';
+    markUnsaved(); sendPreview();
+  });
 }
-function addGalleryItem(){
-  if(!content.gallery) content.gallery=[];
-  content.gallery.push({src:'',caption:'',category:'food'});
-  markUnsaved();
-  renderSection('gallery');
+function updatePreviewStrip(prevId,val){
+  var el=document.getElementById(prevId);
+  if(el) el.innerHTML=val?'<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(val)+'" /></div>':'';
 }
+function removeGalleryItem(i){if(!confirm('Remove this photo?'))return;content.gallery.splice(i,1);markUnsaved();renderSection('gallery');}
+function addGalleryItem(){if(!content.gallery)content.gallery=[];content.gallery.push({src:'',caption:'',category:'food'});markUnsaved();renderSection('gallery');}
 
 /* ── MENU TAB ── */
-function renderMenuTab(tab, tabLabel){
-  var items = deepGet(content,'menu.'+tab)||[];
-  var rows = items.map(function(item,i){
+function renderMenuTab(tab,tabLabel){
+  var items=deepGet(content,'menu.'+tab)||[];
+  var rows=items.map(function(item,i){
     if(item.type==='category'){
       return '<div class="menu-row-item cat-row">'+
-        '<select class="mi-type" onchange="content.menu.'+tab+'['+i+'].type=this.value;markUnsaved();renderSection(\'menu-'+tab+'\')" >'+
-          '<option value="category" selected>Category</option><option value="item">Item</option></select>'+
+        '<select onchange="content.menu.'+tab+'['+i+'].type=this.value;markUnsaved();renderSection(\'menu-'+tab+'\')" ><option value="category" selected>Category</option><option value="item">Item</option></select>'+
         '<input type="text" value="'+esc(item.name||'')+'" placeholder="Category label" oninput="content.menu.'+tab+'['+i+'].name=this.value;markUnsaved()" />'+
-        '<button class="mi-del" onclick="removeMenuItem(\''+tab+'\','+i+')">✕</button>'+
-      '</div>';
+        '<button class="list-item-btn del" onclick="removeMenuItem(\''+tab+'\','+i+')">✕</button></div>';
     }
     return '<div class="menu-row-item">'+
-      '<select class="mi-type" onchange="content.menu.'+tab+'['+i+'].type=this.value;markUnsaved();renderSection(\'menu-'+tab+'\')" >'+
-        '<option value="item" '+(item.type!=='category'?'selected':'')+'>Item</option><option value="category">Category</option></select>'+
+      '<select onchange="content.menu.'+tab+'['+i+'].type=this.value;markUnsaved();renderSection(\'menu-'+tab+'\')" ><option value="item" '+(item.type!=='category'?'selected':'')+'>Item</option><option value="category">Category</option></select>'+
       '<input type="text" value="'+esc(item.name||'')+'" placeholder="Dish name" oninput="content.menu.'+tab+'['+i+'].name=this.value;markUnsaved()" />'+
       '<input type="text" value="'+esc(item.desc||'')+'" placeholder="Description" oninput="content.menu.'+tab+'['+i+'].desc=this.value;markUnsaved()" />'+
-      '<input type="text" value="'+esc(item.price||'')+'" placeholder="Price" style="text-align:center" oninput="content.menu.'+tab+'['+i+'].price=this.value;markUnsaved()" />'+
-      '<input type="text" value="'+esc(item.price_label||'')+'" placeholder="Label (opt)" oninput="content.menu.'+tab+'['+i+'].price_label=this.value;markUnsaved()" />'+
-      '<label style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;white-space:nowrap" title="Uncheck to 86 (mark unavailable)">'+
-        '<input type="checkbox" '+(item.available!==false?'checked':'')+' onchange="content.menu.'+tab+'['+i+'].available=this.checked;markUnsaved()" /> In Stock'+
-      '</label>'+
-      '<button class="mi-del" onclick="removeMenuItem(\''+tab+'\','+i+')">✕</button>'+
-    '</div>';
+      '<input type="text" value="'+esc(item.price||'')+'" placeholder="$" style="text-align:center" oninput="content.menu.'+tab+'['+i+'].price=this.value;markUnsaved()" />'+
+      '<input type="text" value="'+esc(item.price_label||'')+'" placeholder="Label" oninput="content.menu.'+tab+'['+i+'].price_label=this.value;markUnsaved()" />'+
+      '<label style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;white-space:nowrap" title="Uncheck to 86">'+
+        '<input type="checkbox" '+(item.available!==false?'checked':'')+' onchange="content.menu.'+tab+'['+i+'].available=this.checked;markUnsaved()" /> In Stock</label>'+
+      '<button class="list-item-btn del" onclick="removeMenuItem(\''+tab+'\','+i+')">✕</button></div>';
   }).join('');
-
-  return '<div class="editor-inner"><div class="editor-header"><h1>Menu: '+tabLabel+'</h1><p>Add, edit, or remove items. Uncheck "In Stock" to mark an item as 86\'d (unavailable) without deleting it.</p></div>'+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Menu: '+tabLabel+'</h1><p>Uncheck "In Stock" to mark an item 86\'d (shows strikethrough on site).</p></div>'+
     '<div class="list-manager">'+
-      '<div class="menu-row-header"><span>Type</span><span>Name</span><span>Description</span><span>Price $</span><span>Label</span><span>In Stock</span><span></span></div>'+
+      '<div class="menu-row-header"><span>Type</span><span>Name</span><span>Description</span><span>Price</span><span>Label</span><span>In Stock</span><span></span></div>'+
       rows+
       '<button class="list-add-btn" onclick="addMenuItem(\''+tab+'\')">+ Add Item</button>'+
       '<button class="list-add-btn" onclick="addMenuCategory(\''+tab+'\')">+ Add Category Header</button>'+
     '</div></div>';
 }
 
-function removeMenuItem(tab,i){
-  if(!confirm('Remove this item?')) return;
-  content.menu[tab].splice(i,1);
-  markUnsaved();
-  renderSection('menu-'+tab);
-}
-function addMenuItem(tab){
-  if(!content.menu[tab]) content.menu[tab]=[];
-  content.menu[tab].push({type:'item',name:'',desc:'',price:'',price_label:'',available:true,tags:[]});
-  markUnsaved();
-  renderSection('menu-'+tab);
-}
-function addMenuCategory(tab){
-  if(!content.menu[tab]) content.menu[tab]=[];
-  content.menu[tab].push({type:'category',name:'',desc:'',price:'',price_label:'',available:true,tags:[]});
-  markUnsaved();
-  renderSection('menu-'+tab);
-}
+function removeMenuItem(tab,i){if(!confirm('Remove?'))return;content.menu[tab].splice(i,1);markUnsaved();renderSection('menu-'+tab);}
+function addMenuItem(tab){if(!content.menu[tab])content.menu[tab]=[];content.menu[tab].push({type:'item',name:'',desc:'',price:'',price_label:'',available:true,tags:[]});markUnsaved();renderSection('menu-'+tab);}
+function addMenuCategory(tab){if(!content.menu[tab])content.menu[tab]=[];content.menu[tab].push({type:'category',name:'',desc:'',price:'',price_label:'',available:true,tags:[]});markUnsaved();renderSection('menu-'+tab);}
 
 /* ── ORDER MODAL ── */
 function renderModal(){
-  var groups = content.modal_popular||[];
-  var html = '<div class="editor-inner"><div class="editor-header"><h1>Order Modal — Popular Items</h1><p>The highlighted items shown in the "Order Now" popup.</p></div>';
+  var groups=content.modal_popular||[];
+  var html='<div class="editor-inner"><div class="editor-header"><h1>Order Modal — Popular Items</h1><p>The highlighted items shown in the "Order Now" popup.</p></div>';
   groups.forEach(function(g,gi){
     html+='<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px">'+
-      '<div class="field-group"><label class="field-label">Category Label (with emoji)</label>'+
-      '<div style="display:flex;gap:8px;align-items:center">'+
+      '<div class="field-group"><label class="field-label">Category Label</label><div style="display:flex;gap:8px">'+
         '<input type="text" value="'+esc(g.category||'')+'" placeholder="🍕 Pizza" oninput="content.modal_popular['+gi+'].category=this.value;markUnsaved()" style="flex:1" />'+
-        '<button onclick="removeModalGroup('+gi+')" style="background:none;border:1px solid var(--border);border-radius:4px;padding:5px 10px;color:var(--text2);cursor:pointer;font-size:12px">Remove</button>'+
+        '<button onclick="removeModalGroup('+gi+')" style="background:none;border:1px solid var(--border);border-radius:4px;padding:5px 10px;color:var(--text2);cursor:pointer;font-size:11px">Remove</button>'+
       '</div></div>'+
       (g.items||[]).map(function(it,ii){
         return '<div style="display:grid;grid-template-columns:1fr 120px 24px;gap:8px;margin-bottom:8px;align-items:center">'+
           '<input type="text" value="'+esc(it.name||'')+'" placeholder="Item name" oninput="content.modal_popular['+gi+'].items['+ii+'].name=this.value;markUnsaved()" />'+
           '<input type="text" value="'+esc(it.price||'')+'" placeholder="from $18" oninput="content.modal_popular['+gi+'].items['+ii+'].price=this.value;markUnsaved()" />'+
-          '<button onclick="removeModalItem('+gi+','+ii+')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px">✕</button>'+
-        '</div>';
+          '<button onclick="removeModalItem('+gi+','+ii+')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px">✕</button></div>';
       }).join('')+
-      '<button onclick="addModalItem('+gi+')" style="font-size:12px;background:none;border:1px dashed var(--border);border-radius:4px;padding:6px 14px;color:var(--text2);cursor:pointer;width:100%;margin-top:4px">+ Add Item</button>'+
-    '</div>';
+      '<button onclick="addModalItem('+gi+')" style="font-size:12px;background:none;border:1px dashed var(--border);border-radius:4px;padding:6px 14px;color:var(--text2);cursor:pointer;width:100%;margin-top:4px">+ Add Item</button></div>';
   });
-  html+='<button class="list-add-btn" style="border:1px solid var(--border);border-radius:var(--radius);margin-top:0" onclick="addModalGroup()">+ Add Category</button>';
+  html+='<button class="list-add-btn" style="border:1px solid var(--border);border-radius:var(--radius)" onclick="addModalGroup()">+ Add Category</button>';
   return html+'</div>';
 }
+function removeModalGroup(gi){content.modal_popular.splice(gi,1);markUnsaved();renderSection('modal');}
+function removeModalItem(gi,ii){content.modal_popular[gi].items.splice(ii,1);markUnsaved();renderSection('modal');}
+function addModalGroup(){if(!content.modal_popular)content.modal_popular=[];content.modal_popular.push({category:'',items:[]});markUnsaved();renderSection('modal');}
+function addModalItem(gi){content.modal_popular[gi].items.push({name:'',price:''});markUnsaved();renderSection('modal');}
 
-function removeModalGroup(gi){ content.modal_popular.splice(gi,1); markUnsaved(); renderSection('modal'); }
-function removeModalItem(gi,ii){ content.modal_popular[gi].items.splice(ii,1); markUnsaved(); renderSection('modal'); }
-function addModalGroup(){ if(!content.modal_popular) content.modal_popular=[]; content.modal_popular.push({category:'',items:[]}); markUnsaved(); renderSection('modal'); }
-function addModalItem(gi){ content.modal_popular[gi].items.push({name:'',price:''}); markUnsaved(); renderSection('modal'); }
-
-/* ── ANNOUNCEMENT BANNER ── */
+/* ── ANNOUNCEMENT ── */
 function renderAnnouncement(){
-  return '<div class="editor-inner"><div class="editor-header"><h1>Announcement Banner</h1><p>A bold bar at the very top of your website. Great for promotions, new hours, or special events.</p></div>'+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Announcement Banner</h1><p>A bold bar at the top of your site. Great for promotions or holiday hours.</p></div>'+
     toggle('Show Banner','Enable or disable the announcement bar','announcement.enabled')+
-    field('Announcement Text','text','announcement.text','e.g. "🎉 Now open Sundays until 8pm!"')+
-    '<div class="field-row">'+
-    field('Link (optional)','link','announcement.link','Leave blank for no link')+
-    field('Link Text','link_text','announcement.link_text','e.g. "Learn More"')+
-    '</div>'+
+    field('Announcement Text','','announcement.text','e.g. "🎉 Now open Sundays until 8pm!"')+
+    '<div class="field-row">'+field('Link URL (optional)','','announcement.link','Leave blank for no link')+field('Link Text','','announcement.link_text','e.g. "Learn More"')+'</div>'+
     '<div class="field-group"><label class="field-label">Banner Color</label><select onchange="deepSet(content,\'announcement.style\',this.value);markUnsaved()">'+
-      ['red','navy','dark'].map(function(c){ return '<option value="'+c+'"'+(deepGet(content,'announcement.style')===c?' selected':'')+'>'+c.charAt(0).toUpperCase()+c.slice(1)+'</option>'; }).join('')+
+      ['red','navy','dark'].map(function(c){return '<option value="'+c+'"'+(deepGet(content,'announcement.style')===c?' selected':'')+'>'+c.charAt(0).toUpperCase()+c.slice(1)+'</option>';}).join('')+
     '</select></div>'+
-    '<div class="field-row">'+
-    field('Show From Date (optional)','start_date','announcement.start_date','Leave blank to show immediately','date')+
-    field('Show Until Date (optional)','end_date','announcement.end_date','Leave blank to show indefinitely','date')+
-    '</div></div>';
+    '<div class="field-row">'+field('Show From (optional)','','announcement.start_date','','date')+field('Show Until (optional)','','announcement.end_date','','date')+'</div></div>';
 }
 
-/* ── CHEF'S SPECIALS ── */
+/* ── SPECIALS ── */
 function renderSpecials(){
-  var items = deepGet(content,'specials.items')||[];
-  var itemHtml = items.map(function(sp,i){
-    return '<div class="list-item" style="flex-direction:column;align-items:stretch;gap:10px">'+
+  var items=deepGet(content,'specials.items')||[];
+  var itemHtml=items.map(function(sp,i){
+    return '<div class="list-item" style="flex-direction:column;gap:10px">'+
       '<div style="display:grid;grid-template-columns:1fr 1fr 100px 80px;gap:8px">'+
         '<input type="text" value="'+esc(sp.name||'')+'" placeholder="Dish name" oninput="content.specials.items['+i+'].name=this.value;markUnsaved()" />'+
         '<input type="text" value="'+esc(sp.description||'')+'" placeholder="Description" oninput="content.specials.items['+i+'].description=this.value;markUnsaved()" />'+
         '<input type="text" value="'+esc(sp.price||'')+'" placeholder="$24" oninput="content.specials.items['+i+'].price=this.value;markUnsaved()" />'+
-        '<input type="text" value="'+esc(sp.badge||'')+'" placeholder="Badge (opt)" oninput="content.specials.items['+i+'].badge=this.value;markUnsaved()" />'+
+        '<input type="text" value="'+esc(sp.badge||'')+'" placeholder="Badge" oninput="content.specials.items['+i+'].badge=this.value;markUnsaved()" />'+
       '</div>'+
-      '<div style="display:flex;align-items:center;gap:16px;justify-content:space-between">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between">'+
         '<label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" '+(sp.available!==false?'checked':'')+' onchange="content.specials.items['+i+'].available=this.checked;markUnsaved()" /> Available (uncheck to 86)</label>'+
         '<button onclick="removeSpecialItem('+i+')" class="list-item-btn del">Remove ✕</button>'+
-      '</div>'+
-    '</div>';
+      '</div></div>';
   }).join('');
-  return '<div class="editor-inner"><div class="editor-header"><h1>Chef\'s Specials</h1><p>Highlighted dishes that appear above the menu. Great for seasonal items or daily specials.</p></div>'+
-    toggle('Show Specials Section','','specials.enabled')+
-    field('Section Headline','headline','specials.headline')+
-    field('Subtext','subtext','specials.subtext')+
-    '<div class="field-section">Special Items</div>'+
-    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addSpecialItem()">+ Add Special</button></div>'+
-    '</div>';
+  return '<div class="editor-inner"><div class="editor-header"><h1>Chef\'s Specials</h1><p>Highlighted dishes above the menu. Great for seasonal items.</p></div>'+
+    toggle('Show Specials','','specials.enabled')+
+    field('Headline','','specials.headline')+
+    field('Subtext','','specials.subtext')+
+    '<div class="field-section">Items</div>'+
+    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addSpecialItem()">+ Add Special</button></div></div>';
 }
-
-function removeSpecialItem(i){ content.specials.items.splice(i,1); markUnsaved(); renderSection('specials'); }
-function addSpecialItem(){
-  if(!content.specials) content.specials={};
-  if(!content.specials.items) content.specials.items=[];
-  content.specials.items.push({name:'',description:'',price:'',badge:'',available:true});
-  markUnsaved(); renderSection('specials');
-}
+function removeSpecialItem(i){content.specials.items.splice(i,1);markUnsaved();renderSection('specials');}
+function addSpecialItem(){if(!content.specials)content.specials={};if(!content.specials.items)content.specials.items=[];content.specials.items.push({name:'',description:'',price:'',badge:'',available:true});markUnsaved();renderSection('specials');}
 
 /* ── EVENTS ── */
 function renderEvents(){
-  var items = deepGet(content,'events.items')||[];
-  var itemHtml = items.map(function(ev,i){
-    return '<div class="list-item" style="flex-direction:column;align-items:stretch;gap:8px">'+
+  var items=deepGet(content,'events.items')||[];
+  var itemHtml=items.map(function(ev,i){
+    return '<div class="list-item" style="flex-direction:column;gap:8px">'+
       '<div style="display:grid;grid-template-columns:1fr 120px 100px 100px;gap:8px">'+
         '<input type="text" value="'+esc(ev.title||'')+'" placeholder="Event title" oninput="content.events.items['+i+'].title=this.value;markUnsaved()" />'+
         '<input type="date" value="'+esc(ev.date||'')+'" oninput="content.events.items['+i+'].date=this.value;markUnsaved()" />'+
         '<input type="text" value="'+esc(ev.time||'')+'" placeholder="7pm – 10pm" oninput="content.events.items['+i+'].time=this.value;markUnsaved()" />'+
-        '<input type="text" value="'+esc(ev.badge||'')+'" placeholder="Badge (opt)" oninput="content.events.items['+i+'].badge=this.value;markUnsaved()" />'+
+        '<input type="text" value="'+esc(ev.badge||'')+'" placeholder="Badge" oninput="content.events.items['+i+'].badge=this.value;markUnsaved()" />'+
       '</div>'+
       '<textarea placeholder="Description" oninput="content.events.items['+i+'].description=this.value;markUnsaved()" style="min-height:50px">'+esc(ev.description||'')+'</textarea>'+
       '<div style="display:flex;gap:8px;align-items:center">'+
-        '<input type="text" value="'+esc(ev.link||'')+'" placeholder="Event link / tickets URL (optional)" oninput="content.events.items['+i+'].link=this.value;markUnsaved()" style="flex:1" />'+
+        '<input type="text" value="'+esc(ev.link||'')+'" placeholder="Tickets / link URL (optional)" oninput="content.events.items['+i+'].link=this.value;markUnsaved()" style="flex:1" />'+
         '<button onclick="removeEvent('+i+')" class="list-item-btn del" style="white-space:nowrap">Remove ✕</button>'+
-      '</div>'+
-    '</div>';
+      '</div></div>';
   }).join('');
-  return '<div class="editor-inner"><div class="editor-header"><h1>Events</h1><p>Upcoming events displayed as cards on your website.</p></div>'+
-    toggle('Show Events Section','','events.enabled')+
-    field('Section Headline','headline','events.headline')+
-    field('Subtext','subtext','events.subtext')+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Events</h1><p>Upcoming events displayed as cards.</p></div>'+
+    toggle('Show Events','','events.enabled')+
+    field('Headline','','events.headline')+
+    field('Subtext','','events.subtext')+
     '<div class="field-section">Events</div>'+
-    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addEvent()">+ Add Event</button></div>'+
-    '</div>';
+    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addEvent()">+ Add Event</button></div></div>';
 }
-
-function removeEvent(i){ content.events.items.splice(i,1); markUnsaved(); renderSection('events'); }
-function addEvent(){
-  if(!content.events) content.events={};
-  if(!content.events.items) content.events.items=[];
-  content.events.items.push({title:'',date:'',time:'',description:'',link:'',badge:''});
-  markUnsaved(); renderSection('events');
-}
+function removeEvent(i){content.events.items.splice(i,1);markUnsaved();renderSection('events');}
+function addEvent(){if(!content.events)content.events={};if(!content.events.items)content.events.items=[];content.events.items.push({title:'',date:'',time:'',description:'',link:'',badge:''});markUnsaved();renderSection('events');}
 
 /* ── TESTIMONIALS ── */
 function renderTestimonials(){
-  var items = deepGet(content,'testimonials.items')||[];
-  var itemHtml = items.map(function(t,i){
-    return '<div class="list-item" style="flex-direction:column;align-items:stretch;gap:8px">'+
-      '<textarea placeholder="Review quote (without quotes)" oninput="content.testimonials.items['+i+'].quote=this.value;markUnsaved()" style="min-height:60px">'+esc(t.quote||'')+'</textarea>'+
+  var items=deepGet(content,'testimonials.items')||[];
+  var itemHtml=items.map(function(t,i){
+    return '<div class="list-item" style="flex-direction:column;gap:8px">'+
+      '<textarea placeholder="Review quote" oninput="content.testimonials.items['+i+'].quote=this.value;markUnsaved()" style="min-height:60px">'+esc(t.quote||'')+'</textarea>'+
       '<div style="display:grid;grid-template-columns:1fr 1fr 80px 100px;gap:8px">'+
         '<input type="text" value="'+esc(t.name||'')+'" placeholder="Customer name" oninput="content.testimonials.items['+i+'].name=this.value;markUnsaved()" />'+
         '<input type="text" value="'+esc(t.location||'')+'" placeholder="Location (opt)" oninput="content.testimonials.items['+i+'].location=this.value;markUnsaved()" />'+
-        '<select onchange="content.testimonials.items['+i+'].rating=parseInt(this.value);markUnsaved()">'+
-          [1,2,3,4,5].map(function(n){ return '<option value="'+n+'"'+(t.rating===n?' selected':'')+'>'+n+'★</option>'; }).join('')+
-        '</select>'+
-        '<select onchange="content.testimonials.items['+i+'].source=this.value;markUnsaved()">'+
-          ['Google','Yelp','DoorDash','Facebook','Direct'].map(function(s){ return '<option value="'+s+'"'+(t.source===s?' selected':'')+'>'+s+'</option>'; }).join('')+
-        '</select>'+
+        '<select onchange="content.testimonials.items['+i+'].rating=parseInt(this.value);markUnsaved()">'+[1,2,3,4,5].map(function(n){return '<option value="'+n+'"'+(t.rating===n?' selected':'')+'>'+n+'★</option>';}).join('')+'</select>'+
+        '<select onchange="content.testimonials.items['+i+'].source=this.value;markUnsaved()">'+['Google','Yelp','DoorDash','Facebook','Direct'].map(function(s){return '<option value="'+s+'"'+(t.source===s?' selected':'')+'>'+s+'</option>';}).join('')+'</select>'+
       '</div>'+
       '<div style="text-align:right"><button onclick="removeTestimonial('+i+')" class="list-item-btn del">Remove ✕</button></div>'+
     '</div>';
   }).join('');
-  return '<div class="editor-inner"><div class="editor-header"><h1>Testimonials</h1><p>Hand-picked reviews from happy customers. Displayed as a card grid on your site.</p></div>'+
-    toggle('Show Testimonials Section','','testimonials.enabled')+
-    field('Section Headline','headline','testimonials.headline')+
-    field('Subtext','subtext','testimonials.subtext')+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Testimonials</h1><p>Hand-picked customer reviews.</p></div>'+
+    toggle('Show Testimonials','','testimonials.enabled')+
+    field('Headline','','testimonials.headline')+
+    field('Subtext','','testimonials.subtext')+
     '<div class="field-section">Reviews</div>'+
-    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addTestimonial()">+ Add Review</button></div>'+
-    '</div>';
+    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addTestimonial()">+ Add Review</button></div></div>';
 }
+function removeTestimonial(i){content.testimonials.items.splice(i,1);markUnsaved();renderSection('testimonials');}
+function addTestimonial(){if(!content.testimonials)content.testimonials={};if(!content.testimonials.items)content.testimonials.items=[];content.testimonials.items.push({name:'',quote:'',rating:5,source:'Google',location:''});markUnsaved();renderSection('testimonials');}
 
-function removeTestimonial(i){ content.testimonials.items.splice(i,1); markUnsaved(); renderSection('testimonials'); }
-function addTestimonial(){
-  if(!content.testimonials) content.testimonials={};
-  if(!content.testimonials.items) content.testimonials.items=[];
-  content.testimonials.items.push({name:'',quote:'',rating:5,source:'Google',location:'',date:''});
-  markUnsaved(); renderSection('testimonials');
-}
-
-/* ── ORDERING LINKS ── */
+/* ── ORDERING ── */
 function renderOrdering(){
-  var platforms = deepGet(content,'ordering.platforms')||[];
-  var html = '<div class="editor-inner"><div class="editor-header"><h1>Ordering Links</h1><p>Enable/disable third-party ordering platforms. Only enabled platforms show up.</p></div>'+
-    toggle('Show Online Ordering Section','Display the ordering platforms section on your website','ordering.show_section')+
-    field('Section Headline','headline','ordering.headline')+
-    field('Subtext','subtext','ordering.subtext')+
-    '<div class="field-section">Platforms</div>'+
-    '<div class="list-manager">';
+  var platforms=deepGet(content,'ordering.platforms')||[];
+  var html='<div class="editor-inner"><div class="editor-header"><h1>Ordering Links</h1><p>Enable/disable delivery platforms. Only enabled ones show on your site.</p></div>'+
+    toggle('Show Ordering Section','','ordering.show_section')+
+    field('Section Headline','','ordering.headline')+
+    field('Subtext','','ordering.subtext')+
+    '<div class="field-section">Platforms</div><div class="list-manager">';
   platforms.forEach(function(p,i){
-    html+='<div class="list-item">'+
-      '<div class="list-item-content">'+
-        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'+
-          '<span style="font-size:14px;font-weight:700">'+esc(p.name||'')+'</span>'+
-          '<label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;margin-left:auto">'+
-            '<input type="checkbox" '+(p.enabled?'checked':'')+' onchange="content.ordering.platforms['+i+'].enabled=this.checked;markUnsaved()" /> Enabled'+
-          '</label>'+
-        '</div>'+
-        '<input type="url" value="'+esc(p.url||'')+'" placeholder="https://..." oninput="content.ordering.platforms['+i+'].url=this.value;markUnsaved()" />'+
+    html+='<div class="list-item"><div class="list-item-content">'+
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'+
+        '<span style="font-size:14px;font-weight:700">'+esc(p.name||'')+'</span>'+
+        '<label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;margin-left:auto"><input type="checkbox" '+(p.enabled?'checked':'')+' onchange="content.ordering.platforms['+i+'].enabled=this.checked;markUnsaved()" /> Enabled</label>'+
       '</div>'+
-    '</div>';
+      '<input type="url" value="'+esc(p.url||'')+'" placeholder="https://…" oninput="content.ordering.platforms['+i+'].url=this.value;markUnsaved()" />'+
+    '</div></div>';
   });
   html+='</div></div>';
   return html;
 }
 
-/* ── CATERING SECTION ── */
+/* ── CATERING ── */
 function renderCatering(){
   return '<div class="editor-inner"><div class="editor-header"><h1>Catering Section</h1><p>The final call-to-action section of your website.</p></div>'+
-    field('Section Tag','tag','catering_section.tag')+
-    field('Headline','headline','catering_section.headline','','textarea')+
-    field('Body Text','body','catering_section.body','','textarea')+
+    field('Section Tag','','catering_section.tag')+
+    field('Headline','','catering_section.headline','','textarea')+
+    field('Body Text','','catering_section.body','','textarea')+
     '<div class="field-row">'+
-    field('CTA Button Text','cta_text','catering_section.cta_text')+
-    field('CTA Phone','cta_phone','catering_section.cta_phone')+
+    field('CTA Button Text','','catering_section.cta_text')+
+    field('CTA Phone','','catering_section.cta_phone')+
     '</div>'+
-    field('CTA Email','cta_email','catering_section.cta_email')+
+    field('CTA Email','','catering_section.cta_email')+
     '</div>';
 }
 
+/* ── HOURS & CONTACT ── */
+function renderContact(){
+  var hours=deepGet(content,'site.hours')||[];
+  var hoursHtml=hours.map(function(h,i){
+    return '<div style="display:grid;grid-template-columns:1fr 1fr 24px;gap:10px;margin-bottom:10px">'+
+      '<input type="text" value="'+esc(h.days||'')+'" placeholder="e.g. Mon – Fri" oninput="content.site.hours['+i+'].days=this.value;markUnsaved()" />'+
+      '<input type="text" value="'+esc(h.time||'')+'" placeholder="e.g. 11am – 9pm" oninput="content.site.hours['+i+'].time=this.value;markUnsaved()" />'+
+      '<button onclick="content.site.hours.splice('+i+',1);markUnsaved();renderSection(\'contact\')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px">✕</button>'+
+    '</div>';
+  }).join('');
+  return '<div class="editor-inner"><div class="editor-header"><h1>Hours & Contact</h1><p>Phone, email, address, social links, and opening hours.</p></div>'+
+    '<div class="field-section">Contact</div>'+
+    '<div class="field-row">'+field('Phone Display','','site.phone','e.g. 860-649-1166')+field('Phone Link (tel:)','','site.phone_link','e.g. +18606491166')+'</div>'+
+    '<div class="field-row">'+field('Email','','site.email')+field('Address','','site.address')+'</div>'+
+    '<div class="field-row">'+field('Instagram Handle','','site.instagram_handle','Include @')+field('Instagram URL','','site.instagram_url')+'</div>'+
+    '<div class="field-row">'+field('Facebook URL','','site.facebook_url')+field('Google Maps URL','','site.google_url')+'</div>'+
+    field('Restaurant Name','','site.name')+
+    field('Copyright Year','','site.year')+
+    '<div class="field-section">Opening Hours</div>'+
+    '<div style="margin-bottom:10px">'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr 24px;gap:10px;margin-bottom:6px"><label class="field-label">Days</label><label class="field-label">Hours</label><span></span></div>'+
+      hoursHtml+
+      '<button onclick="addHoursRow()" style="font-size:12px;background:none;border:1px dashed var(--border);border-radius:4px;padding:7px 14px;color:var(--text2);cursor:pointer;width:100%">+ Add Hours Row</button>'+
+    '</div></div>';
+}
+function addHoursRow(){if(!content.site)content.site={};if(!content.site.hours)content.site.hours=[];content.site.hours.push({days:'',time:''});markUnsaved();renderSection('contact');}
+
 /* ── SEO ── */
 function renderSEO(){
-  return '<div class="editor-inner"><div class="editor-header"><h1>SEO & Meta</h1><p>Page title, description, and social share image. These affect how your site appears in Google and when shared on social media.</p></div>'+
-    field('Page Title','title','seo.title','Keep under 60 characters for best Google results')+
-    field('Meta Description','description','seo.description','Keep under 160 characters. This is the text Google shows under your page title.','textarea')+
-    field('Social Share Image URL','og_image','seo.og_image','URL of the image shown when someone shares your site on Facebook/Twitter/iMessage. e.g. /images/wooster_street_3980.jpeg')+
-    field('Keywords','keywords','seo.keywords','Comma-separated keywords')+
+  return '<div class="editor-inner"><div class="editor-header"><h1>SEO & Meta</h1><p>How your site appears in Google and when shared on social media.</p></div>'+
+    field('Page Title','','seo.title','Keep under 60 characters')+
+    field('Meta Description','','seo.description','Keep under 160 characters. This is the text Google shows under your page title.','textarea')+
+    imgField('Social Share Image (og:image)','seo.og_image','Shown when shared on Facebook, iMessage, etc. Click Browse to pick from your photos.')+
+    field('Keywords','','seo.keywords','Comma-separated')+
     '</div>';
 }
 
 /* ── TEAM ── */
 function renderTeam(){
-  var members = deepGet(content,'team.members')||[];
-  var itemHtml = members.map(function(m,i){
-    return '<div class="list-item" style="flex-direction:column;align-items:stretch;gap:8px">'+
+  var members=deepGet(content,'team.members')||[];
+  var itemHtml=members.map(function(m,i){
+    var previewHtml=m.photo?'<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(m.photo)+'" style="width:52px;height:52px;border-radius:50%" /></div>':'';
+    return '<div class="list-item" style="flex-direction:column;gap:8px">'+
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
         '<input type="text" value="'+esc(m.name||'')+'" placeholder="Full name" oninput="content.team.members['+i+'].name=this.value;markUnsaved()" />'+
         '<input type="text" value="'+esc(m.role||'')+'" placeholder="Role / Title" oninput="content.team.members['+i+'].role=this.value;markUnsaved()" />'+
       '</div>'+
       '<textarea placeholder="Short bio" oninput="content.team.members['+i+'].bio=this.value;markUnsaved()" style="min-height:50px">'+esc(m.bio||'')+'</textarea>'+
-      '<div style="display:flex;gap:8px;align-items:center">'+
-        '<input type="text" value="'+esc(m.photo||'')+'" placeholder="/images/team-photo.jpg" oninput="content.team.members['+i+'].photo=this.value;markUnsaved()" style="flex:1" />'+
-        '<button onclick="removeTeamMember('+i+')" class="list-item-btn del">Remove ✕</button>'+
+      '<label class="field-label">Photo</label>'+
+      '<div class="img-field-row">'+
+        '<input type="text" id="team_photo_'+i+'" value="'+esc(m.photo||'')+'" placeholder="/images/team-photo.jpg" oninput="content.team.members['+i+'].photo=this.value;markUnsaved();updatePreviewStrip(\'team_photo_'+i+'_prev\',this.value)" />'+
+        '<button class="img-browse-btn" onclick="pickTeamPhoto('+i+')" type="button">📷 Browse</button>'+
       '</div>'+
+      '<div id="team_photo_'+i+'_prev">'+previewHtml+'</div>'+
+      '<div style="text-align:right"><button onclick="removeTeamMember('+i+')" class="list-item-btn del">Remove ✕</button></div>'+
     '</div>';
   }).join('');
-  return '<div class="editor-inner"><div class="editor-header"><h1>Team</h1><p>Chef and team spotlights shown on your website when enabled.</p></div>'+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Team</h1><p>Team spotlights shown when enabled. Click 📷 Browse to pick a photo.</p></div>'+
     toggle('Show Team Section','','team.enabled')+
-    field('Section Headline','headline','team.headline')+
-    field('Subtext','subtext','team.subtext')+
-    '<div class="field-section">Team Members</div>'+
-    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addTeamMember()">+ Add Team Member</button></div>'+
-    '</div>';
+    field('Headline','','team.headline')+
+    field('Subtext','','team.subtext')+
+    '<div class="field-section">Members</div>'+
+    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addTeamMember()">+ Add Team Member</button></div></div>';
 }
-
-function removeTeamMember(i){ content.team.members.splice(i,1); markUnsaved(); renderSection('team'); }
-function addTeamMember(){
-  if(!content.team) content.team={};
-  if(!content.team.members) content.team.members=[];
-  content.team.members.push({name:'',role:'',bio:'',photo:'',featured:false});
-  markUnsaved(); renderSection('team');
+function pickTeamPhoto(i){
+  openImagePicker(function(p){
+    content.team.members[i].photo=p;
+    var inp=document.getElementById('team_photo_'+i); if(inp) inp.value=p;
+    var prev=document.getElementById('team_photo_'+i+'_prev');
+    if(prev) prev.innerHTML='<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(p)+'" style="width:52px;height:52px;border-radius:50%" /></div>';
+    markUnsaved(); sendPreview();
+  });
 }
+function removeTeamMember(i){content.team.members.splice(i,1);markUnsaved();renderSection('team');}
+function addTeamMember(){if(!content.team)content.team={};if(!content.team.members)content.team.members=[];content.team.members.push({name:'',role:'',bio:'',photo:''});markUnsaved();renderSection('team');}
 
 /* ── PRESS ── */
 function renderPress(){
-  var items = deepGet(content,'press.items')||[];
-  var itemHtml = items.map(function(p,i){
-    return '<div class="list-item" style="flex-direction:column;align-items:stretch;gap:8px">'+
+  var items=deepGet(content,'press.items')||[];
+  var itemHtml=items.map(function(p,i){
+    return '<div class="list-item" style="flex-direction:column;gap:8px">'+
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
         '<input type="text" value="'+esc(p.outlet||'')+'" placeholder="Publication name" oninput="content.press.items['+i+'].outlet=this.value;markUnsaved()" />'+
         '<input type="url" value="'+esc(p.url||'')+'" placeholder="Article URL" oninput="content.press.items['+i+'].url=this.value;markUnsaved()" />'+
@@ -1283,58 +1251,41 @@ function renderPress(){
       '<div style="text-align:right"><button onclick="removePressItem('+i+')" class="list-item-btn del">Remove ✕</button></div>'+
     '</div>';
   }).join('');
-  return '<div class="editor-inner"><div class="editor-header"><h1>Press & Media</h1><p>"As Seen In" — showcase press coverage and reviews.</p></div>'+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Press & Media</h1><p>"As Seen In" — showcase press coverage.</p></div>'+
     toggle('Show Press Section','','press.enabled')+
-    field('Section Headline','headline','press.headline')+
-    '<div class="field-section">Press Mentions</div>'+
-    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addPressItem()">+ Add Press Mention</button></div>'+
-    '</div>';
+    field('Headline','','press.headline')+
+    '<div class="field-section">Mentions</div>'+
+    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addPressItem()">+ Add Mention</button></div></div>';
 }
-
-function removePressItem(i){ content.press.items.splice(i,1); markUnsaved(); renderSection('press'); }
-function addPressItem(){
-  if(!content.press) content.press={};
-  if(!content.press.items) content.press.items=[];
-  content.press.items.push({outlet:'',quote:'',url:'',date:''});
-  markUnsaved(); renderSection('press');
-}
+function removePressItem(i){content.press.items.splice(i,1);markUnsaved();renderSection('press');}
+function addPressItem(){if(!content.press)content.press={};if(!content.press.items)content.press.items=[];content.press.items.push({outlet:'',quote:'',url:''});markUnsaved();renderSection('press');}
 
 /* ── POPUP ── */
 function renderPopup(){
-  return '<div class="editor-inner"><div class="editor-header"><h1>Popup</h1><p>A timed popup modal shown to first-time visitors. Great for announcements or special promotions.</p></div>'+
-    toggle('Enable Popup','Show this popup to visitors','popup.enabled')+
-    field('Headline','headline','popup.headline')+
-    field('Body Text','body','popup.body','','textarea')+
-    '<div class="field-row">'+
-    field('Button Text','cta_text','popup.cta_text')+
-    field('Button URL','cta_url','popup.cta_url')+
-    '</div>'+
-    field('Delay (seconds)','delay_seconds','popup.delay_seconds','How many seconds after page load before showing. e.g. 5')+
-    toggle('Show Only Once','If checked, hides popup after visitor dismisses it (uses localStorage)','popup.show_once')+
+  return '<div class="editor-inner"><div class="editor-header"><h1>Popup</h1><p>A timed popup shown to visitors. Great for announcements or promotions.</p></div>'+
+    toggle('Enable Popup','','popup.enabled')+
+    field('Headline','','popup.headline')+
+    field('Body Text','','popup.body','','textarea')+
+    '<div class="field-row">'+field('Button Text','','popup.cta_text')+field('Button URL','','popup.cta_url')+'</div>'+
+    field('Delay (seconds)','','popup.delay_seconds','e.g. 5')+
+    toggle('Show Only Once','Hides after visitor dismisses it','popup.show_once')+
     '</div>';
 }
 
 /* ── TOAST ── */
-function toast(msg, type){
-  type = type||'info';
-  var icons = {success:'✓', error:'⚠', info:'ℹ'};
-  var el = document.createElement('div');
-  el.className = 'toast '+type;
-  el.innerHTML = '<span class="toast-icon">'+icons[type]+'</span>'+msg;
+function toast(msg,type){
+  type=type||'info';
+  var icons={success:'✓',error:'⚠',info:'ℹ'};
+  var el=document.createElement('div');
+  el.className='toast '+type;
+  el.innerHTML='<span class="toast-icon">'+icons[type]+'</span>'+escHtml(msg);
   document.getElementById('toast-container').appendChild(el);
-  setTimeout(function(){
-    el.classList.add('out');
-    setTimeout(function(){ el.remove(); }, 400);
-  }, type==='error' ? 5000 : 2800);
+  setTimeout(function(){el.classList.add('out');setTimeout(function(){el.remove();},400);},(type==='error'?5000:2800));
 }
 
-/* ── PREVIEW TOGGLE INIT ── */
-document.getElementById('preview-toggle-btn').classList.add('active');
-
-/* ── KEYBOARD SHORTCUT: Cmd/Ctrl+S ── */
-document.addEventListener('keydown', function(e){
-  if((e.metaKey||e.ctrlKey) && e.key==='s'){ e.preventDefault(); saveContent(); }
-});
+/* Keyboard shortcut */
+document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key==='s'){e.preventDefault();saveContent();}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeImagePicker();}});
 </script>
 </body>
 </html>
