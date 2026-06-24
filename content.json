@@ -13,19 +13,26 @@
     "google_url": "",
     "year": "2026",
     "hours": [
-      { "days": "Mon – Fri", "time": "11am – 9pm" },
-      { "days": "Saturday",    "time": "10am – 10pm" },
-      { "days": "Sunday",      "time": "11am – 8pm" }
+      {
+        "days": "Mon – Fri",
+        "time": "11am – 9pm"
+      },
+      {
+        "days": "Saturday",
+        "time": "10am – 10pm"
+      },
+      {
+        "days": "Sunday",
+        "time": "11am – 8pm"
+      }
     ]
   },
-
   "seo": {
     "title": "Wooster Street Food Company | Manchester, CT",
     "description": "Wood-fired pizza, fresh pasta & full catering in Manchester, Connecticut. Order direct by phone: 860-649-1166.",
     "og_image": "/images/wooster_street_3980.jpeg",
     "keywords": "wooster street food, pizza Manchester CT, Italian catering Connecticut, wood-fired pizza"
   },
-
   "announcement": {
     "enabled": false,
     "text": "🎉 Now accepting catering bookings for Summer 2026! Limited dates available.",
@@ -33,7 +40,6 @@
     "link_text": "Book Now",
     "style": "red"
   },
-
   "hero": {
     "headline_line1": "Crafted With Fire,",
     "headline_line2": "Served With Soul.",
@@ -41,7 +47,6 @@
     "cta_primary": "Order Now",
     "cta_secondary": "Book Catering"
   },
-
   "about": {
     "section_tag": "Our Story",
     "section_headline": "Born on Wooster Street.",
@@ -58,13 +63,26 @@
     "ch4_headline": "Still Hungry.",
     "ch4_body": "The fire never goes out. We're always working on something new — new specials, new catering packages, new ways to bring Wooster Street flavor to more tables. Follow us on Instagram to keep up."
   },
-
   "stats": [
-    { "value": 4.4,  "decimals": 1, "suffix": "★", "label": "DoorDash Rating" },
-    { "value": 1129, "decimals": 0, "suffix": "+", "label": "Yelp Reviews"   },
-    { "value": 8.0,  "decimals": 1, "suffix": "/10", "label": "One Bite Score" }
+    {
+      "value": 4.4,
+      "decimals": 1,
+      "suffix": "★",
+      "label": "DoorDash Rating"
+    },
+    {
+      "value": 1129,
+      "decimals": 0,
+      "suffix": "+",
+      "label": "Yelp Reviews"
+    },
+    {
+      "value": 8,
+      "decimals": 1,
+      "suffix": "/10",
+      "label": "One Bite Score"
+    }
   ],
-
   "featured_cards": [
     {
       "num": "01",
@@ -88,7 +106,6 @@
       "price": "from $19"
     }
   ],
-
   "specials": {
     "enabled": false,
     "headline": "Chef's Specials",
@@ -104,92 +121,516 @@
       }
     ]
   },
-
   "menu": {
     "appetizers": [
-      { "type": "item",     "name": "Garlic Knots",     "desc": "Baked fresh, tossed in garlic butter & parsley",          "price": "7",  "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Fried Mozzarella", "desc": "Golden-fried, served with marinara dipping sauce",         "price": "10", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Fried Ravioli",    "desc": "Crispy cheese ravioli, served with marinara",              "price": "11", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Fried Dough",      "desc": "Classic Italian-style, dusted with powdered sugar",        "price": "7",  "price_label": "", "available": true, "tags": [] },
-      { "type": "category", "name": "Wings — Choose Your Sauce", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Buffalo Wings",    "desc": "Served with celery & ranch or blue cheese",                "price": "14", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "BBQ Wings",        "desc": "Slow-smoked BBQ glaze, celery & dipping sauce",            "price": "14", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Plain Wings",      "desc": "Naked & crispy — sauce on the side",                       "price": "13", "price_label": "", "available": true, "tags": [] }
+      {
+        "type": "item",
+        "name": "Garlic Knots",
+        "desc": "Baked fresh, tossed in garlic butter & parsley",
+        "price": "7",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Fried Mozzarella",
+        "desc": "Golden-fried, served with marinara dipping sauce",
+        "price": "10",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Fried Ravioli",
+        "desc": "Crispy cheese ravioli, served with marinara",
+        "price": "11",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Fried Dough",
+        "desc": "Classic Italian-style, dusted with powdered sugar",
+        "price": "7",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "category",
+        "name": "Wings — Choose Your Sauce",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Buffalo Wings",
+        "desc": "Served with celery & ranch or blue cheese",
+        "price": "14",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "BBQ Wings",
+        "desc": "Slow-smoked BBQ glaze, celery & dipping sauce",
+        "price": "14",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Plain Wings",
+        "desc": "Naked & crispy — sauce on the side",
+        "price": "13",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      }
     ],
     "pizza": [
-      { "type": "category", "name": "Classic Pies",     "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Cheese Pizza",     "desc": "House tomato sauce, whole milk mozzarella",                  "price": "18", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Pepperoni Pizza",  "desc": "Cup-and-char pepperoni, tomato sauce, mozzarella",           "price": "21", "price_label": "", "available": true, "tags": [] },
-      { "type": "category", "name": "Specialty Pizzas", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Buffalo Chicken Pie", "desc": "Grilled chicken, buffalo sauce, blue cheese, red onion",  "price": "24", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Meat Lover's Pie",  "desc": "Pepperoni, sausage, bacon, ham, mozzarella",               "price": "25", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "White Apizza",        "desc": "Garlic oil, ricotta, mozzarella, fresh basil",            "price": "22", "price_label": "", "available": true, "tags": [] },
-      { "type": "item",     "name": "Garden Veggie Pie",   "desc": "Peppers, mushrooms, onions, olives, spinach",             "price": "22", "price_label": "", "available": true, "tags": ["vegan"] }
+      {
+        "type": "category",
+        "name": "Classic Pies",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Cheese Pizza",
+        "desc": "House tomato sauce, whole milk mozzarella",
+        "price": "18",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Pepperoni Pizza",
+        "desc": "Cup-and-char pepperoni, tomato sauce, mozzarella",
+        "price": "21",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "category",
+        "name": "Specialty Pizzas",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Buffalo Chicken Pie",
+        "desc": "Grilled chicken, buffalo sauce, blue cheese, red onion",
+        "price": "24",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Meat Lover's Pie",
+        "desc": "Pepperoni, sausage, bacon, ham, mozzarella",
+        "price": "25",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "White Apizza",
+        "desc": "Garlic oil, ricotta, mozzarella, fresh basil",
+        "price": "22",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Garden Veggie Pie",
+        "desc": "Peppers, mushrooms, onions, olives, spinach",
+        "price": "22",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegan"
+        ]
+      }
     ],
     "pasta": [
-      { "type": "category", "name": "Pasta Selections", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Penne with Tomato Sauce", "desc": "Classic house-made marinara, fresh basil, Parmesan",               "price": "14", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "item", "name": "Baked Ziti",              "desc": "Ricotta, mozzarella, tomato sauce, baked until golden",             "price": "16", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "item", "name": "Chicken Alfredo",         "desc": "Grilled chicken, creamy Alfredo, fettuccine, Parmesan",             "price": "19", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Chicken Pesto",           "desc": "Grilled chicken, house basil pesto, penne, cherry tomato",          "price": "19", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Pasta Primavera",         "desc": "Seasonal vegetables, garlic, olive oil, light tomato broth",        "price": "16", "price_label": "", "available": true, "tags": ["vegan"] },
-      { "type": "category", "name": "Stuffed Breads", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Buffalo Chicken Bread",       "desc": "Grilled chicken, buffalo sauce, mozzarella, baked in-house",    "price": "13", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Pepperoni & Cheese Bread",    "desc": "Cup-and-char pepperoni, mozzarella, house tomato",              "price": "13", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Veggie Stuffed Bread",        "desc": "Roasted peppers, spinach, mushrooms, mozzarella",               "price": "12", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "item", "name": "Chicken Bacon Ranch Bread",   "desc": "Grilled chicken, crispy bacon, ranch, mozzarella",              "price": "14", "price_label": "", "available": true, "tags": [] }
+      {
+        "type": "category",
+        "name": "Pasta Selections",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Penne with Tomato Sauce",
+        "desc": "Classic house-made marinara, fresh basil, Parmesan",
+        "price": "14",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Baked Ziti",
+        "desc": "Ricotta, mozzarella, tomato sauce, baked until golden",
+        "price": "16",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Chicken Alfredo",
+        "desc": "Grilled chicken, creamy Alfredo, fettuccine, Parmesan",
+        "price": "19",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Chicken Pesto",
+        "desc": "Grilled chicken, house basil pesto, penne, cherry tomato",
+        "price": "19",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Pasta Primavera",
+        "desc": "Seasonal vegetables, garlic, olive oil, light tomato broth",
+        "price": "16",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegan"
+        ]
+      },
+      {
+        "type": "category",
+        "name": "Stuffed Breads",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Buffalo Chicken Bread",
+        "desc": "Grilled chicken, buffalo sauce, mozzarella, baked in-house",
+        "price": "13",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Pepperoni & Cheese Bread",
+        "desc": "Cup-and-char pepperoni, mozzarella, house tomato",
+        "price": "13",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Veggie Stuffed Bread",
+        "desc": "Roasted peppers, spinach, mushrooms, mozzarella",
+        "price": "12",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Chicken Bacon Ranch Bread",
+        "desc": "Grilled chicken, crispy bacon, ranch, mozzarella",
+        "price": "14",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      }
     ],
     "salads": [
-      { "type": "category", "name": "Salads", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "House Salad",   "desc": "Mixed greens, tomato, cucumber, red onion, house Italian dressing", "price": "9",  "price_label": "", "available": true, "tags": ["vegan"] },
-      { "type": "item", "name": "Caesar Salad",  "desc": "Romaine, shaved Parmesan, house Caesar, garlic croutons",          "price": "11", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "category", "name": "Catering Cold Platters", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Cold Cut Platter",          "desc": "Assorted Italian meats, cheese, olives & accompaniments",             "price": "", "price_label": "Catering", "available": true, "tags": [] },
-      { "type": "item", "name": "Sandwich Platter",          "desc": "Assorted half-subs & wraps, individually portioned",                   "price": "", "price_label": "Catering", "available": true, "tags": [] },
-      { "type": "item", "name": "Veggie Platter",            "desc": "Seasonal crudités with hummus & ranch dip",                           "price": "", "price_label": "Catering", "available": true, "tags": ["vegan"] },
-      { "type": "item", "name": "Fruit Platter",             "desc": "Seasonal fresh-cut fruits, beautifully arranged",                       "price": "", "price_label": "Catering", "available": true, "tags": ["vegan"] },
-      { "type": "item", "name": "Fresh Mozzarella Skewers",  "desc": "Bocconcini, cherry tomato, basil, EVOO & balsamic",                    "price": "", "price_label": "Catering", "available": true, "tags": ["vegetarian"] },
-      { "type": "item", "name": "Fruit Skewers",             "desc": "Seasonal fruit on skewers, served with honey yogurt dip",              "price": "", "price_label": "Catering", "available": true, "tags": ["vegetarian"] }
+      {
+        "type": "category",
+        "name": "Salads",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "House Salad",
+        "desc": "Mixed greens, tomato, cucumber, red onion, house Italian dressing",
+        "price": "9",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegan"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Caesar Salad",
+        "desc": "Romaine, shaved Parmesan, house Caesar, garlic croutons",
+        "price": "11",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "category",
+        "name": "Catering Cold Platters",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Cold Cut Platter",
+        "desc": "Assorted Italian meats, cheese, olives & accompaniments",
+        "price": "",
+        "price_label": "Catering",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Sandwich Platter",
+        "desc": "Assorted half-subs & wraps, individually portioned",
+        "price": "",
+        "price_label": "Catering",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Veggie Platter",
+        "desc": "Seasonal crudités with hummus & ranch dip",
+        "price": "",
+        "price_label": "Catering",
+        "available": true,
+        "tags": [
+          "vegan"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Fruit Platter",
+        "desc": "Seasonal fresh-cut fruits, beautifully arranged",
+        "price": "",
+        "price_label": "Catering",
+        "available": true,
+        "tags": [
+          "vegan"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Fresh Mozzarella Skewers",
+        "desc": "Bocconcini, cherry tomato, basil, EVOO & balsamic",
+        "price": "",
+        "price_label": "Catering",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Fruit Skewers",
+        "desc": "Seasonal fruit on skewers, served with honey yogurt dip",
+        "price": "",
+        "price_label": "Catering",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      }
     ],
     "desserts": [
-      { "type": "category", "name": "Sweets", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Cheesecake",       "desc": "Classic New York–style, served with berry compote",                 "price": "8", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "item", "name": "Peanut Butter Pie","desc": "Creamy peanut butter filling, chocolate ganache crust",               "price": "8", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "item", "name": "Apple Pie",         "desc": "Warm cinnamon spiced apples, buttery flaky crust",                   "price": "8", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "item", "name": "Limoncello Cake",   "desc": "Light lemon sponge, limoncello glaze, whipped cream",                "price": "9", "price_label": "", "available": true, "tags": ["vegetarian"] },
-      { "type": "category", "name": "Bar Options — Catering & Events", "desc": "", "price": "", "price_label": "", "available": true, "tags": [] },
-      { "type": "item", "name": "Beer & Wine Bar",  "desc": "Curated selection of craft beers & Italian wines",                   "price": "", "price_label": "Per Person", "available": true, "tags": [] },
-      { "type": "item", "name": "Full Liquor Bar",  "desc": "Premium spirits, mixers, beer & wine — full open bar",               "price": "", "price_label": "Per Person", "available": true, "tags": [] }
+      {
+        "type": "category",
+        "name": "Sweets",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Cheesecake",
+        "desc": "Classic New York–style, served with berry compote",
+        "price": "8",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Peanut Butter Pie",
+        "desc": "Creamy peanut butter filling, chocolate ganache crust",
+        "price": "8",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Apple Pie",
+        "desc": "Warm cinnamon spiced apples, buttery flaky crust",
+        "price": "8",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "item",
+        "name": "Limoncello Cake",
+        "desc": "Light lemon sponge, limoncello glaze, whipped cream",
+        "price": "9",
+        "price_label": "",
+        "available": true,
+        "tags": [
+          "vegetarian"
+        ]
+      },
+      {
+        "type": "category",
+        "name": "Bar Options — Catering & Events",
+        "desc": "",
+        "price": "",
+        "price_label": "",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Beer & Wine Bar",
+        "desc": "Curated selection of craft beers & Italian wines",
+        "price": "",
+        "price_label": "Per Person",
+        "available": true,
+        "tags": []
+      },
+      {
+        "type": "item",
+        "name": "Full Liquor Bar",
+        "desc": "Premium spirits, mixers, beer & wine — full open bar",
+        "price": "",
+        "price_label": "Per Person",
+        "available": true,
+        "tags": []
+      }
     ]
   },
-
   "gallery": [
-    { "src": "/images/wooster_street_3980.jpeg",  "caption": "Fresh from the oven",          "category": "pizza"    },
-    { "src": "/images/wooster_street_3974.jpeg",  "caption": "Wood-fired perfection",        "category": "pizza"    },
-    { "src": "/images/wooster_street_3972.jpeg",  "caption": "Handcrafted daily",            "category": "pizza"    },
-    { "src": "/images/wooster_street_3968.jpeg",  "caption": "Every detail matters",         "category": "food"     },
-    { "src": "/images/wooster_street_3900.jpeg",  "caption": "Made with love",               "category": "food"     },
-    { "src": "/images/wooster_street_3869.jpeg",  "caption": "Catering excellence",          "category": "catering" },
-    { "src": "/images/wooster_street_3861.jpeg",  "caption": "Ready to serve",               "category": "catering" },
-    { "src": "/images/wooster_street_3665.jpeg",  "caption": "The craft behind every dish",  "category": "kitchen"  },
-    { "src": "/images/wooster_street_3664.jpeg",  "caption": "Fresh ingredients only",       "category": "kitchen"  },
-    { "src": "/images/wooster_street_3659.jpeg",  "caption": "Feast with family",            "category": "catering" },
-    { "src": "/images/wooster_street_3651.jpeg",  "caption": "Flavor in every bite",         "category": "food"     },
-    { "src": "/images/wooster_street_3644.jpeg",  "caption": "Born on Wooster Street",       "category": "food"     }
+    {
+      "src": "/images/wooster_street_3980.jpeg",
+      "caption": "Fresh from the oven",
+      "category": "pizza"
+    },
+    {
+      "src": "/images/wooster_street_3972.jpeg",
+      "caption": "Handcrafted daily",
+      "category": "pizza"
+    },
+    {
+      "src": "/images/wooster_street_3968.jpeg",
+      "caption": "Every detail matters",
+      "category": "food"
+    },
+    {
+      "src": "/images/wooster_street_3900.jpeg",
+      "caption": "Made with love",
+      "category": "food"
+    },
+    {
+      "src": "/images/wooster_street_3861.jpeg",
+      "caption": "Ready to serve",
+      "category": "catering"
+    },
+    {
+      "src": "/images/wooster_street_3665.jpeg",
+      "caption": "The craft behind every dish",
+      "category": "kitchen"
+    }
   ],
-
   "ordering": {
     "show_section": false,
     "headline": "Order Online",
     "subtext": "Order your favorites for pickup or delivery",
     "platforms": [
-      { "name": "DoorDash",  "enabled": true,  "url": "https://www.doordash.com/store/wooster-street-food-company/",  "logo": "doordash"  },
-      { "name": "Uber Eats", "enabled": false, "url": "", "logo": "ubereats" },
-      { "name": "Grubhub",   "enabled": false, "url": "", "logo": "grubhub"  },
-      { "name": "Slice",     "enabled": false, "url": "", "logo": "slice"    }
+      {
+        "name": "DoorDash",
+        "enabled": true,
+        "url": "https://www.doordash.com/store/wooster-street-food-company/",
+        "logo": "doordash"
+      },
+      {
+        "name": "Uber Eats",
+        "enabled": false,
+        "url": "",
+        "logo": "ubereats"
+      },
+      {
+        "name": "Grubhub",
+        "enabled": false,
+        "url": "",
+        "logo": "grubhub"
+      },
+      {
+        "name": "Slice",
+        "enabled": false,
+        "url": "",
+        "logo": "slice"
+      }
     ]
   },
-
   "events": {
     "enabled": false,
     "headline": "Upcoming Events",
@@ -206,7 +647,6 @@
       }
     ]
   },
-
   "testimonials": {
     "enabled": false,
     "headline": "What Our Customers Say",
@@ -223,7 +663,6 @@
       }
     ]
   },
-
   "press": {
     "enabled": false,
     "headline": "As Seen In",
@@ -237,7 +676,6 @@
       }
     ]
   },
-
   "team": {
     "enabled": false,
     "headline": "Meet the Team",
@@ -252,7 +690,6 @@
       }
     ]
   },
-
   "catering_section": {
     "tag": "Catering & Events",
     "headline": "Every Table Deserves\nExtraordinary Food.",
@@ -272,7 +709,11 @@
         "description": "Classic New Haven-style pizza spread with salads and garlic knots. Perfect for casual gatherings.",
         "guests": "20–100 guests",
         "price_from": "Contact for pricing",
-        "includes": ["Cheese & specialty pizzas", "Garlic knots", "House salad"],
+        "includes": [
+          "Cheese & specialty pizzas",
+          "Garlic knots",
+          "House salad"
+        ],
         "featured": false
       },
       {
@@ -280,7 +721,12 @@
         "description": "Pasta, pizza, platters, and desserts. The complete Wooster Street experience at your venue.",
         "guests": "50–300 guests",
         "price_from": "Contact for pricing",
-        "includes": ["Pizza selection", "Pasta dishes", "Cold platters", "Desserts"],
+        "includes": [
+          "Pizza selection",
+          "Pasta dishes",
+          "Cold platters",
+          "Desserts"
+        ],
         "featured": true
       },
       {
@@ -288,38 +734,65 @@
         "description": "White-glove service with full bar, premium menu, and dedicated event coordinator.",
         "guests": "100–500+ guests",
         "price_from": "Contact for pricing",
-        "includes": ["Full menu", "Bar service", "Event staff", "Setup & breakdown"],
+        "includes": [
+          "Full menu",
+          "Bar service",
+          "Event staff",
+          "Setup & breakdown"
+        ],
         "featured": false
       }
     ]
   },
-
   "modal_popular": [
     {
       "category": "🍕 Pizza",
       "items": [
-        { "name": "White Apizza",        "price": "from $18" },
-        { "name": "Buffalo Chicken Pie", "price": "from $20" },
-        { "name": "Meat Lover's",        "price": "from $21" }
+        {
+          "name": "White Apizza",
+          "price": "from $18"
+        },
+        {
+          "name": "Buffalo Chicken Pie",
+          "price": "from $20"
+        },
+        {
+          "name": "Meat Lover's",
+          "price": "from $21"
+        }
       ]
     },
     {
       "category": "🍝 Pasta",
       "items": [
-        { "name": "Chicken Alfredo", "price": "from $19" },
-        { "name": "Baked Ziti",      "price": "from $16" }
+        {
+          "name": "Chicken Alfredo",
+          "price": "from $19"
+        },
+        {
+          "name": "Baked Ziti",
+          "price": "from $16"
+        }
       ]
     },
     {
       "category": "🥗 Starters",
       "items": [
-        { "name": "Buffalo Wings",    "price": "$14" },
-        { "name": "Garlic Knots",     "price": "$7"  },
-        { "name": "Fried Mozzarella", "price": "$10" }
+        {
+          "name": "Buffalo Wings",
+          "price": "$14"
+        },
+        {
+          "name": "Garlic Knots",
+          "price": "$7"
+        },
+        {
+          "name": "Fried Mozzarella",
+          "price": "$10"
+        }
       ]
     }
   ],
-
   "holiday_hours": {
     "enabled": false,
     "items": [
@@ -331,7 +804,6 @@
       }
     ]
   },
-
   "popup": {
     "enabled": false,
     "headline": "Special Announcement",
