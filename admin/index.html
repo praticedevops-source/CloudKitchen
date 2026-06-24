@@ -171,6 +171,16 @@ select option{background:var(--surface2)}
 .list-add-btn:hover{background:var(--surface2);color:var(--text)}
 .list-empty{padding:24px;text-align:center;color:var(--text3);font-size:13px}
 
+/* DRAG REORDER */
+.gallery-drag-item{cursor:grab;transition:opacity 0.15s,box-shadow 0.15s}
+.gallery-drag-item:active{cursor:grabbing}
+.gallery-drag-item.drag-over-above{box-shadow:0 -3px 0 var(--brand)}
+.gallery-drag-item.drag-over-below{box-shadow:0 3px 0 var(--brand)}
+.gallery-drag-item.dragging{opacity:0.35}
+.drag-handle{font-size:16px;color:var(--text3);cursor:grab;user-select:none;flex-shrink:0;padding:4px 2px;transition:color 0.15s}
+.drag-handle:hover{color:var(--text2)}
+.gallery-num{font-size:10px;font-weight:700;color:var(--text3);width:18px;text-align:center;flex-shrink:0;margin-top:6px}
+
 /* MENU ROWS */
 .menu-row-header{display:grid;grid-template-columns:80px 1fr 1fr 80px 100px 68px 28px;gap:8px;padding:8px 12px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);background:var(--surface2);border-bottom:1px solid var(--border)}
 .menu-row-item{display:grid;grid-template-columns:80px 1fr 1fr 80px 100px 68px 28px;gap:8px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--surface)}
@@ -657,11 +667,17 @@ async function uploadImageFile(file){
 }
 
 async function deleteImageFromPicker(name,sha){
-  if(!confirm('Delete '+name+'? This cannot be undone.')) return;
+  /* Check if this image is used in the gallery */
+  var imgPath='/images/'+name;
+  var usedInGallery=(content.gallery||[]).filter(function(g){return g.src===imgPath;});
+  var confirmMsg='Delete '+name+'?';
+  if(usedInGallery.length>0){
+    confirmMsg='Delete '+name+'?\n\nThis photo is used in your gallery ('+usedInGallery.length+' slot'+(usedInGallery.length>1?'s':'')+').\nIt will be automatically removed from the gallery too.';
+  }
+  if(!confirm(confirmMsg)) return;
   try{
     var user=netlifyIdentity.currentUser();
     var token=await user.jwt();
-    /* Get latest sha if not provided */
     if(!sha){
       var existing=allImages.find(function(i){return i.name===name;});
       sha=existing?existing.sha:'';
@@ -673,11 +689,30 @@ async function deleteImageFromPicker(name,sha){
       body:JSON.stringify({message:'Delete image: '+name,sha:sha})
     });
     if(!resp.ok) throw new Error('HTTP '+resp.status);
+    /* Auto-remove from gallery so live site has no broken images */
+    if(usedInGallery.length>0){
+      content.gallery=(content.gallery||[]).filter(function(g){return g.src!==imgPath;});
+      markUnsaved();
+      toast('Removed from gallery too — remember to Publish!','success');
+    }
     await loadImages(user);
     renderPickerGrid(allImages);
     if(currentSection==='media') renderSection('media');
+    if(currentSection==='gallery') renderSection('gallery');
     toast('Deleted '+name,'success');
   }catch(e){toast('Delete failed: '+e.message,'error');}
+}
+
+/* ── Add image directly to gallery from Media Library ── */
+function addImageToGallery(path,name){
+  if(!content.gallery) content.gallery=[];
+  /* Prevent duplicates */
+  var alreadyIn=content.gallery.some(function(g){return g.src===path;});
+  if(alreadyIn){toast('Already in gallery','info');return;}
+  content.gallery.push({src:path,caption:'',category:'food'});
+  markUnsaved();
+  toast('Added to gallery — go to Gallery to set caption & reorder','success');
+  sendPreview();
 }
 
 /* ── imgField helper — image input with Browse button ── */
@@ -783,33 +818,38 @@ function renderDashboard(){
 }
 
 /* ── MEDIA LIBRARY ── */
+function mediaCardHtml(img){
+  var inGallery=(content.gallery||[]).some(function(g){return g.src===img.path;});
+  return '<div class="media-card">'+
+    '<img src="'+escAttr(img.url||img.path)+'" loading="lazy" onerror="this.style.background=\'#1b1c2a\'"/>'+
+    '<div class="media-card-actions">'+
+      '<button class="media-action-btn" onclick="copyPath(\''+escJs(img.path)+'\')" title="Copy path">Copy</button>'+
+      '<button class="media-action-btn del" onclick="deleteImageFromPicker(\''+escJs(img.name)+'\',\''+escJs(img.sha||'')+'\')" title="Delete">✕</button>'+
+    '</div>'+
+    '<div class="media-card-info">'+
+      '<div class="media-card-name" title="'+escAttr(img.name)+'">'+escHtml(img.name)+'</div>'+
+      '<div class="media-card-size">'+(img.size?(Math.round(img.size/1024)+'KB'):'')+'</div>'+
+    '</div>'+
+    '<button onclick="addImageToGallery(\''+escJs(img.path)+'\',\''+escJs(img.name)+'\')" style="width:100%;margin-top:4px;padding:5px;font-size:11px;font-weight:600;cursor:pointer;border-radius:4px;border:1px solid '+(inGallery?'var(--green)':'var(--border2)')+';background:'+(inGallery?'rgba(34,197,94,0.08)':'transparent')+';color:'+(inGallery?'var(--green)':'var(--text2)')+';" '+(inGallery?'disabled title="Already in gallery"':'title="Add to gallery"')+'>'+
+      (inGallery?'✓ In Gallery':'＋ Add to Gallery')+
+    '</button>'+
+  '</div>';
+}
+
 function renderMedia(){
   var imgs=allImages;
-  var grid=imgs.length ? imgs.map(function(img){
-    return '<div class="media-card">'+
-      '<img src="'+escAttr(img.url||img.path)+'" loading="lazy" onerror="this.style.background=\'#1b1c2a\'"/>'+
-      '<div class="media-card-actions">'+
-        '<button class="media-action-btn" onclick="copyPath(\''+escJs(img.path)+'\')" title="Copy path">Copy</button>'+
-        '<button class="media-action-btn del" onclick="deleteImageFromPicker(\''+escJs(img.name)+'\',\''+escJs(img.sha||'')+'\')" title="Delete">✕</button>'+
-      '</div>'+
-      '<div class="media-card-info">'+
-        '<div class="media-card-name" title="'+escAttr(img.name)+'">'+escHtml(img.name)+'</div>'+
-        '<div class="media-card-size">'+(img.size?(Math.round(img.size/1024)+'KB'):'')+'</div>'+
-      '</div>'+
-      '<div class="media-path" onclick="copyPath(\''+escJs(img.path)+'\')" title="Click to copy path">'+escHtml(img.path)+'</div>'+
-    '</div>';
-  }).join('') : '<div class="media-empty"><span>📷</span>No images yet. Upload your first photo below.</div>';
+  var grid=imgs.length ? imgs.map(mediaCardHtml).join('') : '<div class="media-empty"><span>📷</span>No images yet. Upload your first photo below.</div>';
 
-  return '<div class="editor-inner"><div class="editor-header"><h1>📷 Photo Library</h1><p>'+allImages.length+' photos in your <code>/images/</code> folder. Click any path to copy it. Use Browse buttons in Gallery and other sections to pick images visually.</p></div>'+
+  return '<div class="editor-inner"><div class="editor-header"><h1>📷 Photo Library</h1><p>'+allImages.length+' photos. Upload new ones, click <strong>＋ Add to Gallery</strong> to place them on the site, then go to <strong>Gallery</strong> to reorder and add captions.</p></div>'+
     '<div class="media-toolbar">'+
       '<input class="media-search" type="text" placeholder="🔍 Search photos…" oninput="filterMedia(this.value,document.getElementById(\'media-grid-wrap\'))" />'+
-      '<span class="media-count">'+allImages.length+' photos</span>'+
+      '<span class="media-count">'+allImages.length+' photos · '+(content.gallery||[]).length+' in gallery</span>'+
     '</div>'+
     '<label class="upload-zone" id="media-upload-zone" ondragover="event.preventDefault();this.classList.add(\'drag-over\')" ondragleave="this.classList.remove(\'drag-over\')" ondrop="handleMediaDrop(event)">'+
       '<input type="file" accept="image/*" multiple onchange="uploadMediaFiles(this.files)"/>'+
       '<span class="uz-icon">⬆</span>'+
       '<strong>Drop photos here or click to upload</strong>'+
-      '<span class="uz-sub">Supports JPG, PNG, WebP — uploads directly to your /images/ folder on GitHub</span>'+
+      '<span class="uz-sub">Supports JPG, PNG, WebP — after upload click ＋ Add to Gallery to show it on your site</span>'+
     '</label>'+
     '<div id="media-upload-progress" class="upload-progress"><span id="media-upload-msg" style="font-size:12px;color:var(--text2)"></span><div class="upload-progress-bar"><div class="upload-progress-fill" id="media-progress-fill"></div></div></div>'+
     '<div class="field-section">Your Photos</div>'+
@@ -821,17 +861,7 @@ function filterMedia(q, container){
   if(!container) return;
   q=q.toLowerCase();
   var imgs=q?allImages.filter(function(i){return i.name.toLowerCase().includes(q);}):allImages;
-  container.innerHTML=imgs.length?imgs.map(function(img){
-    return '<div class="media-card">'+
-      '<img src="'+escAttr(img.url||img.path)+'" loading="lazy" onerror="this.style.background=\'#1b1c2a\'" />'+
-      '<div class="media-card-actions">'+
-        '<button class="media-action-btn" onclick="copyPath(\''+escJs(img.path)+'\')" title="Copy path">Copy</button>'+
-        '<button class="media-action-btn del" onclick="deleteImageFromPicker(\''+escJs(img.name)+'\',\''+escJs(img.sha||'')+'\')" title="Delete">✕</button>'+
-      '</div>'+
-      '<div class="media-card-info"><div class="media-card-name">'+escHtml(img.name)+'</div><div class="media-card-size">'+(img.size?Math.round(img.size/1024)+'KB':'')+'</div></div>'+
-      '<div class="media-path" onclick="copyPath(\''+escJs(img.path)+'\')">'+escHtml(img.path)+'</div>'+
-    '</div>';
-  }).join('') : '<div class="media-empty"><span>🔍</span>No photos match "'+escHtml(q)+'"</div>';
+  container.innerHTML=imgs.length?imgs.map(mediaCardHtml).join('') : '<div class="media-empty"><span>🔍</span>No photos match "'+escHtml(q)+'"</div>';
 }
 
 function copyPath(p){
@@ -929,54 +959,130 @@ function renderFeatured(){
 }
 
 /* ── GALLERY ── */
+/* ── GALLERY with drag-to-reorder ── */
+var galDragSrc = null;
+
 function renderGallery(){
   var items=content.gallery||[];
   var itemHtml=items.length?items.map(function(item,i){
-    var uid='gal_'+i;
-    var previewHtml=item.src?'<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(item.src)+'" /></div>':'';
-    return '<div class="list-item" style="flex-direction:column;align-items:stretch;gap:10px">'+
-      '<div style="display:flex;gap:10px;align-items:flex-start">'+
-        '<div style="flex:1">'+
-          '<label class="field-label">Caption</label>'+
-          '<input type="text" value="'+esc(item.caption||'')+'" placeholder="Caption" oninput="content.gallery['+i+'].caption=this.value;markUnsaved()" style="margin-bottom:8px" />'+
-          '<label class="field-label">Image</label>'+
-          '<div class="img-field-row">'+
-            '<input type="text" id="gal_src_'+i+'" value="'+esc(item.src||'')+'" placeholder="/images/wooster_street_3980.jpeg" oninput="content.gallery['+i+'].src=this.value;markUnsaved();updatePreviewStrip(\'gal_src_'+i+'_prev\',this.value)" />'+
-            '<button class="img-browse-btn" onclick="pickGalleryImg('+i+')" type="button">📷 Browse</button>'+
-          '</div>'+
-          '<div id="gal_src_'+i+'_prev">'+previewHtml+'</div>'+
-        '</div>'+
-        '<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;min-width:100px">'+
-          '<label class="field-label">Category</label>'+
-          '<select onchange="content.gallery['+i+'].category=this.value;markUnsaved()" style="width:100%">'+
+    var previewHtml=item.src
+      ?'<img src="'+escAttr(item.src)+'" style="width:80px;height:64px;object-fit:cover;border-radius:4px;border:1px solid var(--border2);flex-shrink:0" onerror="this.style.opacity=0.3" />'
+      :'<div style="width:80px;height:64px;background:var(--surface2);border-radius:4px;border:1px dashed var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">🖼</div>';
+    return '<div class="list-item gallery-drag-item" data-idx="'+i+'" draggable="true" '+
+        'ondragstart="galDragStart(event,'+i+')" '+
+        'ondragover="galDragOver(event,'+i+')" '+
+        'ondragleave="galDragLeave(event)" '+
+        'ondrop="galDrop(event,'+i+')" '+
+        'ondragend="galDragEnd(event)" '+
+        'style="flex-direction:row;align-items:center;gap:12px;padding:12px">'+
+      '<span class="drag-handle" title="Drag to reorder">⠿</span>'+
+      '<span class="gallery-num">'+(i+1)+'</span>'+
+      previewHtml+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="display:flex;gap:8px;margin-bottom:8px">'+
+          '<input type="text" value="'+esc(item.caption||'')+'" placeholder="Caption (optional)" oninput="content.gallery['+i+'].caption=this.value;markUnsaved()" style="flex:1" />'+
+          '<select onchange="content.gallery['+i+'].category=this.value;markUnsaved()" style="width:110px">'+
             ['food','pizza','catering','kitchen','drink','event'].map(function(cat){return '<option value="'+cat+'"'+(item.category===cat?' selected':'')+'>'+cat+'</option>';}).join('')+
           '</select>'+
-          '<button onclick="removeGalleryItem('+i+')" style="background:none;border:1px solid var(--border);border-radius:4px;padding:4px 10px;color:var(--text2);cursor:pointer;font-size:11px;margin-top:auto;transition:all 0.15s" onmouseover="this.style.borderColor=\'var(--brand)\';this.style.color=\'var(--brand)\'" onmouseout="this.style.borderColor=\'\';this.style.color=\'\'">Remove ✕</button>'+
+        '</div>'+
+        '<div class="img-field-row">'+
+          '<input type="text" id="gal_src_'+i+'" value="'+esc(item.src||'')+'" placeholder="/images/wooster_street_3980.jpeg" oninput="content.gallery['+i+'].src=this.value;markUnsaved();galRefreshThumb('+i+',this.value)" />'+
+          '<button class="img-browse-btn" onclick="pickGalleryImg('+i+')" type="button">📷 Browse</button>'+
         '</div>'+
       '</div>'+
+      '<button onclick="removeGalleryItem('+i+')" style="background:none;border:1px solid var(--border);border-radius:4px;padding:5px 8px;color:var(--text3);cursor:pointer;font-size:13px;flex-shrink:0;transition:all 0.15s" onmouseover="this.style.borderColor=\'var(--brand)\';this.style.color=\'var(--brand)\'" onmouseout="this.style.borderColor=\'var(--border)\';this.style.color=\'var(--text3)\'">✕</button>'+
     '</div>';
-  }).join(''):'<div class="list-empty">No gallery photos. Add some below.</div>';
+  }).join(''):'<div class="list-empty">No gallery photos yet.<br>Go to <strong>Photo Library</strong> and click <strong>＋ Add to Gallery</strong> on any photo.</div>';
 
-  return '<div class="editor-inner"><div class="editor-header"><h1>Gallery</h1><p>Click 📷 Browse to pick from your '+allImages.length+' existing photos. Changes reflect instantly in the live preview on the right.</p></div>'+
-    '<div class="list-manager">'+itemHtml+'<button class="list-add-btn" onclick="addGalleryItem()">+ Add Photo</button></div></div>';
+  return '<div class="editor-inner">'+
+    '<div class="editor-header"><h1>Gallery</h1>'+
+    '<p>Drag the <strong>⠿</strong> handle to reorder — order here = order on your live site. Click 📷 Browse to swap a photo. Go to <strong>Photo Library</strong> to add new photos.</p></div>'+
+    '<div class="notice-box">⠿ Drag any row up or down to change the order photos appear on your website. Hit <strong>Publish Changes</strong> when done.</div>'+
+    '<div class="list-manager" id="gallery-list">'+itemHtml+
+      '<button class="list-add-btn" onclick="addGalleryItem()">+ Add Blank Slot</button>'+
+    '</div></div>';
+}
+
+/* Drag handlers */
+function galDragStart(e,i){
+  galDragSrc=i;
+  e.dataTransfer.effectAllowed='move';
+  e.dataTransfer.setData('text/plain',i);
+  setTimeout(function(){e.target.classList.add('dragging');},0);
+}
+function galDragOver(e,i){
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  document.querySelectorAll('.gallery-drag-item').forEach(function(el){
+    el.classList.remove('drag-over-above','drag-over-below');
+  });
+  if(galDragSrc===null||galDragSrc===i) return;
+  var el=document.querySelector('.gallery-drag-item[data-idx="'+i+'"]');
+  if(el) el.classList.add(i<galDragSrc?'drag-over-above':'drag-over-below');
+}
+function galDragLeave(e){
+  e.currentTarget.classList.remove('drag-over-above','drag-over-below');
+}
+function galDrop(e,targetIdx){
+  e.preventDefault();
+  if(galDragSrc===null||galDragSrc===targetIdx) return;
+  /* Reorder the gallery array */
+  var arr=content.gallery;
+  var moved=arr.splice(galDragSrc,1)[0];
+  arr.splice(targetIdx,0,moved);
+  content.gallery=arr;
+  galDragSrc=null;
+  markUnsaved();
+  renderSection('gallery');
+  sendPreview();
+}
+function galDragEnd(e){
+  document.querySelectorAll('.gallery-drag-item').forEach(function(el){
+    el.classList.remove('dragging','drag-over-above','drag-over-below');
+  });
+  galDragSrc=null;
+}
+
+function galRefreshThumb(i,val){
+  /* Update the inline thumbnail when src path is typed */
+  var row=document.querySelector('.gallery-drag-item[data-idx="'+i+'"]');
+  if(!row) return;
+  var img=row.querySelector('img');
+  var placeholder=row.querySelector('div[style*="dashed"]');
+  if(val){
+    if(img){img.src=val;}
+    else if(placeholder){
+      var newImg=document.createElement('img');
+      newImg.src=val; newImg.style.cssText='width:80px;height:64px;object-fit:cover;border-radius:4px;border:1px solid var(--border2);flex-shrink:0';
+      placeholder.parentNode.replaceChild(newImg,placeholder);
+    }
+  }
 }
 
 function pickGalleryImg(i){
   openImagePicker(function(p){
     content.gallery[i].src=p;
-    var input=document.getElementById('gal_src_'+i);
-    if(input) input.value=p;
-    var prev=document.getElementById('gal_src_'+i+'_prev');
-    if(prev) prev.innerHTML='<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(p)+'" /></div>';
     markUnsaved(); sendPreview();
+    renderSection('gallery');
   });
 }
 function updatePreviewStrip(prevId,val){
   var el=document.getElementById(prevId);
   if(el) el.innerHTML=val?'<div class="img-preview-strip"><img class="img-preview-thumb" src="'+escAttr(val)+'" /></div>':'';
 }
-function removeGalleryItem(i){if(!confirm('Remove this photo?'))return;content.gallery.splice(i,1);markUnsaved();renderSection('gallery');}
-function addGalleryItem(){if(!content.gallery)content.gallery=[];content.gallery.push({src:'',caption:'',category:'food'});markUnsaved();renderSection('gallery');}
+function removeGalleryItem(i){
+  if(!confirm('Remove this photo from the gallery?\n(The photo file stays in your library.)')) return;
+  content.gallery.splice(i,1);
+  markUnsaved();
+  sendPreview();
+  renderSection('gallery');
+}
+function addGalleryItem(){
+  if(!content.gallery) content.gallery=[];
+  content.gallery.push({src:'',caption:'',category:'food'});
+  markUnsaved();
+  renderSection('gallery');
+}
 
 /* ── MENU TAB ── */
 function renderMenuTab(tab,tabLabel){
